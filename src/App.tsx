@@ -495,6 +495,26 @@ export default function App() {
               </table>
             </div>
 
+            <h2>💻 Shell Macros &amp; Background Execution</h2>
+            <p>
+              Toggling the command prompt (<code>:</code>) allows you to pass commands directly to your underlying shell. Fyzenor automatically handles variable evaluation and asynchronously offloads background processes:
+            </p>
+            <ul>
+              <li><strong>Active File Macro (<code>$f</code>)</strong>: Expands dynamically to the absolute, shell-escaped file path of the currently highlighted file in the listing panel.</li>
+              <li><strong>Selections List Macro (<code>$s</code>)</strong>: Expands to a space-separated list of all selected files. If no files are multi-selected, fallback parameters automatically direct the macro to evaluate as the active file (same as <code>$f</code>).</li>
+              <li><strong>Background Tasks (<code>&amp;</code>)</strong>: Appending <code>&amp;</code> to the end of a command tells the C++ engine to execute the shell command asynchronously in a dedicated <code>std::thread</code>. The task is registered inside the Task Manager (<code>w</code>) where its completion status and exit codes are monitored live.</li>
+            </ul>
+
+            <h2>🔌 Natively Integrated Drive Mounting</h2>
+            <p>
+              Fyzenor avoids requiring graphical desktop environments or complex manual <code>mount</code> terminal setups by communicating directly with GLib's mount daemon:
+            </p>
+            <ul>
+              <li><strong>Unified Listing</strong>: Pressing <code>m</code> runs <code>gio mount -li</code> to scan and display connected block drives, digital cameras, and mobile phones.</li>
+              <li><strong>Mount Locations</strong>: Successfully mounted mobile phones (Android MTP) and camera devices are automatically mapped to <code>/run/user/&lt;uid&gt;/gvfs/mtp:...</code> or <code>/run/user/&lt;uid&gt;/gvfs/gphoto2:...</code>, allowing you to browse their folders like local filesystems.</li>
+              <li><strong>Safe Unmounting (<code>u</code>)</strong>: Toggling unmount (<code>u</code>) issues a safe <code>gio mount -u</code> command. The file manager automatically validates your navigation state first, forcing your browser tabs to exit the device directory tree to prevent active lockups or data loss.</li>
+            </ul>
+
             <h2>Interface Screenshots Gallery</h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', margin: '1.5rem 0' }}>
               <div className="card-premium" style={{ padding: '0.75rem' }}>
