@@ -76,43 +76,51 @@ export default function App() {
     setTimeout(() => setCopiedText(null), 2000);
   };
 
-  // Keyboard map metadata - fully expanded matching README
+  // Keyboard map metadata - fully expanded matching README and Help panel
   const keyMap: Record<string, { title: string; desc: string; category: string }> = {
-    'k': { title: 'Move Up', desc: 'Moves selection up inside the active directory listing or sidebar.', category: 'Navigation' },
-    'j': { title: 'Move Down', desc: 'Moves selection down inside the active directory listing or sidebar.', category: 'Navigation' },
-    'h': { title: 'Go to Parent / Clear Search', desc: 'Navigates back to the parent directory. If a content search view is open, clears search results.', category: 'Navigation' },
-    'l': { title: 'Open File / Enter Directory', desc: 'Opens the selected file in your terminal-based editor (or default viewer) / enters highlighted folder.', category: 'Navigation' },
+    'j': { title: 'Navigate (Down)', desc: 'Moves selection down inside the active directory listing or sidebar.', category: 'Navigation' },
+    'k': { title: 'Navigate (Up)', desc: 'Moves selection up inside the active directory listing or sidebar.', category: 'Navigation' },
+    'h': { title: 'Back / Clear Search', desc: 'Navigates back to the parent directory. If a content search view is open, clears search results.', category: 'Navigation' },
+    'l': { title: 'Open / Enter Directory', desc: 'Opens the selected file in your terminal-based editor (or default viewer) / enters highlighted folder.', category: 'Navigation' },
     'g': { title: 'Go to Top', desc: 'Instantly scrolls the active listing to the first item.', category: 'Navigation' },
     'G': { title: 'Go to Bottom', desc: 'Instantly scrolls the active listing to the last item.', category: 'Navigation' },
-    '/': { title: 'Search Content', desc: 'Launches an interactive file content search using ripgrep (rg) across the active folder.', category: 'Navigation' },
+    '/': { title: 'Search (ripgrep)', desc: 'Launches an interactive file content search using ripgrep (rg) across the active folder.', category: 'Navigation' },
     'f': { title: 'Fuzzy Find', desc: 'Fuzzy searches file and directory names inside the current folder.', category: 'Navigation' },
-    'w': { title: 'Active Tasks Overlay', desc: 'Opens the background task worker queue manager overlay to monitor, pause, or kill tasks.', category: 'Navigation' },
-    'y': { title: 'Yank (Copy)', desc: 'Copies selected items or current file path to internal clipboard.', category: 'File Operations' },
+    'w': { title: 'Show Active Tasks', desc: 'Opens the background task worker queue manager overlay to monitor, pause, or kill tasks.', category: 'Navigation' },
+    'y': { title: 'Copy (Yank)', desc: 'Copies selected items or current file path to internal clipboard.', category: 'File Operations' },
     'x': { title: 'Cut', desc: 'Cuts selected items to internal clipboard (items will be moved when pasted).', category: 'File Operations' },
     'p': { title: 'Paste', desc: 'Pastes items from the clipboard. Automatically handles smart block-level file copy resumption if interrupted.', category: 'File Operations' },
     'Y': { title: 'Paste as Symlink', desc: 'Creates absolute symlinks of clipboard items at the current directory.', category: 'File Operations' },
-    'd': { title: 'Move to Trash / Delete', desc: 'Moves selected items to Freedesktop trash. If pressed inside the Trash Manager overlay, deletes highlighted items permanently.', category: 'File Operations' },
+    'd': { title: 'Move to Trash', desc: 'Moves selected items to Freedesktop trash. If pressed inside the Trash Manager overlay, deletes highlighted items permanently.', category: 'File Operations' },
+    'Delete': { title: 'Move to Trash', desc: 'Moves selected items to Freedesktop trash. (Same behavior as d).', category: 'File Operations' },
     'D': { title: 'Delete Permanently', desc: 'Bypasses the Trash bin completely and deletes selected files permanently after a confirmation prompt.', category: 'File Operations' },
-    'T': { title: 'Toggle Trash Manager', desc: 'Opens the unified Trash Manager interface, scanning and listing all deleted items across partition bins.', category: 'File Operations' },
-    'u': { title: 'Undo Trash', desc: 'Undoes the last move-to-trash action, restoring files back to their original partition paths.', category: 'File Operations' },
+    'T': { title: 'Toggle Trash Manager', desc: 'Opens the unified Trash Manager interface, scanning and listing all deleted items across partition trash folders.', category: 'File Operations' },
+    'u': { title: 'Undo Trash Action', desc: 'Undoes the last move-to-trash action, restoring files back to their original partition paths.', category: 'File Operations' },
     'r': { title: 'Rename / Restore', desc: 'Renames current file (launches bulk editor renaming if multiple files are selected). If inside the Trash Manager, restores highlighted items to their original path.', category: 'File Operations' },
     'n': { title: 'New File', desc: 'Prompts to create a new blank file in the current directory.', category: 'File Operations' },
     'N': { title: 'New Folder', desc: 'Prompts to create a new empty directory.', category: 'File Operations' },
-    'z': { title: 'Zip Selection', desc: 'Asynchronously packs selected files and folders into a zip archive.', category: 'File Operations' },
+    'z': { title: 'Zip', desc: 'Asynchronously packs selected files and folders into a zip archive.', category: 'File Operations' },
     'e': { title: 'Extract / Empty Trash', desc: 'Extracts highlighted archive. If inside the Trash Manager, empties all partition trash bins.', category: 'File Operations' },
     'c': { title: 'Copy Absolute Path', desc: 'Copies the absolute path of the current file directly into the system clipboard.', category: 'File Operations' },
     'Space': { title: 'Select Item', desc: 'Toggles the selection state of the highlighted file/folder for bulk operations.', category: 'Selection' },
-    'v': { title: 'Toggle Selection', desc: 'Similar to Space, toggles selection of the highlighted item.', category: 'Selection' },
+    'v': { title: 'Select Item', desc: 'Similar to Space, toggles selection of the highlighted item.', category: 'Selection' },
     'a': { title: 'Select All', desc: 'Selects all visible files and folders in the current directory.', category: 'Selection' },
-    'Esc': { title: 'Clear Selections', desc: 'Deselects all files and closes active dialogs/searches.', category: 'Selection' },
-    '.': { title: 'Toggle Hidden Files', desc: 'Toggles visibility of hidden files and dotfolders.', category: 'View' },
-    's': { title: 'Cycle Sorting Modes', desc: 'Cycles sorting criteria between Name, Size (Descending), and Date Modified (Descending).', category: 'View' },
+    'Esc': { title: 'Clear Selection', desc: 'Deselects all files and closes active dialogs/searches.', category: 'Selection' },
+    '.': { title: 'Toggle Hidden', desc: 'Toggles visibility of hidden files and dotfolders.', category: 'View' },
+    's': { title: 'Toggle Sorting', desc: 'Cycles sorting criteria between Name, Size (Descending), and Date Modified (Descending).', category: 'View' },
     'P': { title: 'Pin Directory', desc: 'Pins current directory path to persistent bookmarks saved in `~/.fm_pins`.', category: 'View' },
-    'Tab': { title: 'Switch Focus', desc: 'Switches keyboard focus between Files list and Bookmarks sidebar. In Dual-Pane, switches active pane focus.', category: 'View' },
+    'Tab': { title: 'Toggle Pinned / Switch Pane', desc: 'Switches keyboard focus between Files list and Bookmarks sidebar. In Dual-Pane, switches active pane focus.', category: 'View' },
     'F2': { title: 'Dual-Pane Mode', desc: 'Toggles side-by-side vertical file browser panels for rapid navigation and copying.', category: 'View' },
-    'F5': { title: 'Refresh Browser', desc: 'Forces folder re-indexing, clears sizes caches, and redraws the UI.', category: 'View' },
-    'i': { title: 'File Details Overlay', desc: 'Displays detailed metadata overlay (UID, GID, file permissions, dates, size).', category: 'View' },
-    'm': { title: 'Mounts Manager', desc: 'Opens block devices overlay to mount/unmount USB drives and Android mobile phones.', category: 'View' },
+    'F5': { title: 'Refresh Directory', desc: 'Forces folder re-indexing, clears sizes caches, and redraws the UI.', category: 'View' },
+    'Ctrl+R': { title: 'Refresh Directory', desc: 'Forces folder re-indexing, clears sizes caches, and redraws the UI. (Alternative to F5).', category: 'View' },
+    'i': { title: 'Show File Details', desc: 'Displays detailed metadata overlay (UID, GID, file permissions, dates, size).', category: 'View' },
+    'm': { title: 'Mounts & External Devices', desc: 'Opens block devices overlay to mount/unmount USB drives and Android mobile phones.', category: 'View' },
+    't': { title: 'Create New Tab', desc: 'Creates a new directory browser tab.', category: 'Tabs' },
+    'W': { title: 'Close Current Tab', desc: 'Closes the current browser tab. (Alternative: Ctrl+W).', category: 'Tabs' },
+    'Ctrl+W': { title: 'Close Current Tab', desc: 'Closes the current browser tab. (Alternative to W).', category: 'Tabs' },
+    '[': { title: 'Prev Tab', desc: 'Switches focus to the previous active tab.', category: 'Tabs' },
+    ']': { title: 'Next Tab', desc: 'Switches focus to the next active tab.', category: 'Tabs' },
+    '?': { title: 'Show Help Panel', desc: 'Opens the built-in help and keybindings overlay panel.', category: 'General' },
     ':': { title: 'Shell Command Prompt', desc: 'Launches prompt to execute shell commands globally (append & for background tasks).', category: 'Operations' }
   };
 
@@ -697,8 +705,8 @@ make
                   <div className="key-cap" style={{ opacity: 0.3 }}>F3</div>
                   <div className="key-cap" style={{ opacity: 0.3 }}>F4</div>
                   <div className={`key-cap ${selectedKey === 'F5' ? 'active' : ''}`} onClick={() => setSelectedKey('F5')}>F5</div>
-                  <div className="key-cap" style={{ opacity: 0.3 }}>F6</div>
-                  <div className="key-cap" style={{ opacity: 0.3 }}>F7</div>
+                  <div className={`key-cap ${selectedKey === 'Ctrl+R' ? 'active' : ''}`} onClick={() => setSelectedKey('Ctrl+R')}>Ctrl+R</div>
+                  <div className={`key-cap ${selectedKey === 'Delete' ? 'active' : ''}`} onClick={() => setSelectedKey('Delete')}>Delete</div>
                   <div className="key-cap" style={{ opacity: 0.3 }}>...</div>
                 </div>
                 {/* Row 2 */}
@@ -721,32 +729,32 @@ make
                 {/* Row 3 */}
                 <div className="keyboard-row">
                   <div className={`key-cap spacer-tab ${selectedKey === 'Tab' ? 'active' : ''}`} onClick={() => setSelectedKey('Tab')}>Tab</div>
-                  <div className="key-cap" style={{ opacity: 0.3 }}>Q</div>
-                  <div className={`key-cap ${selectedKey === 'w' ? 'active' : ''}`} onClick={() => setSelectedKey('w')}>W</div>
-                  <div className={`key-cap ${selectedKey === 'e' ? 'active' : ''}`} onClick={() => setSelectedKey('e')}>E</div>
-                  <div className="key-cap" style={{ opacity: 0.3 }}>R</div>
-                  <div className="key-cap" style={{ opacity: 0.3 }}>T</div>
-                  <div className="key-cap" style={{ opacity: 0.3 }}>Y</div>
-                  <div className="key-cap" style={{ opacity: 0.3 }}>U</div>
-                  <div className={`key-cap ${selectedKey === 'i' ? 'active' : ''}`} onClick={() => setSelectedKey('i')}>I</div>
-                  <div className="key-cap" style={{ opacity: 0.3 }}>O</div>
-                  <div className="key-cap" style={{ opacity: 0.3 }}>P</div>
-                  <div className="key-cap" style={{ opacity: 0.3 }}>[</div>
-                  <div className="key-cap" style={{ opacity: 0.3 }}>]</div>
+                  <div className="key-cap" style={{ opacity: 0.3 }}>q</div>
+                  <div className={`key-cap ${selectedKey === 'w' ? 'active' : ''}`} onClick={() => setSelectedKey('w')}>w</div>
+                  <div className={`key-cap ${selectedKey === 'e' ? 'active' : ''}`} onClick={() => setSelectedKey('e')}>e</div>
+                  <div className={`key-cap ${selectedKey === 'r' ? 'active' : ''}`} onClick={() => setSelectedKey('r')}>r</div>
+                  <div className={`key-cap ${selectedKey === 't' ? 'active' : ''}`} onClick={() => setSelectedKey('t')}>t</div>
+                  <div className={`key-cap ${selectedKey === 'y' ? 'active' : ''}`} onClick={() => setSelectedKey('y')}>y</div>
+                  <div className={`key-cap ${selectedKey === 'u' ? 'active' : ''}`} onClick={() => setSelectedKey('u')}>u</div>
+                  <div className={`key-cap ${selectedKey === 'i' ? 'active' : ''}`} onClick={() => setSelectedKey('i')}>i</div>
+                  <div className="key-cap" style={{ opacity: 0.3 }}>o</div>
+                  <div className={`key-cap ${selectedKey === 'p' ? 'active' : ''}`} onClick={() => setSelectedKey('p')}>p</div>
+                  <div className={`key-cap ${selectedKey === '[' ? 'active' : ''}`} onClick={() => setSelectedKey('[')}>[</div>
+                  <div className={`key-cap ${selectedKey === ']' ? 'active' : ''}`} onClick={() => setSelectedKey(']')}>]</div>
                   <div className="key-cap" style={{ opacity: 0.3 }}>\</div>
                 </div>
                 {/* Row 4 */}
                 <div className="keyboard-row">
                   <div className="key-cap spacer-ctrl" style={{ opacity: 0.3 }}>Ctrl</div>
-                  <div className={`key-cap ${selectedKey === 'a' ? 'active' : ''}`} onClick={() => setSelectedKey('a')}>A</div>
-                  <div className={`key-cap ${selectedKey === 's' ? 'active' : ''}`} onClick={() => setSelectedKey('s')}>S</div>
-                  <div className={`key-cap ${selectedKey === 'd' ? 'active' : ''}`} onClick={() => setSelectedKey('d')}>D</div>
-                  <div className={`key-cap ${selectedKey === 'f' ? 'active' : ''}`} onClick={() => setSelectedKey('f')}>F</div>
-                  <div className={`key-cap ${selectedKey === 'g' ? 'active' : ''}`} onClick={() => setSelectedKey('g')}>G</div>
-                  <div className={`key-cap ${selectedKey === 'h' ? 'active' : ''}`} onClick={() => setSelectedKey('h')}>H</div>
-                  <div className={`key-cap ${selectedKey === 'j' ? 'active' : ''}`} onClick={() => setSelectedKey('j')}>J</div>
-                  <div className={`key-cap ${selectedKey === 'k' ? 'active' : ''}`} onClick={() => setSelectedKey('k')}>K</div>
-                  <div className={`key-cap ${selectedKey === 'l' ? 'active' : ''}`} onClick={() => setSelectedKey('l')}>L</div>
+                  <div className={`key-cap ${selectedKey === 'a' ? 'active' : ''}`} onClick={() => setSelectedKey('a')}>a</div>
+                  <div className={`key-cap ${selectedKey === 's' ? 'active' : ''}`} onClick={() => setSelectedKey('s')}>s</div>
+                  <div className={`key-cap ${selectedKey === 'd' ? 'active' : ''}`} onClick={() => setSelectedKey('d')}>d</div>
+                  <div className={`key-cap ${selectedKey === 'f' ? 'active' : ''}`} onClick={() => setSelectedKey('f')}>f</div>
+                  <div className={`key-cap ${selectedKey === 'g' ? 'active' : ''}`} onClick={() => setSelectedKey('g')}>g</div>
+                  <div className={`key-cap ${selectedKey === 'h' ? 'active' : ''}`} onClick={() => setSelectedKey('h')}>h</div>
+                  <div className={`key-cap ${selectedKey === 'j' ? 'active' : ''}`} onClick={() => setSelectedKey('j')}>j</div>
+                  <div className={`key-cap ${selectedKey === 'k' ? 'active' : ''}`} onClick={() => setSelectedKey('k')}>k</div>
+                  <div className={`key-cap ${selectedKey === 'l' ? 'active' : ''}`} onClick={() => setSelectedKey('l')}>l</div>
                   <div className="key-cap" style={{ opacity: 0.3 }}>;</div>
                   <div className="key-cap" style={{ opacity: 0.3 }}>'</div>
                   <div className="key-cap spacer-enter" style={{ opacity: 0.3 }}>Enter</div>
@@ -754,26 +762,29 @@ make
                 {/* Row 5 */}
                 <div className="keyboard-row">
                   <div className={`key-cap spacer-shift ${selectedKey === 'D' ? 'active' : ''}`} onClick={() => setSelectedKey('D')}>Shift+D</div>
-                  <div className={`key-cap ${selectedKey === 'z' ? 'active' : ''}`} onClick={() => setSelectedKey('z')}>Z</div>
-                  <div className={`key-cap ${selectedKey === 'x' ? 'active' : ''}`} onClick={() => setSelectedKey('x')}>X</div>
-                  <div className={`key-cap ${selectedKey === 'c' ? 'active' : ''}`} onClick={() => setSelectedKey('c')}>C</div>
-                  <div className={`key-cap ${selectedKey === 'v' ? 'active' : ''}`} onClick={() => setSelectedKey('v')}>V</div>
-                  <div className="key-cap" style={{ opacity: 0.3 }}>B</div>
-                  <div className={`key-cap ${selectedKey === 'n' ? 'active' : ''}`} onClick={() => setSelectedKey('n')}>N</div>
-                  <div className={`key-cap ${selectedKey === 'm' ? 'active' : ''}`} onClick={() => setSelectedKey('m')}>M</div>
+                  <div className={`key-cap ${selectedKey === 'z' ? 'active' : ''}`} onClick={() => setSelectedKey('z')}>z</div>
+                  <div className={`key-cap ${selectedKey === 'x' ? 'active' : ''}`} onClick={() => setSelectedKey('x')}>x</div>
+                  <div className={`key-cap ${selectedKey === 'c' ? 'active' : ''}`} onClick={() => setSelectedKey('c')}>c</div>
+                  <div className={`key-cap ${selectedKey === 'v' ? 'active' : ''}`} onClick={() => setSelectedKey('v')}>v</div>
+                  <div className="key-cap" style={{ opacity: 0.3 }}>b</div>
+                  <div className={`key-cap ${selectedKey === 'n' ? 'active' : ''}`} onClick={() => setSelectedKey('n')}>n</div>
+                  <div className={`key-cap ${selectedKey === 'm' ? 'active' : ''}`} onClick={() => setSelectedKey('m')}>m</div>
                   <div className="key-cap" style={{ opacity: 0.3 }}>,</div>
                   <div className="key-cap" style={{ opacity: 0.3 }}>.</div>
                   <div className={`key-cap ${selectedKey === '/' ? 'active' : ''}`} onClick={() => setSelectedKey('/')}>/</div>
+                  <div className={`key-cap ${selectedKey === '?' ? 'active' : ''}`} onClick={() => setSelectedKey('?')}>?</div>
                   <div className={`key-cap ${selectedKey === ':' ? 'active' : ''}`} onClick={() => setSelectedKey(':')}>:</div>
                 </div>
                 {/* Row 6 */}
                 <div className="keyboard-row">
-                  <div className="key-cap" style={{ opacity: 0.3 }}>Ctrl</div>
+                  <div className="key-cap spacer-ctrl" style={{ opacity: 0.3 }}>Ctrl</div>
                   <div className="key-cap" style={{ opacity: 0.3 }}>Alt</div>
                   <div className={`key-cap spacer-space ${selectedKey === 'Space' ? 'active' : ''}`} onClick={() => setSelectedKey('Space')}>Space</div>
-                  <div className={`key-cap ${selectedKey === 'u' ? 'active' : ''}`} onClick={() => setSelectedKey('u')}>U</div>
+                  <div className={`key-cap ${selectedKey === 'u' ? 'active' : ''}`} onClick={() => setSelectedKey('u')}>u</div>
                   <div className={`key-cap ${selectedKey === 'T' ? 'active' : ''}`} onClick={() => setSelectedKey('T')}>T</div>
                   <div className={`key-cap ${selectedKey === 'Y' ? 'active' : ''}`} onClick={() => setSelectedKey('Y')}>Y</div>
+                  <div className={`key-cap ${selectedKey === 'W' ? 'active' : ''}`} onClick={() => setSelectedKey('W')}>W</div>
+                  <div className={`key-cap ${selectedKey === 'Ctrl+W' ? 'active' : ''}`} onClick={() => setSelectedKey('Ctrl+W')}>Ctrl+W</div>
                 </div>
               </div>
 
@@ -867,6 +878,46 @@ make
                 </thead>
                 <tbody>
                   {Object.entries(keyMap).filter(([_, v]) => v.category === 'View').map(([k, item]) => (
+                    <tr key={k} style={{ cursor: 'pointer' }} onClick={() => setSelectedKey(k)}>
+                      <td><code style={{ color: 'var(--accent-cyan)' }}>{k}</code></td>
+                      <td>{item.desc}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <h3>5. Tab Controls</h3>
+            <div className="table-container">
+              <table className="doc-table">
+                <thead>
+                  <tr>
+                    <th>Shortcut</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.entries(keyMap).filter(([_, v]) => v.category === 'Tabs').map(([k, item]) => (
+                    <tr key={k} style={{ cursor: 'pointer' }} onClick={() => setSelectedKey(k)}>
+                      <td><code style={{ color: 'var(--accent-cyan)' }}>{k}</code></td>
+                      <td>{item.desc}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <h3>6. General Help</h3>
+            <div className="table-container">
+              <table className="doc-table">
+                <thead>
+                  <tr>
+                    <th>Shortcut</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.entries(keyMap).filter(([_, v]) => v.category === 'General').map(([k, item]) => (
                     <tr key={k} style={{ cursor: 'pointer' }} onClick={() => setSelectedKey(k)}>
                       <td><code style={{ color: 'var(--accent-cyan)' }}>{k}</code></td>
                       <td>{item.desc}</td>
