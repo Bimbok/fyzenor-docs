@@ -16,11 +16,10 @@ import {
   Menu, 
   Sparkles,
   Info,
-  Layers,
-  FolderOpen
+  FolderOpen,
+  Users
 } from 'lucide-react';
 
-// Documentation content structure
 interface DocSection {
   id: string;
   title: string;
@@ -63,61 +62,60 @@ export default function App() {
     { id: 'tasks', title: 'Task Controls & Smart Copy', icon: <Sliders size={18} /> },
     { id: 'architecture', title: 'Architecture & Threads', icon: <Cpu size={18} /> },
     { id: 'theming', title: 'Theme Configurator', icon: <Sparkles size={18} /> },
+    { id: 'community', title: 'Community & License', icon: <Users size={18} /> },
     { id: 'troubleshoot', title: 'Troubleshooting', icon: <HelpCircle size={18} /> }
   ];
 
-  // Apply theme to document element
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
-  // Handle Clipboard Copy helper
   const handleCopy = (text: string, id: string) => {
     navigator.clipboard.writeText(text);
     setCopiedText(id);
     setTimeout(() => setCopiedText(null), 2000);
   };
 
-  // Keyboard map metadata
+  // Keyboard map metadata - fully expanded matching README
   const keyMap: Record<string, { title: string; desc: string; category: string }> = {
-    'k': { title: 'Move Up', desc: 'Moves file browser selection up by one item.', category: 'Navigation' },
-    'j': { title: 'Move Down', desc: 'Moves file browser selection down by one item.', category: 'Navigation' },
-    'h': { title: 'Parent Directory', desc: 'Goes to the parent directory, or clears the active search results.', category: 'Navigation' },
-    'l': { title: 'Open / Enter', desc: 'Opens the highlighted file in its default opener or enters the selected directory.', category: 'Navigation' },
-    'g': { title: 'Go to Top', desc: 'Instantly scrolls the file list to the very top.', category: 'Navigation' },
-    'G': { title: 'Go to Bottom', desc: 'Instantly scrolls the file list to the very bottom.', category: 'Navigation' },
-    '/': { title: 'Ripgrep Search', desc: 'Opens an interactive fuzzy content search inside files under the current folder using ripgrep.', category: 'Navigation' },
-    'f': { title: 'Fuzzy Find', desc: 'Fuzzy searches file and folder names inside the current directory.', category: 'Navigation' },
-    'w': { title: 'Tasks Window', desc: 'Opens the background tasks manager overlay to monitor or pause ongoing operations.', category: 'Navigation' },
-    'y': { title: 'Yank (Copy)', desc: 'Yanks (copies) selected or current files to internal clipboard.', category: 'Operations' },
-    'x': { title: 'Cut', desc: 'Cuts selected files to clipboard (moves them when pasted).', category: 'Operations' },
-    'p': { title: 'Paste', desc: 'Pastes copied or cut files. Supports smart delta resumption if copying was interrupted.', category: 'Operations' },
-    'Y': { title: 'Paste Symlink', desc: 'Creates absolute symlinks of copied files at the current location.', category: 'Operations' },
-    'd': { title: 'Move to Trash', desc: 'Moves the selection to the Freedesktop-compliant home or partition-local trash folder. Permanently deletes items if pressed inside the Trash Manager.', category: 'Operations' },
-    'D': { title: 'Delete Permanently', desc: 'Bypasses the Trash system entirely and deletes the selected files permanently after a confirmation.', category: 'Operations' },
-    'T': { title: 'Trash Manager', desc: 'Toggles the unified Trash Manager view, collecting deleted files from all mounted drives.', category: 'Operations' },
-    'u': { title: 'Undo Trash', desc: 'Instantly restores the last trashed file or folder back to its original path.', category: 'Operations' },
-    'r': { title: 'Rename / Restore', desc: 'Renames the highlighted file (triggers bulk editor rename if multiple selected). If inside the Trash Manager, restores the item to its original location.', category: 'Operations' },
-    'n': { title: 'New File', desc: 'Prompts to create a new blank file in the current directory.', category: 'Operations' },
-    'N': { title: 'New Folder', desc: 'Prompts to create a new empty folder.', category: 'Operations' },
-    'z': { title: 'Zip Selection', desc: 'Compresses selected files/folders into a zip archive asynchronously.', category: 'Operations' },
-    'e': { title: 'Extract / Empty', desc: 'Extracts the highlighted archive. If inside the Trash Manager, empties all partition trash bins.', category: 'Operations' },
-    'c': { title: 'Copy Path', desc: 'Copies the absolute path of the current file to the system clipboard.', category: 'Operations' },
-    'Space': { title: 'Select File', desc: 'Toggles selection state of the highlighted file for bulk operations.', category: 'Selection' },
-    'a': { title: 'Select All', desc: 'Selects all files in the current folder.', category: 'Selection' },
-    'Esc': { title: 'Clear Selections', desc: 'Deselects all files and closes active search result views.', category: 'Selection' },
-    '.': { title: 'Hidden Files', desc: 'Toggles visibility of dotfiles and hidden folders.', category: 'View' },
-    's': { title: 'Cycle Sorting', desc: 'Cycles sorting criteria between Name, Size (Descending), and Date Modified (Descending).', category: 'View' },
-    'P': { title: 'Pin Directory', desc: 'Saves the current path to persistent bookmarks (`~/.fm_pins`).', category: 'View' },
-    'Tab': { title: 'Switch Focus', desc: 'Switches keyboard focus between the file browser pane and bookmarks sidebar, or switches active side in Dual-Pane.', category: 'View' },
-    'F2': { title: 'Dual-Pane Mode', desc: 'Toggles dual vertical listings side-by-side for rapid drag-free copying and comparison.', category: 'View' },
-    'F5': { title: 'Refresh Browser', desc: 'Forces a full refresh of the current listing, invalidating all size and preview caches.', category: 'View' },
-    'i': { title: 'File Details', desc: 'Displays extensive metadata overlay (permissions, owner, GID, size, timestamps).', category: 'View' },
-    'm': { title: 'Mount Manager', desc: 'Opens the block devices overlay to mount/unmount USB drives and Android mobile phones.', category: 'View' },
-    ':': { title: 'Shell Command', desc: 'Opens a prompt to run shell commands (foreground suspends TUI, background uses `&`).', category: 'Operations' }
+    'k': { title: 'Move Up', desc: 'Moves selection up inside the active directory listing or sidebar.', category: 'Navigation' },
+    'j': { title: 'Move Down', desc: 'Moves selection down inside the active directory listing or sidebar.', category: 'Navigation' },
+    'h': { title: 'Go to Parent / Clear Search', desc: 'Navigates back to the parent directory. If a content search view is open, clears search results.', category: 'Navigation' },
+    'l': { title: 'Open File / Enter Directory', desc: 'Opens the selected file in your terminal-based editor (or default viewer) / enters highlighted folder.', category: 'Navigation' },
+    'g': { title: 'Go to Top', desc: 'Instantly scrolls the active listing to the first item.', category: 'Navigation' },
+    'G': { title: 'Go to Bottom', desc: 'Instantly scrolls the active listing to the last item.', category: 'Navigation' },
+    '/': { title: 'Search Content', desc: 'Launches an interactive file content search using ripgrep (rg) across the active folder.', category: 'Navigation' },
+    'f': { title: 'Fuzzy Find', desc: 'Fuzzy searches file and directory names inside the current folder.', category: 'Navigation' },
+    'w': { title: 'Active Tasks Overlay', desc: 'Opens the background task worker queue manager overlay to monitor, pause, or kill tasks.', category: 'Navigation' },
+    'y': { title: 'Yank (Copy)', desc: 'Copies selected items or current file path to internal clipboard.', category: 'File Operations' },
+    'x': { title: 'Cut', desc: 'Cuts selected items to internal clipboard (items will be moved when pasted).', category: 'File Operations' },
+    'p': { title: 'Paste', desc: 'Pastes items from the clipboard. Automatically handles smart block-level file copy resumption if interrupted.', category: 'File Operations' },
+    'Y': { title: 'Paste as Symlink', desc: 'Creates absolute symlinks of clipboard items at the current directory.', category: 'File Operations' },
+    'd': { title: 'Move to Trash / Delete', desc: 'Moves selected items to Freedesktop trash. If pressed inside the Trash Manager overlay, deletes highlighted items permanently.', category: 'File Operations' },
+    'D': { title: 'Delete Permanently', desc: 'Bypasses the Trash bin completely and deletes selected files permanently after a confirmation prompt.', category: 'File Operations' },
+    'T': { title: 'Toggle Trash Manager', desc: 'Opens the unified Trash Manager interface, scanning and listing all deleted items across partition bins.', category: 'File Operations' },
+    'u': { title: 'Undo Trash', desc: 'Undoes the last move-to-trash action, restoring files back to their original partition paths.', category: 'File Operations' },
+    'r': { title: 'Rename / Restore', desc: 'Renames current file (launches bulk editor renaming if multiple files are selected). If inside the Trash Manager, restores highlighted items to their original path.', category: 'File Operations' },
+    'n': { title: 'New File', desc: 'Prompts to create a new blank file in the current directory.', category: 'File Operations' },
+    'N': { title: 'New Folder', desc: 'Prompts to create a new empty directory.', category: 'File Operations' },
+    'z': { title: 'Zip Selection', desc: 'Asynchronously packs selected files and folders into a zip archive.', category: 'File Operations' },
+    'e': { title: 'Extract / Empty Trash', desc: 'Extracts highlighted archive. If inside the Trash Manager, empties all partition trash bins.', category: 'File Operations' },
+    'c': { title: 'Copy Absolute Path', desc: 'Copies the absolute path of the current file directly into the system clipboard.', category: 'File Operations' },
+    'Space': { title: 'Select Item', desc: 'Toggles the selection state of the highlighted file/folder for bulk operations.', category: 'Selection' },
+    'v': { title: 'Toggle Selection', desc: 'Similar to Space, toggles selection of the highlighted item.', category: 'Selection' },
+    'a': { title: 'Select All', desc: 'Selects all visible files and folders in the current directory.', category: 'Selection' },
+    'Esc': { title: 'Clear Selections', desc: 'Deselects all files and closes active dialogs/searches.', category: 'Selection' },
+    '.': { title: 'Toggle Hidden Files', desc: 'Toggles visibility of hidden files and dotfolders.', category: 'View' },
+    's': { title: 'Cycle Sorting Modes', desc: 'Cycles sorting criteria between Name, Size (Descending), and Date Modified (Descending).', category: 'View' },
+    'P': { title: 'Pin Directory', desc: 'Pins current directory path to persistent bookmarks saved in `~/.fm_pins`.', category: 'View' },
+    'Tab': { title: 'Switch Focus', desc: 'Switches keyboard focus between Files list and Bookmarks sidebar. In Dual-Pane, switches active pane focus.', category: 'View' },
+    'F2': { title: 'Dual-Pane Mode', desc: 'Toggles side-by-side vertical file browser panels for rapid navigation and copying.', category: 'View' },
+    'F5': { title: 'Refresh Browser', desc: 'Forces folder re-indexing, clears sizes caches, and redraws the UI.', category: 'View' },
+    'i': { title: 'File Details Overlay', desc: 'Displays detailed metadata overlay (UID, GID, file permissions, dates, size).', category: 'View' },
+    'm': { title: 'Mounts Manager', desc: 'Opens block devices overlay to mount/unmount USB drives and Android mobile phones.', category: 'View' },
+    ':': { title: 'Shell Command Prompt', desc: 'Launches prompt to execute shell commands globally (append & for background tasks).', category: 'Operations' }
   };
 
-  // Terminal Preset Commands
   const handlePresetCommand = (cmd: string) => {
     let output: string[] = [];
     if (cmd === 'fyzenor --version') {
@@ -171,11 +169,6 @@ export default function App() {
 
   return (
     <div className="app-container">
-      {/* Mobile Backdrop */}
-      {mobileMenuOpen && (
-        <div className="mobile-backdrop" onClick={() => setMobileMenuOpen(false)} />
-      )}
-
       {/* Sidebar Navigation */}
       <aside className={`sidebar ${mobileMenuOpen ? 'open' : ''}`}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
@@ -271,6 +264,11 @@ export default function App() {
         </div>
       </aside>
 
+      {/* Mobile Backdrop */}
+      {mobileMenuOpen && (
+        <div className="mobile-backdrop" onClick={() => setMobileMenuOpen(false)} />
+      )}
+
       {/* Mobile Header */}
       <header className="mobile-header">
         <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} style={{ background: 'transparent', border: 'none', color: 'var(--text-primary)' }}>
@@ -316,7 +314,10 @@ export default function App() {
 
             <h2>Introduction</h2>
             <p>
-              <strong>Fyzenor</strong> is an asynchronous terminal file manager built on C++17, designed to execute demanding filesystem activities without locking up the UI. Version 3.0.0 delivers structural features that allow for robust file operations, detailed trash tracking, thread suspension, and safe error restoration.
+              **Fyzenor** is a lightweight, high-performance terminal file manager engineered from the ground up with modern **C++17**. It is designed to bridge the gap between the raw power of the command line and the visual feedback of modern GUIs.
+            </p>
+            <p>
+              With its asynchronous architecture, Fyzenor ensures that heavy operations like directory size calculation and media preview generation never block the UI, providing a "blazing fast" experience even on large filesystems. Whether you are a developer, a system administrator, or a power user, Fyzenor allows you to navigate and manage your files with the speed of thought.
             </p>
 
             <div className="alert-info-box">
@@ -326,27 +327,167 @@ export default function App() {
               </div>
             </div>
 
-            <h2>Visual Showcase</h2>
-            <div className="card-grid">
-              <div className="card-premium neon-glow-card">
-                <div style={{ color: 'var(--accent-green)', marginBottom: '0.75rem' }}><Layers size={24} /></div>
-                <h3>Three-Column Miller Layout</h3>
-                <p>Features a visual sidebar displaying bookmarks, a center listing panel, and a media-heavy preview panel on the right.</p>
-              </div>
-              <div className="card-premium neon-glow-card">
-                <div style={{ color: 'var(--accent-purple)', marginBottom: '0.75rem' }}><Sliders size={24} /></div>
-                <h3>Fully Asynchronous Engine</h3>
-                <p>Calculates sizes, displays image previews, and watches block files on background threads, keeping browsing smooth.</p>
-              </div>
-              <div className="card-premium neon-glow-card">
-                <div style={{ color: 'var(--accent-cyan)', marginBottom: '0.75rem' }}><Cpu size={24} /></div>
-                <h3>Delta Copy Resumption</h3>
-                <p>Resumes interrupted file transfers by checking matching sizes or seeking to target offsets block-by-block.</p>
-              </div>
+            <h2>🚀 Key Features</h2>
+            <div className="table-container">
+              <table className="doc-table">
+                <thead>
+                  <tr>
+                    <th>Feature</th>
+                    <th>Detailed Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Three-Column Layout</strong></td>
+                    <td>Navigate with a Miller-style layout showing pinned items, parent/current directories, and a live preview pane.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Asynchronous Tabs</strong></td>
+                    <td>Open multiple directories in native tabs, navigating easily with <code>[</code>/<code>]</code> and number keys <code>1</code>-<code>9</code>, preserving your selections.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Interactive Shell Commands</strong></td>
+                    <td>Execute shell commands globally with <code>:</code>. Supports foreground utilities, background tasks (<code>&amp;</code>), and path placeholders (<code>$f</code>/<code>$s</code>).</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Bulk Rename via Editor</strong></td>
+                    <td>Select multiple files and press <code>r</code> to rename them all at once inside your default text editor (e.g. <code>nvim</code>, <code>nano</code>).</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Smart Copy Resumption</strong></td>
+                    <td>Resumes interrupted file copies block-by-block (<code>seekg</code>/<code>seekp</code>) by comparing file sizes and copying only the remaining bytes.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Task Play/Pause Controls</strong></td>
+                    <td>Suspend (pause) and resume background copy, move, delete, zip, and extract tasks directly from the task list.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Freedesktop Trash System</strong></td>
+                    <td>Move items to trash (<code>d</code>) and restore/empty them in-build. Integrates home trash and local partition trash folders.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Undo Trash Action (<code>u</code>)</strong></td>
+                    <td>Undo the last move-to-trash action instantly, restoring items back to their original paths.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Dynamic Disk Space Status</strong></td>
+                    <td>Displays partition name, progress bar, percent used, and free space dynamically for the current drive.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Dynamic Empty Folder Icons</strong></td>
+                    <td>Instantly identifies empty directories (<code></code>) versus populated ones (<code></code>) using fast metadata caching.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Simultaneous Multi-Open</strong></td>
+                    <td>Open all selected files simultaneously; code/text files load in a single editor, media in an <code>mpv</code> playlist, others in background launchers.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Robust Symlink Management</strong></td>
+                    <td>Custom link icons (<code>󰌹</code>), detailed resolution preview (detects broken paths), and quick absolute symlink pasting with Shift+Y (<code>Y</code>).</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Dynamic Sorting Modes</strong></td>
+                    <td>Toggle sorting order dynamically by pressing <code>s</code>, cycling between **Name**, **Size (Desc)**, and **Date Modified (Desc)**.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Async Media Preview</strong></td>
+                    <td>Generate image and video previews in the background using the Kitty Graphics Protocol and <code>ffmpeg</code>, without freezing navigation.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Modern &amp; Polished UI</strong></td>
+                    <td>A clean, minimal interface featuring rounded corners, optimized spacing, and an elegant color palette designed for long-term readability and comfort.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Syntax-Aware Text Preview</strong></td>
+                    <td>Preview code and text files with <code>bat</code> or <code>batcat</code>, with fallback to plain text when needed.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Background Folder Sizing</strong></td>
+                    <td>Directory sizes are calculated asynchronously and update in place while you keep moving.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Vim-Style Navigation</strong></td>
+                    <td>Fast keyboard-driven navigation with <code>h</code>, <code>j</code>, <code>k</code>, <code>l</code>, <code>g</code>, <code>G</code>, arrow keys, and enter-based traversal.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Nerd Fonts Integration</strong></td>
+                    <td>Rich iconography for directories, archives, media, and code file formats for faster visual identification.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Multi-Selection &amp; Bulk Actions</strong></td>
+                    <td>Select multiple files and apply copy, cut, paste, delete, and zip operations efficiently.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Persistent Pins</strong></td>
+                    <td>Save frequently used directories to <code>~/.fm_pins</code> and jump back to them instantly.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Flicker-Free Rendering</strong></td>
+                    <td>Optimized redraw behavior keeps the interface smooth while reducing unnecessary terminal updates.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Rich File Operations</strong></td>
+                    <td>Create files/folders, rename entries, zip selections, copy absolute paths, and manage content without leaving the TUI.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Theme Support</strong></td>
+                    <td>Customize the UI through <code>~/.config/fyzenor/colors.fz</code>, with optional Matugen-powered wallpaper theming.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Editor Integration</strong></td>
+                    <td>Opens text/code files with your configured editor via <code>$EDITOR</code> or <code>$VISUAL</code>, with sensible fallbacks.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Content Search (ripgrep)</strong></td>
+                    <td>Search for file contents under the current directory using <code>ripgrep</code>, displaying relative paths and supporting vim-like navigation.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Manual Cache Refresh</strong></td>
+                    <td>Refresh directory contents and invalidate sizes/previews cache instantly using <code>F5</code> / <code>Ctrl+R</code>.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Dual-Pane Mode</strong></td>
+                    <td>Toggle (<code>F2</code>) side-by-side active file listings for drag-free copying, with easy tab focus switching (<code>Tab</code>).</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Device Detection &amp; Mounts</strong></td>
+                    <td>Detect, mount, unmount, and navigate connected USB block drives and mobile phones (Android MTP) natively without needing Nautilus.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Live Auto-Updates (inotify)</strong></td>
+                    <td>Automatically detects filesystem changes (creations, deletions, renames) in the current directory and refreshes the TUI instantly.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2>🛠️ CLI Arguments & Usage</h2>
+            <p>Fyzenor supports the following command-line flags on launch:</p>
+            <div className="table-container">
+              <table className="doc-table">
+                <thead>
+                  <tr>
+                    <th>Option Flag</th>
+                    <th>Alternative</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>-v</code></td>
+                    <td><code>--version</code></td>
+                    <td>Display the current release version of Fyzenor and exit.</td>
+                  </tr>
+                  <tr>
+                    <td><code>-h</code></td>
+                    <td><code>--help</code></td>
+                    <td>Show standard usage commands and syntax guidelines.</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
 
             <h2>Interface Screenshots Gallery</h2>
-            <p>Take a tour of the native C++ terminal layouts in action:</p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', margin: '1.5rem 0' }}>
               <div className="card-premium" style={{ padding: '0.75rem' }}>
                 <img src="/Sample/1.png" alt="Main Interface" style={{ width: '100%', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.06)' }} />
@@ -366,7 +507,7 @@ export default function App() {
               </div>
               <div className="card-premium" style={{ padding: '0.75rem' }}>
                 <img src="/Sample/5.png" alt="Device Mounting" style={{ width: '100%', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.06)' }} />
-                <h4 style={{ fontSize: '0.9rem', marginTop: '0.5rem', textAlign: 'center' }}>5. Device & Block Mount Overlay</h4>
+                <h4 style={{ fontSize: '0.9rem', marginTop: '0.5rem', textAlign: 'center' }}>5. Device &amp; Block Mount Overlay</h4>
               </div>
               <div className="card-premium" style={{ padding: '0.75rem' }}>
                 <img src="/Sample/6.png" alt="Metadata Inspector" style={{ width: '100%', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.06)' }} />
@@ -413,7 +554,6 @@ export default function App() {
                       flexGrow: 1,
                       marginLeft: '0.5rem'
                     }}
-                    autoFocus
                   />
                 </form>
               </div>
@@ -429,89 +569,127 @@ export default function App() {
 
         {activeTab === 'install' && (
           <div className="animate-fade-in">
-            <h2>System Prerequisites</h2>
-            <p>Before launching, ensure your system has the following CLI tools installed for full feature support:</p>
+            <h2>Prerequisites</h2>
+            <p>To unleash the full power of Fyzenor, especially image previews, your system needs a few core components.</p>
             
-            <div className="table-container">
-              <table className="doc-table">
-                <thead>
-                  <tr>
-                    <th>Component</th>
-                    <th>Utility</th>
-                    <th>Importance</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><strong>Syntax Highlighting</strong></td>
-                    <td><code>bat</code> or <code>batcat</code></td>
-                    <td>Recommended for rendering syntax highlighted code previews inside the right column.</td>
-                  </tr>
-                  <tr>
-                    <td><strong>File Search</strong></td>
-                    <td><code>ripgrep (rg)</code></td>
-                    <td>Required for the global folder content matching system.</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Media Previews</strong></td>
-                    <td><code>ffmpeg</code></td>
-                    <td>Required to generate cached frame thumbnails for image/video files.</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Clipboard Integration</strong></td>
-                    <td><code>xclip</code> or <code>wl-clipboard</code></td>
-                    <td>Required to copy absolute file paths into the system's global clipboard.</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <h3>1. A Compatible Terminal</h3>
+            <ul>
+              <li><strong>Recommended:</strong> <a href="https://sw.kovidgoyal.net/kitty/" target="_blank" rel="noopener noreferrer">Kitty</a> with native Kitty Graphics Protocol support.</li>
+              <li><strong>Others:</strong> <a href="https://wezfurlong.org/wezterm/" target="_blank" rel="noopener noreferrer">WezTerm</a> or <a href="https://konsole.kde.org/" target="_blank" rel="noopener noreferrer">Konsole</a> may work, but Kitty is the primary development and testing target.</li>
+            </ul>
 
-            <h2>One-Liner Installation</h2>
-            <p>Execute our auto-installation script directly from your terminal to resolve dependencies and build Fyzenor:</p>
+            <h3>2. System Dependencies</h3>
+            <p>Install the required packages based on your Linux distribution:</p>
+
             <div className="code-container">
               <div className="code-header">
-                <span>Bash Shell</span>
-                <button 
-                  className="copy-btn" 
-                  onClick={() => handleCopy('curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/install.sh | bash', 'install-script')}
-                >
-                  {copiedText === 'install-script' ? <Check size={12} /> : <Copy size={12} />}
-                  {copiedText === 'install-script' ? 'Copied!' : 'Copy'}
+                <span>Debian / Ubuntu Package Installer</span>
+                <button className="copy-btn" onClick={() => handleCopy('sudo apt update && sudo apt install build-essential libncursesw5-dev ffmpeg zip bat xclip wl-copy ripgrep', 'apt-install')}>
+                  {copiedText === 'apt-install' ? <Check size={12} /> : <Copy size={12} />}
+                  {copiedText === 'apt-install' ? 'Copied!' : 'Copy'}
                 </button>
               </div>
               <div className="code-block">
-                <span className="code-block-keyword">curl</span> -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/install.sh | <span className="code-block-keyword">bash</span>
+                sudo apt update
+                sudo apt install build-essential libncursesw5-dev ffmpeg zip bat xclip wl-copy ripgrep
               </div>
             </div>
 
-            <h2>Manual Build Instructions</h2>
-            <p>If you prefer to compile manually from source, follow this sequence:</p>
-            
             <div className="code-container">
               <div className="code-header">
-                <span>Shell Commands</span>
-                <button 
-                  className="copy-btn" 
-                  onClick={() => handleCopy('git clone https://github.com/Bimbok/fyzenor.git\ncd fyzenor\nmkdir build && cd build\ncmake ..\nmake -j$(nproc)\nsudo make install', 'manual-build')}
-                >
-                  {copiedText === 'manual-build' ? <Check size={12} /> : <Copy size={12} />}
-                  {copiedText === 'manual-build' ? 'Copied!' : 'Copy'}
+                <span>Fedora Package Installer</span>
+                <button className="copy-btn" onClick={() => handleCopy('sudo dnf update && sudo dnf install gcc gcc-c++ make ncurses-devel ffmpeg zip bat xclip wl-clipboard ripgrep', 'dnf-install')}>
+                  {copiedText === 'dnf-install' ? <Check size={12} /> : <Copy size={12} />}
+                  {copiedText === 'dnf-install' ? 'Copied!' : 'Copy'}
                 </button>
               </div>
               <div className="code-block">
-                <span className="code-block-comment"># Clone the repository</span>
+                sudo dnf update
+                sudo dnf install gcc gcc-c++ make ncurses-devel ffmpeg zip bat xclip wl-clipboard ripgrep
+              </div>
+            </div>
+
+            <h3>Package Descriptions:</h3>
+            <ul>
+              <li><strong>libncursesw / ncurses-devel</strong>: Essential for wide-character terminal UI rendering.</li>
+              <li><strong>ffmpeg</strong>: Powers asynchronous thumbnail generation for images and videos.</li>
+              <li><strong>zip</strong>: Required for built-in archive creation.</li>
+              <li><strong>bat or batcat</strong>: Used for syntax-highlighted text previews.</li>
+              <li><strong>xclip / wl-copy / pbcopy</strong>: Used for system clipboard path copy feature.</li>
+            </ul>
+
+            <h2>⚙️ Installation &amp; Update</h2>
+            <p>The easiest way to install or update Fyzenor is using the universal installation script.</p>
+
+            <h3>One-Liner Install</h3>
+            <div className="code-container">
+              <div className="code-header">
+                <span>Universal Script</span>
+                <button className="copy-btn" onClick={() => handleCopy('curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/install.sh | bash', 'one-liner-script')}>
+                  {copiedText === 'one-liner-script' ? <Check size={12} /> : <Copy size={12} />}
+                  {copiedText === 'one-liner-script' ? 'Copied!' : 'Copy'}
+                </button>
+              </div>
+              <div className="code-block">
+                curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/install.sh | bash
+              </div>
+            </div>
+
+            <p>The installer does the following automatically:</p>
+            <ol style={{ marginLeft: '1.5rem', marginBottom: '1.5rem' }}>
+              <li>Compiles the C++ source into an optimized binary.</li>
+              <li>Installs <code>fyzenor</code> into <code>/usr/local/bin/</code>.</li>
+              <li>Creates an <code>fm</code> symlink for faster access.</li>
+              <li>Installs the desktop application shortcut and branding icon globally.</li>
+            </ol>
+
+            <h3>Manual Compilation</h3>
+            <p>If you prefer to build and run Fyzenor manually instead of using the installer:</p>
+            <div className="code-container">
+              <div className="code-header">
+                <span>Build Commands</span>
+                <button className="copy-btn" onClick={() => handleCopy('git clone https://github.com/Bimbok/fyzenor.git\ncd fyzenor\nmkdir -p build && cd build\ncmake ..\nmake\n./fyzenor', 'manual-compile-cmds')}>
+                  {copiedText === 'manual-compile-cmds' ? <Check size={12} /> : <Copy size={12} />}
+                  {copiedText === 'manual-compile-cmds' ? 'Copied!' : 'Copy'}
+                </button>
+              </div>
+              <div className="code-block">
                 git clone https://github.com/Bimbok/fyzenor.git
-                <span className="code-block-keyword">cd</span> fyzenor
-
-                <span className="code-block-comment"># Create build folder and compile</span>
-                <span className="code-block-keyword">mkdir</span> build && <span className="code-block-keyword">cd</span> build
+                cd fyzenor
+                mkdir -p build && cd build
                 cmake ..
-                make -j$(nproc)
-
-                <span className="code-block-comment"># Install to binary path</span>
-                sudo make install
+                make
+                ./fyzenor
               </div>
             </div>
+
+            <h2>Windows Compiler Compatibility</h2>
+            <p>Fyzenor requires a compiler with proper C++17 filesystem support.</p>
+            <p>Older MinGW GCC versions (such as GCC 6.x) may fail during compilation with:</p>
+            <div className="code-container">
+              <div className="code-block">
+                fatal error: filesystem: No such file or directory
+              </div>
+            </div>
+            <p>Recommended environments for Windows users:</p>
+            <ul>
+              <li>MSYS2 MinGW-w64</li>
+              <li>WSL (Windows Subsystem for Linux)</li>
+            </ul>
+            <p>Recommended compiler versions: <strong>GCC 8+</strong> or <strong>Clang 7+</strong>. Check yours using:</p>
+            <div className="code-container">
+              <div className="code-block">
+                g++ --version
+              </div>
+            </div>
+
+            <h2>🛠️ Tech Stack</h2>
+            <ul>
+              <li><strong>Language</strong>: C++17</li>
+              <li><strong>UI Layer</strong>: <code>ncursesw</code></li>
+              <li><strong>Concurrency</strong>: C++ standard threads with mutex-protected async workflows</li>
+              <li><strong>Filesystem</strong>: <code>std::filesystem</code></li>
+            </ul>
           </div>
         )}
 
@@ -522,7 +700,7 @@ export default function App() {
 
             {/* Virtual Keyboard */}
             <div className="keyboard-section">
-              <div className="keyboard-grid">
+              <div className="keyboard-grid scroll-custom">
                 {/* Row 1 */}
                 <div className="keyboard-row">
                   <div className={`key-cap ${selectedKey === 'Esc' ? 'active' : ''}`} onClick={() => setSelectedKey('Esc')}>Esc</div>
@@ -628,22 +806,82 @@ export default function App() {
               </div>
             </div>
 
-            <h2>Comprehensive Key Map</h2>
+            <h2>⌨️ Complete Key Bindings Map</h2>
+            
+            <h3>1. Navigation</h3>
             <div className="table-container">
               <table className="doc-table">
                 <thead>
                   <tr>
                     <th>Shortcut</th>
-                    <th>Action Summary</th>
-                    <th>Context Scope</th>
+                    <th>Description</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {Object.entries(keyMap).map(([key, item]) => (
-                    <tr key={key} style={{ cursor: 'pointer' }} onClick={() => setSelectedKey(key)}>
-                      <td><code style={{ color: 'var(--accent-cyan)' }}>{key}</code></td>
-                      <td><strong>{item.title}</strong> — {item.desc}</td>
-                      <td><span className="badge badge-green">{item.category}</span></td>
+                  {Object.entries(keyMap).filter(([_, v]) => v.category === 'Navigation').map(([k, item]) => (
+                    <tr key={k} style={{ cursor: 'pointer' }} onClick={() => setSelectedKey(k)}>
+                      <td><code style={{ color: 'var(--accent-cyan)' }}>{k}</code></td>
+                      <td>{item.desc}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <h3>2. File Operations</h3>
+            <div className="table-container">
+              <table className="doc-table">
+                <thead>
+                  <tr>
+                    <th>Shortcut</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.entries(keyMap).filter(([_, v]) => v.category === 'File Operations' || v.category === 'Operations').map(([k, item]) => (
+                    <tr key={k} style={{ cursor: 'pointer' }} onClick={() => setSelectedKey(k)}>
+                      <td><code style={{ color: 'var(--accent-cyan)' }}>{k}</code></td>
+                      <td>{item.desc}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <h3>3. Selection Actions</h3>
+            <div className="table-container">
+              <table className="doc-table">
+                <thead>
+                  <tr>
+                    <th>Shortcut</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.entries(keyMap).filter(([_, v]) => v.category === 'Selection').map(([k, item]) => (
+                    <tr key={k} style={{ cursor: 'pointer' }} onClick={() => setSelectedKey(k)}>
+                      <td><code style={{ color: 'var(--accent-cyan)' }}>{k}</code></td>
+                      <td>{item.desc}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <h3>4. View Customizations</h3>
+            <div className="table-container">
+              <table className="doc-table">
+                <thead>
+                  <tr>
+                    <th>Shortcut</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.entries(keyMap).filter(([_, v]) => v.category === 'View').map(([k, item]) => (
+                    <tr key={k} style={{ cursor: 'pointer' }} onClick={() => setSelectedKey(k)}>
+                      <td><code style={{ color: 'var(--accent-cyan)' }}>{k}</code></td>
+                      <td>{item.desc}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -654,28 +892,28 @@ export default function App() {
 
         {activeTab === 'trash' && (
           <div className="animate-fade-in">
-            <h2>Freedesktop Compliance & Multi-Partition Logic</h2>
+            <h2>Compliance-Tested Multi-Partition Trash System</h2>
             <p>
-              One of the major features in Fyzenor v3.0.0 is the compliance-tested partition-aware Trash subsystem. Moving files across different physical partitions is slow because it requires full write/read processes. Fyzenor resolves this by creating localized partition trash bins.
+              In compliance with the Freedesktop.org Desktop Trash Can Specification, Fyzenor v3.0.0 uses a highly optimized, local partition trash system to avoid slow byte-copying across drives.
             </p>
 
             <div className="card-grid">
               <div className="card-premium">
-                <div style={{ color: 'var(--accent-green)', fontWeight: 800, fontSize: '1.25rem', marginBottom: '0.5rem' }}>1. Home Drive Trashing</div>
-                <p>Files located on the primary home partition are moved instantly to <code>~/.local/share/Trash/files/</code>. Metadata, including the deletion date and original path, is written to <code>~/.local/share/Trash/info/[file].trashinfo</code>.</p>
+                <div style={{ color: 'var(--accent-green)', fontWeight: 800, fontSize: '1.25rem', marginBottom: '0.5rem' }}>1. Home Drive Folder</div>
+                <p>When trashing items on your primary OS partition, Fyzenor moves files instantly to your home directory: <code>~/.local/share/Trash/files/</code>. Associated deletion metadata logs are saved under <code>~/.local/share/Trash/info/[file].trashinfo</code>.</p>
               </div>
               <div className="card-premium">
-                <div style={{ color: 'var(--accent-purple)', fontWeight: 800, fontSize: '1.25rem', marginBottom: '0.5rem' }}>2. Partition-Local Bins</div>
-                <p>For items on separate filesystems (like <code>/mnt/shared/</code> or <code>/run/media/usb</code>), Fyzenor creates a hidden directory at the mount root: <code>&lt;mount_point&gt;/.Trash-&lt;uid&gt;/</code>. This allows using <code>rename</code> (constant time O(1)) instead of slow byte-copying.</p>
+                <div style={{ color: 'var(--accent-purple)', fontWeight: 800, fontSize: '1.25rem', marginBottom: '0.5rem' }}>2. Partition-Local folders</div>
+                <p>To prevent slow cross-device operations when trashing on external drives (like USB sticks or mounted SSD partitions), Fyzenor creates local trash folders: <code>&lt;mount_root&gt;/.Trash-&lt;uid&gt;/files/</code>. This utilizes constant time <code>std::filesystem::rename</code>.</p>
               </div>
               <div className="card-premium">
-                <div style={{ color: 'var(--accent-orange)', fontWeight: 800, fontSize: '1.25rem', marginBottom: '0.5rem' }}>3. Safety Delete Fallbacks</div>
-                <p>On filesystems that are read-only or do not support folder creation (e.g. FAT/NTFS drives without Unix permissions), local trash isn't available. Fyzenor catches this error and prompts the user for permanent deletion confirmation.</p>
+                <div style={{ color: 'var(--accent-orange)', fontWeight: 800, fontSize: '1.25rem', marginBottom: '0.5rem' }}>3. External Fallbacks</div>
+                <p>On FAT, NTFS, or read-only filesystems that do not support standard UNIX folder permission sets, local trash cannot be initialized. Fyzenor handles this state gracefully and prompts: <code>"Trash not supported. Delete permanently? (y/n)"</code>.</p>
               </div>
             </div>
 
-            <h2>The Trash Manager TUI (`T`)</h2>
-            <p>Pressing <kbd>T</kbd> displays the aggregate Trash view. The manager performs several specific commands in the background:</p>
+            <h2>Trash Manager Overlay (`T`)</h2>
+            <p>Toggling <kbd>T</kbd> displays the aggregate Trash view. The manager performs several specific commands in the background:</p>
             <ul>
               <li><strong>Scan Bins</strong>: Collects deleted items from the home folder and all mounted devices.</li>
               <li><strong>Metadata Parsing</strong>: Resolves the original paths, filenames, and deletion dates from the associated <code>.trashinfo</code> files.</li>
@@ -683,7 +921,7 @@ export default function App() {
               <li><strong>Restore Item (`r`)</strong>: Moves files from the trash back to their original recorded locations. If a folder in the original path is missing, Fyzenor creates it dynamically. If a conflict occurs, it appends a <code>_restored</code> suffix to avoid data overwrite.</li>
             </ul>
 
-            <h2>Trash Info File Format</h2>
+            <h2>Trash Info File Specification</h2>
             <p>Fyzenor writes standard metadata logs that can be read by other Linux file managers (like Nautilus or Thunar):</p>
             <div className="code-container">
               <div className="code-header">
@@ -716,12 +954,12 @@ export default function App() {
                 </thead>
                 <tbody>
                   <tr>
-                    <td><strong>Copy & Move</strong></td>
+                    <td><strong>Copy &amp; Move</strong></td>
                     <td>C++ background thread loop</td>
                     <td>Suspends block iteration via condition variables (0% CPU).</td>
                   </tr>
                   <tr>
-                    <td><strong>Zip & Extract</strong></td>
+                    <td><strong>Zip &amp; Extract</strong></td>
                     <td>External subprocesses (<code>zip</code>, <code>tar</code>)</td>
                     <td>Sends POSIX signals <code>SIGSTOP</code> and <code>SIGCONT</code> to the process PID.</td>
                   </tr>
@@ -759,8 +997,8 @@ export default function App() {
               <div className="card-premium" style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', borderRadius: '50%', backgroundColor: 'rgba(6, 182, 212, 0.1)', color: 'var(--accent-cyan)', flexShrink: 0, fontWeight: 700 }}>3</div>
                 <div>
-                  <h4>Block-Level Seeking & Append</h4>
-                  <p style={{ margin: 0 }}>If the destination is smaller, Fyzenor opens it in read/write mode, seeks to the offset matching the existing bytes, seeks to the same position in the source, and appends only the remaining bytes.</p>
+                  <h4>Block-Level Seeking &amp; Append</h4>
+                  <p style={{ margin: 0 }}>If the destination is smaller, Fyzenor opens it in read/write mode, seeks to the offset matching the existing bytes, seeks to the same position in the source, and appends only the remaining bytes. Symlinks are automatically replaced to prevent overwriting targets.</p>
                 </div>
               </div>
             </div>
@@ -769,10 +1007,17 @@ export default function App() {
 
         {activeTab === 'architecture' && (
           <div className="animate-fade-in">
-            <h2>Fyzenor Multithreading Architecture</h2>
+            <h2>Asynchronous Project Architecture</h2>
             <p>
-              Fyzenor utilizes a fully asynchronous, message-driven architecture to keep the UI responsive. The application runs multiple persistent threads and dynamically spawns task workers:
+              Fyzenor is structured as a compact terminal application with asynchronous jobs handling the expensive operations that would otherwise block UI updates.
             </p>
+            <h3>How It Works</h3>
+            <ol style={{ marginLeft: '1.5rem', marginBottom: '1.5rem' }}>
+              <li><strong>Navigation State:</strong> Tracks the current directory, parent context, selected entry, pins, and multi-selection state.</li>
+              <li><strong>Async Preview Pipeline:</strong> Generates media previews and text previews without freezing the navigation loop.</li>
+              <li><strong>Background Size Calculation:</strong> Directory sizes are resolved in the background and merged back into the UI.</li>
+              <li><strong>Command Handling:</strong> Keybindings trigger file operations, pin management, sorting, preview refresh, and shell integration behavior.</li>
+            </ol>
 
             {/* Thread Architecture Diagram */}
             <div style={{ 
@@ -786,7 +1031,7 @@ export default function App() {
               alignItems: 'center',
               boxShadow: 'var(--shadow-premium)'
             }}>
-              <h3 style={{ marginTop: 0, color: 'var(--accent-green)' }}>TUI & Worker Lifecycle Diagram</h3>
+              <h3 style={{ marginTop: 0, color: 'var(--accent-green)' }}>TUI &amp; Worker Lifecycle Diagram</h3>
               
               <svg width="100%" height="340" viewBox="0 0 600 340" style={{ maxWidth: '600px' }}>
                 {/* Main event loop */}
@@ -820,7 +1065,6 @@ export default function App() {
                 <line x1="300" y1="70" x2="530" y2="70" stroke="var(--accent-red)" strokeWidth="2" strokeDasharray="4" />
                 <line x1="530" y1="70" x2="530" y2="260" stroke="var(--accent-red)" strokeWidth="2" strokeDasharray="4" markerEnd="url(#arrow)" />
 
-                {/* Markers */}
                 <defs>
                   <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                     <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--text-muted)" />
@@ -832,160 +1076,166 @@ export default function App() {
               </p>
             </div>
 
-            <h2>Thread Roles & Synchronization</h2>
-            <div className="table-container">
-              <table className="doc-table">
-                <thead>
-                  <tr>
-                    <th>Thread</th>
-                    <th>Type</th>
-                    <th>Role & Loop details</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><strong>Main event loop</strong></td>
-                    <td>Main Thread</td>
-                    <td>Handles keyboard input, terminal redraws, and controls the double-buffered ncurses interface.</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Async Size Worker</strong></td>
-                    <td>Persistent Thread</td>
-                    <td>Pops folders from a thread-safe task queue to recursively calculate size metrics, pushing size updates back to the UI.</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Inotify Watcher</strong></td>
-                    <td>Persistent Thread</td>
-                    <td>Leverages Linux <code>inotify</code> system calls to watch the active folder, sending instant refresh signals upon additions or edits.</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Async Preview</strong></td>
-                    <td>Persistent Thread</td>
-                    <td>Generates image/video frames in the background via ffmpeg to keep the Kitty Graphics render buffer filled.</td>
-                  </tr>
-                </tbody>
-              </table>
+            <h2>🏗️ Repository Structure</h2>
+            <div className="code-container">
+              <div className="code-block">
+                fyzenor/
+                ├── file_manager.cpp   # Core application logic, UI rendering, preview pipeline
+                ├── install.sh         # Installer and shell integration bootstrap
+                ├── fyzenor.png        # Branding asset used in the README
+                ├── src/               # Code headers and classes
+                └── Sample/            # Showcase screenshots
+              </div>
             </div>
           </div>
         )}
 
         {activeTab === 'theming' && (
           <div className="animate-fade-in">
-            <h2>Interactive Theme Configurator</h2>
+            <h2>🎨 Theme Customization</h2>
             <p>
-              Fyzenor loads custom themes from <code>~/.config/fyzenor/colors.fz</code>. Adjust the parameters below to preview a TUI mockup in real-time, then copy the configuration output:
+              Fyzenor supports custom color themes loaded via <code>~/.config/fyzenor/colors.fz</code>. The default packaged theme is <strong>Catppuccin Mocha</strong>.
             </p>
 
+            <h3>Configuration File Variables</h3>
+            <p>Define hex colors inside your configuration file using this precise layout:</p>
+            
+            <div className="code-container">
+              <div className="code-header">
+                <span>~/.config/fyzenor/colors.fz</span>
+                <button className="copy-btn" onClick={() => handleCopy('DIR: #89b4fa\nFILE: #cdd6f4\nSEL_BG: #585b70\nMEDIA: #f9e2af\nIMAGE: #f5c2e7\nBORDER: #b4befe\nSUCCESS: #a6e3a1\nERROR: #f38ba8\nMULTI: #fab387\nPIN_BG: #cba6f7\nPIN_BORDER: #89b4fa\nSEC_SEL_BG: #313244\nCODE: #a6e3a1\nARCHIVE: #eba0ac', 'theme-vars-sample')}>
+                  {copiedText === 'theme-vars-sample' ? <Check size={12} /> : <Copy size={12} />}
+                  {copiedText === 'theme-vars-sample' ? 'Copied!' : 'Copy'}
+                </button>
+              </div>
+              <div className="code-block">
+                DIR: #89b4fa
+                FILE: #cdd6f4
+                SEL_BG: #585b70
+                MEDIA: #f9e2af
+                IMAGE: #f5c2e7
+                BORDER: #b4befe
+                SUCCESS: #a6e3a1
+                ERROR: #f38ba8
+                MULTI: #fab387
+                PIN_BG: #cba6f7
+                PIN_BORDER: #89b4fa
+                SEC_SEL_BG: #313244
+                CODE: #a6e3a1
+                ARCHIVE: #eba0ac
+              </div>
+            </div>
+
+            <h2>Wallpaper-Based Theming (Matugen)</h2>
+            <p>You can leverage <strong>Matugen</strong> to generate color themes dynamically based on your current desktop wallpaper:</p>
+
+            <h3>Step 1: Create the Matugen Template</h3>
+            <p>Create a template at <code>~/.config/matugen/templates/fyzenor-colors.template</code>:</p>
+            <div className="code-container">
+              <div className="code-header">
+                <span>fyzenor-colors.template</span>
+                <button className="copy-btn" onClick={() => handleCopy('# Fyzenor Theme: Matugen Generated\nDIR: {{colors.primary.default.hex}}\nFILE: {{colors.on_surface.default.hex}}\nSEL_BG: {{colors.surface_variant.default.hex}}\nMEDIA: {{colors.tertiary.default.hex}}\nIMAGE: {{colors.secondary.default.hex}}\nBORDER: {{colors.outline.default.hex}}\nSUCCESS: {{colors.primary_fixed.default.hex}}\nERROR: {{colors.error.default.hex}}\nMULTI: {{colors.tertiary_container.default.hex}}\nPIN_BG: {{colors.secondary_container.default.hex}}\nPIN_BORDER: {{colors.primary.default.hex}}\nSEC_SEL_BG: {{colors.surface_dim.default.hex}}', 'matugen-temp')}>
+                  {copiedText === 'matugen-temp' ? <Check size={12} /> : <Copy size={12} />}
+                  {copiedText === 'matugen-temp' ? 'Copied!' : 'Copy'}
+                </button>
+              </div>
+              <div className="code-block">
+                # Fyzenor Theme: Matugen Generated
+                DIR: {'{{colors.primary.default.hex}}'}
+                FILE: {'{{colors.on_surface.default.hex}}'}
+                SEL_BG: {'{{colors.surface_variant.default.hex}}'}
+                MEDIA: {'{{colors.tertiary.default.hex}}'}
+                IMAGE: {'{{colors.secondary.default.hex}}'}
+                BORDER: {'{{colors.outline.default.hex}}'}
+                SUCCESS: {'{{colors.primary_fixed.default.hex}}'}
+                ERROR: {'{{colors.error.default.hex}}'}
+                MULTI: {'{{colors.tertiary_container.default.hex}}'}
+                PIN_BG: {'{{colors.secondary_container.default.hex}}'}
+                PIN_BORDER: {'{{colors.primary.default.hex}}'}
+                SEC_SEL_BG: {'{{colors.surface_dim.default.hex}}'}
+              </div>
+            </div>
+
+            <h3>Step 2: Update Matugen Config</h3>
+            <p>Add this configuration to your <code>~/.config/matugen/config.toml</code> file:</p>
+            <div className="code-container">
+              <div className="code-header">
+                <span>config.toml</span>
+                <button className="copy-btn" onClick={() => handleCopy('[templates.fyzenor]\ninput_path = "~/.config/matugen/templates/fyzenor-colors.template"\noutput_path = "~/.config/fyzenor/colors.fz"', 'matugen-config')}>
+                  {copiedText === 'matugen-config' ? <Check size={12} /> : <Copy size={12} />}
+                  {copiedText === 'matugen-config' ? 'Copied!' : 'Copy'}
+                </button>
+              </div>
+              <div className="code-block">
+                [templates.fyzenor]
+                input_path = "~/.config/matugen/templates/fyzenor-colors.template"
+                output_path = "~/.config/fyzenor/colors.fz"
+              </div>
+            </div>
+
+            <h3>Step 3: Generate the Colors</h3>
+            <p>Execute this command to extract colors from your wallpaper and apply them to Fyzenor:</p>
+            <div className="code-container">
+              <div className="code-block">
+                matugen image /path/to/your/wallpaper.jpg
+              </div>
+            </div>
+
+            <h2>Live TUI Color Previewer</h2>
+            <p>Configure custom shades using pickers and copy the exported properties below:</p>
+
             <div className="color-picker-grid">
-              {/* Controls */}
               <div className="configurator-panel">
-                <h3 style={{ marginTop: 0 }}>Color Settings</h3>
-                
                 <div className="color-option">
                   <span className="color-option-label">Background</span>
                   <div className="color-option-inputs">
-                    <input 
-                      type="color" 
-                      value={themeConfig.bg} 
-                      onChange={(e) => setThemeConfig({ ...themeConfig, bg: e.target.value })}
-                      className="color-swatch"
-                    />
-                    <input 
-                      type="text" 
-                      value={themeConfig.bg}
-                      onChange={(e) => setThemeConfig({ ...themeConfig, bg: e.target.value })}
-                      className="color-code-input"
-                    />
+                    <input type="color" value={themeConfig.bg} onChange={(e) => setThemeConfig({ ...themeConfig, bg: e.target.value })} className="color-swatch" />
+                    <input type="text" value={themeConfig.bg} onChange={(e) => setThemeConfig({ ...themeConfig, bg: e.target.value })} className="color-code-input" />
                   </div>
                 </div>
 
                 <div className="color-option">
                   <span className="color-option-label">Border Line</span>
                   <div className="color-option-inputs">
-                    <input 
-                      type="color" 
-                      value={themeConfig.border} 
-                      onChange={(e) => setThemeConfig({ ...themeConfig, border: e.target.value })}
-                      className="color-swatch"
-                    />
-                    <input 
-                      type="text" 
-                      value={themeConfig.border}
-                      onChange={(e) => setThemeConfig({ ...themeConfig, border: e.target.value })}
-                      className="color-code-input"
-                    />
+                    <input type="color" value={themeConfig.border} onChange={(e) => setThemeConfig({ ...themeConfig, border: e.target.value })} className="color-swatch" />
+                    <input type="text" value={themeConfig.border} onChange={(e) => setThemeConfig({ ...themeConfig, border: e.target.value })} className="color-code-input" />
                   </div>
                 </div>
 
                 <div className="color-option">
                   <span className="color-option-label">Active Text Accent</span>
                   <div className="color-option-inputs">
-                    <input 
-                      type="color" 
-                      value={themeConfig.activeText} 
-                      onChange={(e) => setThemeConfig({ 
-                        ...themeConfig, 
-                        activeText: e.target.value,
-                        accentGlow: `${e.target.value}40`
-                      })}
-                      className="color-swatch"
-                    />
-                    <input 
-                      type="text" 
-                      value={themeConfig.activeText}
-                      onChange={(e) => setThemeConfig({ ...themeConfig, activeText: e.target.value })}
-                      className="color-code-input"
-                    />
+                    <input type="color" value={themeConfig.activeText} onChange={(e) => setThemeConfig({ ...themeConfig, activeText: e.target.value, accentGlow: `${e.target.value}40` })} className="color-swatch" />
+                    <input type="text" value={themeConfig.activeText} onChange={(e) => setThemeConfig({ ...themeConfig, activeText: e.target.value })} className="color-code-input" />
                   </div>
                 </div>
 
                 <div className="color-option">
                   <span className="color-option-label">Normal Text</span>
                   <div className="color-option-inputs">
-                    <input 
-                      type="color" 
-                      value={themeConfig.normalText} 
-                      onChange={(e) => setThemeConfig({ ...themeConfig, normalText: e.target.value })}
-                      className="color-swatch"
-                    />
-                    <input 
-                      type="text" 
-                      value={themeConfig.normalText}
-                      onChange={(e) => setThemeConfig({ ...themeConfig, normalText: e.target.value })}
-                      className="color-code-input"
-                    />
+                    <input type="color" value={themeConfig.normalText} onChange={(e) => setThemeConfig({ ...themeConfig, normalText: e.target.value })} className="color-swatch" />
+                    <input type="text" value={themeConfig.normalText} onChange={(e) => setThemeConfig({ ...themeConfig, normalText: e.target.value })} className="color-code-input" />
                   </div>
                 </div>
 
                 <div className="color-option">
                   <span className="color-option-label">Status Bar</span>
                   <div className="color-option-inputs">
-                    <input 
-                      type="color" 
-                      value={themeConfig.statusBar} 
-                      onChange={(e) => setThemeConfig({ ...themeConfig, statusBar: e.target.value })}
-                      className="color-swatch"
-                    />
-                    <input 
-                      type="text" 
-                      value={themeConfig.statusBar}
-                      onChange={(e) => setThemeConfig({ ...themeConfig, statusBar: e.target.value })}
-                      className="color-code-input"
-                    />
+                    <input type="color" value={themeConfig.statusBar} onChange={(e) => setThemeConfig({ ...themeConfig, statusBar: e.target.value })} className="color-swatch" />
+                    <input type="text" value={themeConfig.statusBar} onChange={(e) => setThemeConfig({ ...themeConfig, statusBar: e.target.value })} className="color-code-input" />
                   </div>
                 </div>
 
                 <button 
                   className="terminal-interactive-btn"
-                  onClick={() => handleCopy(`# Fyzenor Colors config\nbackground = "${themeConfig.bg}"\nborder = "${themeConfig.border}"\naccent = "${themeConfig.activeText}"\ntext = "${themeConfig.normalText}"\nstatus_bar = "${themeConfig.statusBar}"`, 'colors-config')}
+                  onClick={() => handleCopy(`# Fyzenor colors config\nDIR: ${themeConfig.activeText}\nFILE: ${themeConfig.normalText}\nBORDER: ${themeConfig.border}\nSEL_BG: ${themeConfig.statusBar}\nSEC_SEL_BG: ${themeConfig.statusBar}`, 'colors-fz-copy')}
                   style={{ marginTop: '1rem', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
                 >
-                  {copiedText === 'colors-config' ? <Check size={16} /> : <Copy size={16} />}
-                  {copiedText === 'colors-config' ? 'Config Copied!' : 'Copy colors.fz'}
+                  {copiedText === 'colors-fz-copy' ? <Check size={16} /> : <Copy size={16} />}
+                  {copiedText === 'colors-fz-copy' ? 'Copied Config!' : 'Copy colors.fz'}
                 </button>
               </div>
 
-              {/* Real-time TUI Mockup */}
               <div className="preview-tui-box" style={{ backgroundColor: themeConfig.bg, borderColor: themeConfig.border }}>
                 <div className="tui-header" style={{ borderBottomColor: themeConfig.border, color: themeConfig.normalText }}>
                   <span>1 shared</span>
@@ -993,13 +1243,11 @@ export default function App() {
                   <span>3 config</span>
                 </div>
                 <div className="tui-columns">
-                  {/* Left Column */}
                   <div className="tui-column" style={{ borderRightColor: themeConfig.border, color: themeConfig.normalText }}>
                     <div style={{ opacity: 0.5 }}>📁 src/</div>
                     <div style={{ opacity: 0.5 }}>📁 build/</div>
                     <div style={{ opacity: 0.5 }}>📁 docs/</div>
                   </div>
-                  {/* Center Column */}
                   <div className="tui-column" style={{ borderRightColor: themeConfig.border, color: themeConfig.normalText }}>
                     <div className="tui-item-active" style={{ backgroundColor: themeConfig.accentGlow, color: themeConfig.activeText }}>
                       <FolderOpen size={12} /> main.cpp
@@ -1008,7 +1256,6 @@ export default function App() {
                     <div>async_task.h</div>
                     <div>utils.cpp</div>
                   </div>
-                  {/* Right Column */}
                   <div className="tui-column" style={{ color: themeConfig.normalText }}>
                     <div style={{ color: themeConfig.activeText, fontWeight: 'bold' }}>main.cpp</div>
                     <div style={{ fontSize: '0.7rem', opacity: 0.6 }}>Size: 2.1 KB</div>
@@ -1023,9 +1270,57 @@ export default function App() {
           </div>
         )}
 
+        {activeTab === 'community' && (
+          <div className="animate-fade-in">
+            <h2>🤝 Contributing</h2>
+            <p>Contributions are welcome to make Fyzenor even better!</p>
+            <ol style={{ marginLeft: '1.5rem', marginBottom: '1.5rem' }}>
+              <li>Fork the repository on GitHub.</li>
+              <li>Create a descriptive feature branch (<code>git checkout -b feature/cool-idea</code>).</li>
+              <li>Implement and test your changes locally.</li>
+              <li>Submit a clear pull request describing the implementation details.</li>
+            </ol>
+            <p>Detailed workflow instructions can be found inside <a href="https://github.com/Bimbok/fyzenor/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer">CONTRIBUTING.md</a>, and community participation is governed by <a href="https://github.com/Bimbok/fyzenor/blob/main/CODE_OF_CONDUCT.md" target="_blank" rel="noopener noreferrer">CODE_OF_CONDUCT.md</a>.</p>
+
+            <h2>📞 Contact &amp; Support</h2>
+            <ul>
+              <li><strong>GitHub Profile</strong>: <a href="https://github.com/Bimbok" target="_blank" rel="noopener noreferrer">@Bimbok</a></li>
+              <li><strong>Issues &amp; Requests</strong>: <a href="https://github.com/Bimbok/fyzenor/issues" target="_blank" rel="noopener noreferrer">Submit an Issue</a></li>
+            </ul>
+
+            <h2>⚖️ License</h2>
+            <p>Distributed under the MIT License. See standard terms below:</p>
+            <div className="code-container" style={{ maxHeight: '200px', overflowY: 'auto' }}>
+              <div className="code-block" style={{ fontSize: '0.8rem', whiteSpace: 'pre-wrap' }}>
+                MIT License
+
+                Copyright (c) 2026 Bimbok
+
+                Permission is hereby granted, free of charge, to any person obtaining a copy
+                of this software and associated documentation files (the "Software"), to deal
+                in the Software without restriction, including without limitation the rights
+                to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+                copies of the Software, and to permit persons to whom the Software is
+                furnished to do so, subject to the following conditions:
+
+                The above copyright notice and this permission notice shall be included in all
+                copies or substantial portions of the Software.
+
+                THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+                IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+                FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+                AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+                LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+                OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+                SOFTWARE.
+              </div>
+            </div>
+          </div>
+        )}
+
         {activeTab === 'troubleshoot' && (
           <div className="animate-fade-in">
-            <h2>Frequently Asked Questions & Troubleshooting</h2>
+            <h2>Frequently Asked Questions &amp; Troubleshooting</h2>
             <p>Here are answers to the most common configuration and compilation questions regarding Fyzenor:</p>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
