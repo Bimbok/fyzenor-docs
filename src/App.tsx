@@ -589,10 +589,8 @@ export default function App() {
                   {copiedText === 'apt-install' ? 'Copied!' : 'Copy'}
                 </button>
               </div>
-              <div className="code-block">
-                sudo apt update
-                sudo apt install build-essential libncursesw5-dev ffmpeg zip bat xclip wl-copy ripgrep
-              </div>
+              <div className="code-block">{`sudo apt update
+sudo apt install build-essential libncursesw5-dev ffmpeg zip bat xclip wl-copy ripgrep`}</div>
             </div>
 
             <div className="code-container">
@@ -603,10 +601,8 @@ export default function App() {
                   {copiedText === 'dnf-install' ? 'Copied!' : 'Copy'}
                 </button>
               </div>
-              <div className="code-block">
-                sudo dnf update
-                sudo dnf install gcc gcc-c++ make ncurses-devel ffmpeg zip bat xclip wl-clipboard ripgrep
-              </div>
+              <div className="code-block">{`sudo dnf update
+sudo dnf install gcc gcc-c++ make ncurses-devel ffmpeg zip bat xclip wl-clipboard ripgrep`}</div>
             </div>
 
             <h3>Package Descriptions:</h3>
@@ -630,9 +626,7 @@ export default function App() {
                   {copiedText === 'one-liner-script' ? 'Copied!' : 'Copy'}
                 </button>
               </div>
-              <div className="code-block">
-                curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/install.sh | bash
-              </div>
+              <div className="code-block">{`curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/install.sh | bash`}</div>
             </div>
 
             <p>The installer does the following automatically:</p>
@@ -653,23 +647,19 @@ export default function App() {
                   {copiedText === 'manual-compile-cmds' ? 'Copied!' : 'Copy'}
                 </button>
               </div>
-              <div className="code-block">
-                git clone https://github.com/Bimbok/fyzenor.git
-                cd fyzenor
-                mkdir -p build && cd build
-                cmake ..
-                make
-                ./fyzenor
-              </div>
+              <div className="code-block">{`git clone https://github.com/Bimbok/fyzenor.git
+cd fyzenor
+mkdir -p build && cd build
+cmake ..
+make
+./fyzenor`}</div>
             </div>
 
             <h2>Windows Compiler Compatibility</h2>
             <p>Fyzenor requires a compiler with proper C++17 filesystem support.</p>
             <p>Older MinGW GCC versions (such as GCC 6.x) may fail during compilation with:</p>
             <div className="code-container">
-              <div className="code-block">
-                fatal error: filesystem: No such file or directory
-              </div>
+              <div className="code-block">{`fatal error: filesystem: No such file or directory`}</div>
             </div>
             <p>Recommended environments for Windows users:</p>
             <ul>
@@ -678,9 +668,7 @@ export default function App() {
             </ul>
             <p>Recommended compiler versions: <strong>GCC 8+</strong> or <strong>Clang 7+</strong>. Check yours using:</p>
             <div className="code-container">
-              <div className="code-block">
-                g++ --version
-              </div>
+              <div className="code-block">{`g++ --version`}</div>
             </div>
 
             <h2>🛠️ Tech Stack</h2>
@@ -927,11 +915,9 @@ export default function App() {
               <div className="code-header">
                 <span>sample.trashinfo</span>
               </div>
-              <div className="code-block">
-                [Trash Info]
-                Path=/home/bimbok/shared/important_docs/invoice.pdf
-                DeletionDate=2026-07-05T20:14:05
-              </div>
+              <div className="code-block">{`[Trash Info]
+Path=/home/bimbok/shared/important_docs/invoice.pdf
+DeletionDate=2026-07-05T20:14:05`}</div>
             </div>
           </div>
         )}
@@ -1078,14 +1064,12 @@ export default function App() {
 
             <h2>🏗️ Repository Structure</h2>
             <div className="code-container">
-              <div className="code-block">
-                fyzenor/
-                ├── file_manager.cpp   # Core application logic, UI rendering, preview pipeline
-                ├── install.sh         # Installer and shell integration bootstrap
-                ├── fyzenor.png        # Branding asset used in the README
-                ├── src/               # Code headers and classes
-                └── Sample/            # Showcase screenshots
-              </div>
+              <div className="code-block">{`fyzenor/
+├── file_manager.cpp   # Core application logic, UI rendering, preview pipeline
+├── install.sh         # Installer and shell integration bootstrap
+├── fyzenor.png        # Branding asset used in the README
+├── src/               # Code headers and classes
+└── Sample/            # Showcase screenshots`}</div>
             </div>
           </div>
         )}
@@ -1108,22 +1092,20 @@ export default function App() {
                   {copiedText === 'theme-vars-sample' ? 'Copied!' : 'Copy'}
                 </button>
               </div>
-              <div className="code-block">
-                DIR: #89b4fa
-                FILE: #cdd6f4
-                SEL_BG: #585b70
-                MEDIA: #f9e2af
-                IMAGE: #f5c2e7
-                BORDER: #b4befe
-                SUCCESS: #a6e3a1
-                ERROR: #f38ba8
-                MULTI: #fab387
-                PIN_BG: #cba6f7
-                PIN_BORDER: #89b4fa
-                SEC_SEL_BG: #313244
-                CODE: #a6e3a1
-                ARCHIVE: #eba0ac
-              </div>
+              <div className="code-block">{`DIR: #89b4fa
+FILE: #cdd6f4
+SEL_BG: #585b70
+MEDIA: #f9e2af
+IMAGE: #f5c2e7
+BORDER: #b4befe
+SUCCESS: #a6e3a1
+ERROR: #f38ba8
+MULTI: #fab387
+PIN_BG: #cba6f7
+PIN_BORDER: #89b4fa
+SEC_SEL_BG: #313244
+CODE: #a6e3a1
+ARCHIVE: #eba0ac`}</div>
             </div>
 
             <h2>Wallpaper-Based Theming (Matugen)</h2>
@@ -1139,21 +1121,19 @@ export default function App() {
                   {copiedText === 'matugen-temp' ? 'Copied!' : 'Copy'}
                 </button>
               </div>
-              <div className="code-block">
-                # Fyzenor Theme: Matugen Generated
-                DIR: {'{{colors.primary.default.hex}}'}
-                FILE: {'{{colors.on_surface.default.hex}}'}
-                SEL_BG: {'{{colors.surface_variant.default.hex}}'}
-                MEDIA: {'{{colors.tertiary.default.hex}}'}
-                IMAGE: {'{{colors.secondary.default.hex}}'}
-                BORDER: {'{{colors.outline.default.hex}}'}
-                SUCCESS: {'{{colors.primary_fixed.default.hex}}'}
-                ERROR: {'{{colors.error.default.hex}}'}
-                MULTI: {'{{colors.tertiary_container.default.hex}}'}
-                PIN_BG: {'{{colors.secondary_container.default.hex}}'}
-                PIN_BORDER: {'{{colors.primary.default.hex}}'}
-                SEC_SEL_BG: {'{{colors.surface_dim.default.hex}}'}
-              </div>
+              <div className="code-block">{`# Fyzenor Theme: Matugen Generated
+DIR: {{colors.primary.default.hex}}
+FILE: {{colors.on_surface.default.hex}}
+SEL_BG: {{colors.surface_variant.default.hex}}
+MEDIA: {{colors.tertiary.default.hex}}
+IMAGE: {{colors.secondary.default.hex}}
+BORDER: {{colors.outline.default.hex}}
+SUCCESS: {{colors.primary_fixed.default.hex}}
+ERROR: {{colors.error.default.hex}}
+MULTI: {{colors.tertiary_container.default.hex}}
+PIN_BG: {{colors.secondary_container.default.hex}}
+PIN_BORDER: {{colors.primary.default.hex}}
+SEC_SEL_BG: {{colors.surface_dim.default.hex}}`}</div>
             </div>
 
             <h3>Step 2: Update Matugen Config</h3>
@@ -1166,19 +1146,15 @@ export default function App() {
                   {copiedText === 'matugen-config' ? 'Copied!' : 'Copy'}
                 </button>
               </div>
-              <div className="code-block">
-                [templates.fyzenor]
-                input_path = "~/.config/matugen/templates/fyzenor-colors.template"
-                output_path = "~/.config/fyzenor/colors.fz"
-              </div>
+              <div className="code-block">{`[templates.fyzenor]
+input_path = "~/.config/matugen/templates/fyzenor-colors.template"
+output_path = "~/.config/fyzenor/colors.fz"`}</div>
             </div>
 
             <h3>Step 3: Generate the Colors</h3>
             <p>Execute this command to extract colors from your wallpaper and apply them to Fyzenor:</p>
             <div className="code-container">
-              <div className="code-block">
-                matugen image /path/to/your/wallpaper.jpg
-              </div>
+              <div className="code-block">{`matugen image /path/to/your/wallpaper.jpg`}</div>
             </div>
 
             <h2>Live TUI Color Previewer</h2>
