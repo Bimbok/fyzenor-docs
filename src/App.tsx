@@ -1270,6 +1270,49 @@ export default function App() {
               </table>
             </div>
 
+            <h2>🔍 Rich Media & Archive Previews</h2>
+            <p>
+              Fyzenor uses an asynchronous background preview pipeline to inspect
+              compressed archives and query multimedia metadata. This prevents navigation
+              latency and removes binary file warning barriers.
+            </p>
+
+            <h3>1. Archive Tree Previewer</h3>
+            <p>
+              When navigating onto an archive file, the Preview pane invokes background
+              listing processes to show contents without extraction.
+            </p>
+            <ul style={{ marginLeft: "1.5rem", marginBottom: "1.5rem" }}>
+              <li style={{ margin: "0.4rem 0" }}>
+                <strong>Supported Formats:</strong> <code>.zip</code>, <code>.tar</code>,{" "}
+                <code>.tar.gz</code> (or <code>.tgz</code>), <code>.tar.bz2</code>,{" "}
+                <code>.tar.xz</code>, <code>.rar</code>, and <code>.7z</code>.
+              </li>
+              <li style={{ margin: "0.4rem 0" }}>
+                <strong>Utility Backends:</strong> Invokes system commands such as{" "}
+                <code>unzip -l</code>, <code>tar -tf</code>, <code>unrar l</code>, or{" "}
+                <code>7z l</code> via pipes, safe-rendering the stdout into the preview buffer.
+              </li>
+            </ul>
+
+            <h3>2. Rich Media Metadata Reader</h3>
+            <p>
+              When highlighting audio tracks, movies, or image items, the previewer
+              scans file headers and prints formatted tracks specification info.
+            </p>
+            <ul style={{ marginLeft: "1.5rem", marginBottom: "2rem" }}>
+              <li style={{ margin: "0.4rem 0" }}>
+                <strong>Preferred Engine:</strong> Uses <code>mediainfo</code> if installed to
+                inspect video/audio codecs, container configurations, bitrates, audio
+                channels, sample rates, metadata tags (Title, Artist, Album), and image boundaries.
+              </li>
+              <li style={{ margin: "0.4rem 0" }}>
+                <strong>Fallback Engine:</strong> Leverages <code>ffprobe</code> (via ffmpeg)
+                with search query filters to display similar metadata if <code>mediainfo</code> is
+                missing.
+              </li>
+            </ul>
+
             <h2>🛠️ CLI Arguments & Usage</h2>
             <p>Fyzenor supports the following command-line flags on launch:</p>
             <div className="table-container">
