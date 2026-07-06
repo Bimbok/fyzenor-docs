@@ -460,7 +460,7 @@ export default function App() {
               padding: "0.65rem 1rem 0.65rem 2.25rem",
               backgroundColor: "var(--bg-terminal)",
               border: "1px solid var(--border-color)",
-              borderRadius: "8px",
+              borderRadius: "9999px",
               color: "var(--text-primary)",
               fontSize: "0.9rem",
               outline: "none",
@@ -502,7 +502,7 @@ export default function App() {
               background: "transparent",
               border: "1px solid var(--border-color)",
               padding: "0.5rem",
-              borderRadius: "8px",
+              borderRadius: "12px",
               cursor: "pointer",
               color: "var(--text-secondary)",
             }}
@@ -1061,7 +1061,7 @@ export default function App() {
                   alt="Main Interface"
                   style={{
                     width: "100%",
-                    borderRadius: "8px",
+                    borderRadius: "14px",
                     border: "1px solid rgba(255,255,255,0.06)",
                   }}
                 />
@@ -1081,7 +1081,7 @@ export default function App() {
                   alt="Dual-Pane Mode"
                   style={{
                     width: "100%",
-                    borderRadius: "8px",
+                    borderRadius: "14px",
                     border: "1px solid rgba(255,255,255,0.06)",
                   }}
                 />
