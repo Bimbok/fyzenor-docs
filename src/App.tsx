@@ -2226,7 +2226,7 @@ make
               </div>
             </div>
 
-            <h2>Trash Manager Overlay (`T`)</h2>
+            <h2>Trash Manager Overlay (<code>T</code>)</h2>
             <p>
               Toggling <kbd>T</kbd> displays the aggregate Trash view. The
               manager performs several specific commands in the background:
@@ -2242,12 +2242,12 @@ make
                 <code>.trashinfo</code> files.
               </li>
               <li>
-                <strong>Empty Trash (`e`)</strong>: Purges all files and
+                <strong>Empty Trash (<code>e</code>)</strong>: Purges all files and
                 metadata logs from all detected partition trash folders
                 asynchronously in the background.
               </li>
               <li>
-                <strong>Restore Item (`r`)</strong>: Moves files from the trash
+                <strong>Restore Item (<code>r</code>)</strong>: Moves files from the trash
                 back to their original recorded locations. If a folder in the
                 original path is missing, Fyzenor creates it dynamically. If a
                 conflict occurs, it appends a <code>_restored</code> suffix to
