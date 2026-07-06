@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Allow: /Sample/
+Allow: /fyzenor.png
+
+Sitemap: https://fyzenor.vercel.app/sitemap.xml

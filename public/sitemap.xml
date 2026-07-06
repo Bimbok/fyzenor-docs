@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://fyzenor.vercel.app/</loc>
+    <lastmod>2026-07-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://fyzenor.vercel.app/fyzenor.png</image:loc>
+      <image:title>Fyzenor File Manager Logo</image:title>
+      <image:caption>The logo of Fyzenor - The modern C++ terminal file manager.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://fyzenor.vercel.app/Sample/1.png</image:loc>
+      <image:title>Fyzenor Main Interface Layout</image:title>
+      <image:caption>Main browser layout of Fyzenor displaying directories and metadata.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://fyzenor.vercel.app/Sample/2.png</image:loc>
+      <image:title>Fyzenor Dual-Pane Mode</image:title>
+      <image:caption>Dual-pane side-by-side directory browser panel.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://fyzenor.vercel.app/Sample/3.png</image:loc>
+      <image:title>Fyzenor Fuzzy Finder Window</image:title>
+      <image:caption>Fuzzy finding files and directories overlay screen.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://fyzenor.vercel.app/Sample/4.png</image:loc>
+      <image:title>Fyzenor Async Task Manager</image:title>
+      <image:caption>Asynchronous copy, paste, delete, and zip task manager status.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://fyzenor.vercel.app/Sample/5.png</image:loc>
+      <image:title>Fyzenor Block Mount Overlay</image:title>
+      <image:caption>Block drive and Android MTP device mounting manager.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://fyzenor.vercel.app/Sample/6.png</image:loc>
+      <image:title>Fyzenor Theme Customizer Configuration</image:title>
+      <image:caption>Custom Matugen-themed colors.fz configuration file preview.</image:caption>
+    </image:image>
+  </url>
+</urlset>
