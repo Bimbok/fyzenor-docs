@@ -179,8 +179,8 @@ export default function App() {
       category: "File Operations",
     },
     d: {
-      title: "Move to Trash",
-      desc: "Moves selected items to Freedesktop trash. If pressed inside the Trash Manager overlay, deletes highlighted items permanently.",
+      title: "Move to Trash / Unpin Bookmark",
+      desc: "Moves selected items to Freedesktop trash. If pressed inside the Trash Manager overlay, deletes highlighted items permanently. If Bookmarks panel is focused, removes (unpins) the highlighted bookmark.",
       category: "File Operations",
     },
     Delete: {
@@ -265,7 +265,7 @@ export default function App() {
     },
     P: {
       title: "Pin Directory",
-      desc: "Pins current directory path to persistent bookmarks saved in `~/.fm_pins`.",
+      desc: "Pins current directory path to persistent bookmarks saved in `~/.fm_pins` (focused list panel).",
       category: "View",
     },
     Tab: {
@@ -871,6 +871,9 @@ export default function App() {
                     <td>
                       Save frequently used directories to{" "}
                       <code>~/.fm_pins</code> and jump back to them instantly.
+                      Press <code>Tab</code> to focus the Bookmarks list,{" "}
+                      <code>j</code>/<code>k</code> to navigate,{" "}
+                      <code>Enter</code> to jump, and <code>d</code> to unpin.
                     </td>
                   </tr>
                   <tr>
