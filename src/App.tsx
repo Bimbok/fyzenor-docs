@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  Terminal,
   BookOpen,
   Download,
   Keyboard,
@@ -400,21 +399,17 @@ export default function App() {
             marginBottom: "2rem",
           }}
         >
-          <div
+          <img
+            src="/fyzenor.png"
+            alt="Fyzenor Logo"
+            className="logo-animated"
             style={{
-              background:
-                "linear-gradient(135deg, var(--accent-green) 0%, var(--accent-purple) 100%)",
-              padding: "0.5rem",
+              width: "42px",
+              height: "42px",
               borderRadius: "10px",
-              color: "white",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              boxShadow: "0 0 15px rgba(16, 185, 129, 0.3)",
+              border: "1px solid rgba(255, 255, 255, 0.1)",
             }}
-          >
-            <Terminal size={24} />
-          </div>
+          />
           <div>
             <h2
               style={{
@@ -608,27 +603,6 @@ export default function App() {
         {/* Tab Components */}
         {activeTab === "overview" && (
           <div className="animate-fade-in">
-            {/* Logo Banner */}
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                marginBottom: "2.5rem",
-              }}
-            >
-              <img
-                src="/fyzenor.png"
-                alt="Fyzenor Logo"
-                style={{
-                  width: "100%",
-                  maxWidth: "220px",
-                  borderRadius: "12px",
-                  border: "1px solid var(--border-color)",
-                  boxShadow:
-                    "var(--shadow-premium), 0 5px 25px rgba(16, 185, 129, 0.06)",
-                }}
-              />
-            </div>
 
             <h2>Introduction</h2>
             <p>
