@@ -1,0 +1,83 @@
+# Fyzenor - Modern C++ Terminal File Manager
+
+Fyzenor is a lightweight, high-performance TUI (Terminal User Interface) file manager engineered in C++17. It features a responsive three-column Miller columns layout, asynchronous background task offloading (non-blocking copy/move/trash/zip), smart delta-copy resumption, and native block device mounting.
+
+## Key Features
+
+- **Three-Column Miller Columns**: Pinned Bookmarks, Directory Lists, and Live File/Media Previews.
+- **Asynchronous Operations**: Move-to-Trash, Copier, Zipping, and Unzipping run on background worker threads (`std::thread`), leaving the NCurses UI completely responsive.
+- **Smart Copy Resumption**: Detects interrupted copy operations and prompts options: Replace, Replace Older, or Skip. Resumes block-level writes from where they failed.
+- **Compliance-Tested Trash**: Follows Freedesktop.org Desktop Trash Can Specification. Moves files instantly to partition-local trash folders (`<mount>/.Trash-<uid>`) or primary home trash folder (`~/.local/share/Trash`).
+- **Block Device Mounts**: Direct overlay to mount/unmount USB drives and Android mobile phones (MTP).
+- **Global Shell Macros**: Run terminal commands inside Fyzenor. Use `$f` for current file path, `$s` for selected items, and `&` to spawn background launches.
+- **Matugen Configurator**: Custom skinning using a `colors.fz` file with 19 parsed C++ TUI variables.
+
+## Keyboard Controls & Vim Keymaps
+
+### Navigation
+- `h` : Go back to parent directory / Clear search.
+- `j` : Move selection down.
+- `k` : Move selection up.
+- `l` : Open highlighted file in default editor / Enter highlighted directory.
+- `g` / `G` : Jump to top / bottom of active list.
+- `Tab` : Toggle panel focus between bookmarks list and file manager browser pane.
+
+### File Operations
+- `Space` / `v` : Toggle selection of highlighted item.
+- `a` : Select all visible items.
+- `d` : Move selected items to Trash (Runs asynchronously).
+- `D` : Delete permanently (Bypasses Trash).
+- `u` : Undo last Trash action (Restores files to original paths).
+- `c` : Copy absolute path of highlighted item to clipboard.
+- `y` : Yank (Copy) selected items to internal clipboard buffer.
+- `x` : Cut selected items to internal clipboard buffer.
+- `p` : Paste yanked/cut items (Triggers smart resumption if target exists).
+- `Shift+Y` : Paste highlighted items as absolute symbolic links.
+- `r` : Rename current file / Bulk rename multiple selected files / Restore highlighted items if inside Trash Manager.
+- `n` : Create new blank file.
+- `N` : Create new empty directory.
+- `z` : Zip selected items asynchronously.
+- `e` : Extract selected archive / Empty all partition trash bins if inside Trash Manager.
+
+### Overlays & Views
+- `w` : Open Active Tasks & Workers manager (Pause/Resume/Cancel background copy, move, trash, zip tasks).
+- `T` : Open Trash Manager overlay.
+- `m` : Open Mounts & Block Devices manager (Manage USB/Android MTP connections).
+- `F2` : Reload current directory listing / Refresh mounts.
+- `s` : Cycle sorting modes: Name -> Size (Desc) -> Date Modified (Desc).
+- `P` : Pin highlighted directory path to persistent bookmarks (`~/.fm_pins`).
+- `:` : Launch global shell command prompt.
+- `?` : Open built-in help and keybindings overlay panel.
+- `Esc` : Close current overlay window / Cancel action.
+
+## Installation
+
+### Dependencies
+- **Debian/Ubuntu**: `build-essential libncursesw5-dev ffmpeg zip bat xclip wl-copy ripgrep`
+- **Fedora**: `gcc gcc-c++ make ncurses-devel ffmpeg zip bat xclip wl-clipboard ripgrep`
+- **Arch Linux**: `base-devel ncurses ffmpeg zip bat xclip wl-clipboard ripgrep`
+- **Termux**: `clang cmake ndk-sysroot ncurses-utils ffmpeg zip bat ripgrep`
+
+### Quick Install (Automated Script)
+Runs prefix detection, skips desktop settings in Termux, and places built binary in path:
+```bash
+curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/install.sh | bash
+```
+
+### Manual Compilation
+```bash
+git clone https://github.com/Bimbok/fyzenor.git
+cd fyzenor
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build
+./fyzenor
+```
+
+## Theme Configuration
+
+Theme configurations are parsed from: `~/.config/fyzenor/colors.fz`. If invalid, falls back to NCurses default color pair values.
+Supported color variables:
+- `bg`, `border`, `statusbar`
+- `activeText`, `normalText`, `selectedBg`, `selectedFg`
+- `accentGlow`, `accentPurple`, `accentCyan`, `accentOrange`, `accentRed`
+- `fileDir`, `fileReg`, `fileExe`, `fileLnk`, `fileZip`, `fileMedia`, `fileOthers`

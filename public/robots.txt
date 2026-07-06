@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Allow: /Sample/
 Allow: /fyzenor.png
+Allow: /llms.txt
 
 Sitemap: https://fyzenor.vercel.app/sitemap.xml
