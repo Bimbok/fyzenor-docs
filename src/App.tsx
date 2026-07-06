@@ -17,6 +17,7 @@ import {
   Info,
   FolderOpen,
   Users,
+  ChevronUp,
 } from "lucide-react";
 
 interface DocSection {
@@ -31,6 +32,12 @@ export default function App() {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [copiedText, setCopiedText] = useState<string | null>(null);
+
+  const [showScrollTop, setShowScrollTop] = useState<boolean>(false);
+  const [commandPaletteOpen, setCommandPaletteOpen] = useState<boolean>(false);
+  const [paletteQuery, setPaletteQuery] = useState<string>("");
+  const [paletteSelectedIndex, setPaletteSelectedIndex] = useState<number>(0);
+  const mainContentRef = React.useRef<HTMLDivElement>(null);
 
   // Terminal Simulator State
   const [termInput, setTermInput] = useState<string>("");
@@ -334,6 +341,126 @@ export default function App() {
     },
   };
 
+  // Keyboard shortcut (Ctrl+K / Cmd+K) to open Command Palette
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setCommandPaletteOpen((prev) => {
+          if (!prev) {
+            setPaletteQuery("");
+            setPaletteSelectedIndex(0);
+          }
+          return !prev;
+        });
+      }
+      if (e.key === "Escape") {
+        setCommandPaletteOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  // Filter Command Palette search results
+  const getPaletteResults = () => {
+    const results: Array<{
+      type: "Page" | "Shortcut";
+      title: string;
+      subtitle: string;
+      action: () => void;
+    }> = [];
+
+    const query = paletteQuery.toLowerCase().trim();
+
+    // 1. Pages/Sections matches
+    sections.forEach((sec) => {
+      if (!query || sec.title.toLowerCase().includes(query)) {
+        results.push({
+          type: "Page",
+          title: sec.title,
+          subtitle: `Navigate to ${sec.title} documentation`,
+          action: () => {
+            setActiveTab(sec.id);
+            setCommandPaletteOpen(false);
+            setTimeout(() => {
+              mainContentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+            }, 50);
+          },
+        });
+      }
+    });
+
+    // 2. Keyboard shortcut matches
+    Object.entries(keyMap).forEach(([key, details]) => {
+      const matchKey = key.toLowerCase();
+      const matchTitle = details.title.toLowerCase();
+      const matchDesc = details.desc.toLowerCase();
+      if (
+        !query ||
+        matchKey.includes(query) ||
+        matchTitle.includes(query) ||
+        matchDesc.includes(query)
+      ) {
+        results.push({
+          type: "Shortcut",
+          title: `${key} — ${details.title}`,
+          subtitle: details.desc,
+          action: () => {
+            setActiveTab("keyboard");
+            setSelectedKey(key);
+            setCommandPaletteOpen(false);
+            setTimeout(() => {
+              mainContentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+            }, 50);
+          },
+        });
+      }
+    });
+
+    return results;
+  };
+
+  const filteredPaletteResults = getPaletteResults();
+
+  // Reset selected index when query changes
+  useEffect(() => {
+    setPaletteSelectedIndex(0);
+  }, [paletteQuery]);
+
+  // Navigate Command Palette results using arrow keys and Enter
+  useEffect(() => {
+    if (!commandPaletteOpen) return;
+
+    const handlePaletteKeys = (e: KeyboardEvent) => {
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        setPaletteSelectedIndex((prev) =>
+          prev < filteredPaletteResults.length - 1 ? prev + 1 : 0
+        );
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        setPaletteSelectedIndex((prev) =>
+          prev > 0 ? prev - 1 : filteredPaletteResults.length - 1
+        );
+      } else if (e.key === "Enter") {
+        e.preventDefault();
+        if (filteredPaletteResults[paletteSelectedIndex]) {
+          filteredPaletteResults[paletteSelectedIndex].action();
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handlePaletteKeys);
+    return () => window.removeEventListener("keydown", handlePaletteKeys);
+  }, [commandPaletteOpen, filteredPaletteResults, paletteSelectedIndex]);
+
+  const scrollToTop = () => {
+    if (mainContentRef.current) {
+      mainContentRef.current.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   const handlePresetCommand = (cmd: string) => {
     let output: string[] = [];
     if (cmd === "fyzenor --version") {
@@ -565,7 +692,13 @@ export default function App() {
       </header>
 
       {/* Main Panel Content */}
-      <main className="main-content">
+      <main
+        className="main-content"
+        ref={mainContentRef}
+        onScroll={(e) => {
+          setShowScrollTop(e.currentTarget.scrollTop > 300);
+        }}
+      >
         <div
           style={{
             display: "flex",
@@ -3326,6 +3459,75 @@ output_path = "~/.config/fyzenor/colors.fz"`}</div>
           </div>
         )}
       </main>
+
+      {/* Floating Scroll-to-Top Button */}
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          className="scroll-to-top-btn"
+          title="Scroll to Top"
+        >
+          <ChevronUp size={22} />
+        </button>
+      )}
+
+      {/* Interactive Command Palette Modal */}
+      {commandPaletteOpen && (
+        <div
+          className="command-palette-backdrop"
+          onClick={() => setCommandPaletteOpen(false)}
+        >
+          <div
+            className="command-palette-dialog"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="command-palette-search-container">
+              <Search size={18} className="command-palette-search-icon" />
+              <input
+                type="text"
+                className="command-palette-input"
+                placeholder="Search shortcuts (e.g. d, Ctrl+R) or pages (e.g. Trash)..."
+                value={paletteQuery}
+                onChange={(e) => setPaletteQuery(e.target.value)}
+                autoFocus
+              />
+              <span className="command-palette-kbd">ESC</span>
+            </div>
+            <div className="command-palette-results scroll-custom">
+              {filteredPaletteResults.length > 0 ? (
+                filteredPaletteResults.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className={`command-palette-item ${
+                      idx === paletteSelectedIndex ? "selected" : ""
+                    }`}
+                    onClick={item.action}
+                    onMouseEnter={() => setPaletteSelectedIndex(idx)}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", width: "100%" }}>
+                      <span className={`command-palette-badge ${item.type === "Page" ? "badge-page" : "badge-shortcut"}`}>
+                        {item.type}
+                      </span>
+                      <div style={{ display: "flex", flexDirection: "column", flexGrow: 1, minWidth: 0 }}>
+                        <span className="command-palette-item-title">{item.title}</span>
+                        <span className="command-palette-item-subtitle">{item.subtitle}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="command-palette-no-results">
+                  No results found for "{paletteQuery}"
+                </div>
+              )}
+            </div>
+            <div className="command-palette-footer">
+              <span>Use <kbd>↑</kbd> <kbd>↓</kbd> to navigate</span>
+              <span>Press <kbd>Enter</kbd> to select</span>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
