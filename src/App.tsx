@@ -28,7 +28,7 @@ interface DocSection {
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>("overview");
-  const [searchQuery, setSearchQuery] = useState<string>("");
+
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [copiedText, setCopiedText] = useState<string | null>(null);
@@ -362,7 +362,82 @@ export default function App() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  // Filter Command Palette search results
+  // Searchable page content index for fuzzy finding over all sections
+  const searchableContent = [
+    {
+      id: "overview",
+      title: "Overview & Features",
+      keywords: "miller columns three column layout layout async media preview fast navigation copy paste delete move",
+      content: "Fyzenor is a lightweight, high-performance terminal file manager engineered from the ground up with modern C++17. Three-column layout, dynamic sorting, robust symlinks."
+    },
+    {
+      id: "install",
+      title: "Quick Start & Installation",
+      keywords: "install debian fedora arch termux script curl build gcc make cmake dependencies",
+      content: "Install dependencies on Debian, Fedora, Arch Linux, or Termux. Run the single-command curl installer script or build from source using cmake."
+    },
+    {
+      id: "keyboard",
+      title: "Keyboard Controls & Shortcuts",
+      keywords: "keymap keycaps navigation operations selection tabs visual mode hjkl edit rename",
+      content: "Explore built-in navigation shortcuts. Press h to go back, j/k to move, l to enter. Select items with Space or v. Press d to delete."
+    },
+    {
+      id: "trash",
+      title: "Trash Deep Dive",
+      keywords: "trash local trash move to trash trashinfo specification path deletion date restore empty trash e r u",
+      content: "Compliance-tested multi-partition trash system. Instant moves to local trash bin. Parse trashinfo logs. Restore items with r, empty trash with e."
+    },
+    {
+      id: "tasks",
+      title: "Task Controls & Smart Copy",
+      keywords: "asynchronous task manager w pause resume cancel workers zip copy delta overwrite replace skip",
+      content: "Task manager window displays running copy, move, zip, and trash tasks. Smart delta copy resumption overlays options: replace, replace older, skip."
+    },
+    {
+      id: "architecture",
+      title: "Architecture & Threads",
+      keywords: "threads std::thread thread safety concurrency activeTasks task completion handler loop ncurses boundary",
+      content: "Fyzenor employs a decoupled multi-threaded architecture. Asynchronous worker threads handle expensive background tasks while ncurses UI thread remains fully responsive."
+    },
+    {
+      id: "theme",
+      title: "Theme Configurator",
+      keywords: "matugen theme custom colors config colors.fz background text active accent status bar",
+      content: "Configure custom TUI colors and generate colors.fz settings. Choose from community theme presets like Tokyo Night, Catppuccin, Gruvbox, Nord, and Dracula."
+    },
+    {
+      id: "community",
+      title: "Community & License",
+      keywords: "license open source mit contributing github issues fork pull request",
+      content: "Fyzenor is released under the MIT License. Contributions are welcome on GitHub! Open issues, submit pull requests, or star the repo."
+    },
+    {
+      id: "troubleshoot",
+      title: "Troubleshooting & FAQ",
+      keywords: "crashes terminal size ncurses compilation errors filesystem filesystem library g++ gcc",
+      content: "Fix filesystem library compilation errors. Check ncurses locale support for icons. Validate custom colors.fz syntax rules."
+    }
+  ];
+
+  // Character-by-character fuzzy matching helper
+  const fuzzyMatch = (text: string, query: string): boolean => {
+    if (!query) return true;
+    const target = text.toLowerCase();
+    const search = query.toLowerCase();
+    let searchIdx = 0;
+    for (let targetIdx = 0; targetIdx < target.length; targetIdx++) {
+      if (target[targetIdx] === search[searchIdx]) {
+        searchIdx++;
+        if (searchIdx === search.length) {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+
+  // Filter Command Palette search results using fuzzy matches
   const getPaletteResults = () => {
     const results: Array<{
       type: "Page" | "Shortcut";
@@ -371,17 +446,21 @@ export default function App() {
       action: () => void;
     }> = [];
 
-    const query = paletteQuery.toLowerCase().trim();
+    const query = paletteQuery.trim();
 
-    // 1. Pages/Sections matches
-    sections.forEach((sec) => {
-      if (!query || sec.title.toLowerCase().includes(query)) {
+    // 1. Fuzzy match page content and keywords
+    searchableContent.forEach((item) => {
+      const matchTitle = fuzzyMatch(item.title, query);
+      const matchKeywords = fuzzyMatch(item.keywords, query);
+      const matchContent = fuzzyMatch(item.content, query);
+
+      if (matchTitle || matchKeywords || matchContent) {
         results.push({
           type: "Page",
-          title: sec.title,
-          subtitle: `Navigate to ${sec.title} documentation`,
+          title: item.title,
+          subtitle: item.content,
           action: () => {
-            setActiveTab(sec.id);
+            setActiveTab(item.id);
             setCommandPaletteOpen(false);
             setTimeout(() => {
               mainContentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
@@ -391,17 +470,13 @@ export default function App() {
       }
     });
 
-    // 2. Keyboard shortcut matches
+    // 2. Fuzzy match keyboard shortcuts
     Object.entries(keyMap).forEach(([key, details]) => {
-      const matchKey = key.toLowerCase();
-      const matchTitle = details.title.toLowerCase();
-      const matchDesc = details.desc.toLowerCase();
-      if (
-        !query ||
-        matchKey.includes(query) ||
-        matchTitle.includes(query) ||
-        matchDesc.includes(query)
-      ) {
+      const matchKey = fuzzyMatch(key, query);
+      const matchTitle = fuzzyMatch(details.title, query);
+      const matchDesc = fuzzyMatch(details.desc, query);
+
+      if (matchKey || matchTitle || matchDesc) {
         results.push({
           type: "Shortcut",
           title: `${key} — ${details.title}`,
@@ -510,9 +585,6 @@ export default function App() {
     setTermInput("");
   };
 
-  const filteredSections = sections.filter((sec) =>
-    sec.title.toLowerCase().includes(searchQuery.toLowerCase()),
-  );
 
   return (
     <div className="app-container">
@@ -579,16 +651,39 @@ export default function App() {
           />
           <input
             type="text"
-            placeholder="Search topics..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search docs..."
+            onClick={() => setCommandPaletteOpen(true)}
+            onFocus={(e) => {
+              e.currentTarget.blur();
+              setCommandPaletteOpen(true);
+            }}
             className="sidebar-search-input"
+            readOnly
+            style={{ cursor: "pointer", paddingRight: "2.5rem" }}
           />
+          <div
+            style={{
+              position: "absolute",
+              right: "0.85rem",
+              top: "50%",
+              transform: "translateY(-50%)",
+              backgroundColor: "rgba(255, 255, 255, 0.05)",
+              border: "1px solid var(--border-color)",
+              padding: "0.15rem 0.35rem",
+              borderRadius: "6px",
+              fontSize: "0.7rem",
+              color: "var(--text-muted)",
+              fontFamily: "var(--font-mono)",
+              pointerEvents: "none",
+            }}
+          >
+            ⌘K
+          </div>
         </div>
 
         {/* Navigation Menu */}
         <nav className="nav-menu">
-          {filteredSections.map((sec) => (
+          {sections.map((sec) => (
             <div
               key={sec.id}
               className={`nav-item ${activeTab === sec.id ? "active" : ""}`}
