@@ -249,7 +249,27 @@ Fyzenor matches custom skins and terminal Matugen templates by parsing colors fr
 
 ---
 
-## PAGE 8: COMMUNITY & LICENSE
+## PAGE 8: CUSTOM KEYBOARD MACROS & RICH PREVIEWS
+
+### 1. Custom Keyboard Macros (`keys.fz`)
+Map single-key shortcuts to run shell commands on highlighted/selected items.
+- **Config Path**: `~/.config/fyzenor/keys.fz` (auto-generated if missing).
+- **Format**: `key=command` (e.g. `v=nvim "$f"`).
+- **Placeholders**: `$f` (highlighted path), `$s` (space-separated selected paths).
+- **Execution**: Suspends NCurses, changes directory to the browsed folder, runs in foreground interactive terminal, and prompts Enter to return.
+
+### 2. Archive Tree Previewer
+Asynchronously lists files within compressed archives:
+- **Formats**: `.zip`, `.tar.gz`, `.tgz`, `.7z`, `.rar`, `.tar`, `.bz2`, `.xz`.
+- **Backend Commands**: Runs `unzip -l`, `7z l`, `unrar l`, or `tar -tf` via `popen` background loops.
+
+### 3. Media Metadata Inspector
+Asynchronously reads metadata headers of images, audio, and video files:
+- **Backend Probes**: Uses `mediainfo` or `ffprobe` to list tracks info (resolution, bitrate, sample rate, codec name, title, artist).
+
+---
+
+## PAGE 9: COMMUNITY & LICENSE
 
 - **License**: Fyzenor is open-source software distributed under the terms of the **MIT License**.
 - **Github**: Explore codebase, file issues, submit forks, and contribute pull requests:

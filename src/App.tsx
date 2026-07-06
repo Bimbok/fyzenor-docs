@@ -3518,6 +3518,11 @@ l=ls -la`}</div>
                 absolute paths.
               </li>
               <li style={{ margin: "0.5rem 0" }}>
+                <strong>Directory Scope:</strong> The subprocess executes directly
+                within the working directory currently browsed inside the active
+                panel.
+              </li>
+              <li style={{ margin: "0.5rem 0" }}>
                 <strong>Subprocess Execution:</strong> The command executes in the
                 foreground shell with standard terminal I/O (meaning programs like{" "}
                 <code>nvim</code> or <code>git diff</code> run interactively).
