@@ -369,43 +369,73 @@ export default function App() {
       id: "overview",
       title: "Overview & Features",
       keywords: "miller columns three column layout layout async media preview fast navigation copy paste delete move",
-      content: "Fyzenor is a lightweight, high-performance terminal file manager engineered from the ground up with modern C++17. Three-column layout, dynamic sorting, robust symlinks."
+      content: "Fyzenor is a lightweight, high-performance terminal file manager engineered from the ground up with C++17. Focuses on async performance and responsive Miller columns."
+    },
+    {
+      id: "overview",
+      title: "Pinned Bookmarks & Saved Paths",
+      keywords: "bookmarks pinned list pins pin directory p tab j k d unpin ~/.fm_pins",
+      content: "Save and quickly jump to favorite folders. Pinned bookmarks are saved in ~/.fm_pins. Switch panel focus with Tab, navigate with j/k, and pin directories using P."
+    },
+    {
+      id: "overview",
+      title: "Shell Commands & Macro Variables",
+      keywords: "shell macro macros global command prefix cmd $f $s & background execute launcher prompt",
+      content: "Execute commands globally. Use macro variable $f for current file, $s for selections, and & to spawn background launches."
+    },
+    {
+      id: "overview",
+      title: "Block Drive & Android MTP Mounts",
+      keywords: "mount block devices mount mobile android mtp mounts external gio mount f2",
+      content: "Mount and browse block drives and Android mobile devices (via MTP). Press f2 to manage mount actions."
     },
     {
       id: "install",
       title: "Quick Start & Installation",
-      keywords: "install debian fedora arch termux script curl build gcc make cmake dependencies",
-      content: "Install dependencies on Debian, Fedora, Arch Linux, or Termux. Run the single-command curl installer script or build from source using cmake."
+      keywords: "install debian fedora arch termux script curl build gcc make cmake dependencies pkg pacman apt dnf",
+      content: "Run the single-line installation script or install manually on Arch Linux, Debian, Fedora, and Termux with pacman, apt, dnf, or pkg."
     },
     {
       id: "keyboard",
       title: "Keyboard Controls & Shortcuts",
       keywords: "keymap keycaps navigation operations selection tabs visual mode hjkl edit rename",
-      content: "Explore built-in navigation shortcuts. Press h to go back, j/k to move, l to enter. Select items with Space or v. Press d to delete."
+      content: "Vim-style keyboard layout controls. Navigate directories with h/j/k/l. Perform batch operations using visual selection."
     },
     {
       id: "trash",
-      title: "Trash Deep Dive",
-      keywords: "trash local trash move to trash trashinfo specification path deletion date restore empty trash e r u",
-      content: "Compliance-tested multi-partition trash system. Instant moves to local trash bin. Parse trashinfo logs. Restore items with r, empty trash with e."
+      title: "Trash Deep Dive & Deletions",
+      keywords: "trash local trash move to trash trashinfo specification path deletion date restore empty trash e r u asynctask thread",
+      content: "Move items to local partition trash bins instantly. Complies with Freedesktop Desktop Trash Can Specification. Restore with r, empty with e, undo with u."
     },
     {
       id: "tasks",
-      title: "Task Controls & Smart Copy",
-      keywords: "asynchronous task manager w pause resume cancel workers zip copy delta overwrite replace skip",
-      content: "Task manager window displays running copy, move, zip, and trash tasks. Smart delta copy resumption overlays options: replace, replace older, skip."
+      title: "Task Controls & Queue Manager",
+      keywords: "asynchronous task manager w pause resume cancel workers zip copy delta overwrite replace skip sigstop sigcont",
+      content: "Asynchronous task queue manager overlay. Monitor background copies, moves, compressions, and trashings with w. Pause with SIGSTOP and resume with SIGCONT."
+    },
+    {
+      id: "tasks",
+      title: "Smart Delta Copy Resumption",
+      keywords: "smart copy overwrite prompt replace replace older skip resume delta",
+      content: "Intelligent recovery for interrupted copies. Prompts options to replace, replace older, or skip. Resumes block-level writes where it left off."
     },
     {
       id: "architecture",
-      title: "Architecture & Threads",
+      title: "Architecture & Threads Concurrency",
       keywords: "threads std::thread thread safety concurrency activeTasks task completion handler loop ncurses boundary",
-      content: "Fyzenor employs a decoupled multi-threaded architecture. Asynchronous worker threads handle expensive background tasks while ncurses UI thread remains fully responsive."
+      content: "Decoupled multi-threaded C++ TUI architecture. Offloads file operations to background worker std::thread loops to prevent ncurses UI blockages."
     },
     {
       id: "theme",
-      title: "Theme Configurator",
-      keywords: "matugen theme custom colors config colors.fz background text active accent status bar",
-      content: "Configure custom TUI colors and generate colors.fz settings. Choose from community theme presets like Tokyo Night, Catppuccin, Gruvbox, Nord, and Dracula."
+      title: "Theme Configurator & Matugen",
+      keywords: "matugen theme custom colors config colors.fz background text active accent status bar presets gallery tokyo night catppuccin gruvbox nord dracula",
+      content: "Configure custom TUI colors and export colors.fz configurations. Choose from presets like Tokyo Night, Catppuccin, Gruvbox, Nord, and Dracula."
+    },
+    {
+      id: "theme",
+      title: "C++ Color Variables (Matugen Templates)",
+      keywords: "colors variables 19 matugen active bg border statusbar accent glow",
+      content: "Customize all 19 parsed C++ variables to skin your file manager to match Matugen color templates."
     },
     {
       id: "community",
