@@ -264,7 +264,7 @@ export default function App() {
     },
     P: {
       title: "Pin Directory",
-      desc: "Pins current directory path to persistent bookmarks saved in `~/.fm_pins` (focused list panel).",
+      desc: "Pins current directory path to persistent bookmarks saved in <code>~/.fm_pins</code> (focused list panel).",
       category: "View",
     },
     Tab: {
@@ -607,7 +607,7 @@ export default function App() {
             <h2>Introduction</h2>
             <p>
               Fyzenor is a lightweight, high-performance terminal file manager
-              engineered from the ground up with modern **C++17**. It is
+              engineered from the ground up with modern <strong>C++17</strong>. It is
               designed to bridge the gap between the raw power of the command
               line and the visual feedback of modern GUIs.
             </p>
@@ -766,8 +766,8 @@ export default function App() {
                     </td>
                     <td>
                       Toggle sorting order dynamically by pressing{" "}
-                      <code>s</code>, cycling between **Name**, **Size (Desc)**,
-                      and **Date Modified (Desc)**.
+                      <code>s</code>, cycling between <strong>Name</strong>, <strong>Size (Desc)</strong>,
+                      and <strong>Date Modified (Desc)</strong>.
                     </td>
                   </tr>
                   <tr>
@@ -2273,11 +2273,11 @@ DeletionDate=2026-07-05T20:14:05`}</div>
 
         {activeTab === "tasks" && (
           <div className="animate-fade-in">
-            <h2>Asynchronous Task Manager (`w`)</h2>
+            <h2>Asynchronous Task Manager (<code>w</code>)</h2>
             <p>
               Fyzenor offloads heavy operations (like copying, compression, and
               extraction) to background worker threads. Pressing <kbd>w</kbd>{" "}
-              displays these tasks in the **Active Tasks & Workers** window,
+              displays these tasks in the <strong>Active Tasks &amp; Workers</strong> window,
               where you can pause, resume, or cancel them:
             </p>
 
@@ -2336,7 +2336,7 @@ DeletionDate=2026-07-05T20:14:05`}</div>
             <p>
               If a copying or moving task is paused or cancelled, the incomplete
               file remains at the destination. When pasting the items again and
-              selecting <strong>`[r]eplace`</strong>:
+              selecting <strong><code>[r]eplace</code></strong>:
             </p>
 
             <div
