@@ -426,16 +426,34 @@ export default function App() {
       content: "Decoupled multi-threaded C++ TUI architecture. Offloads file operations to background worker std::thread loops to prevent ncurses UI blockages."
     },
     {
-      id: "theme",
+      id: "theming",
       title: "Theme Configurator & Matugen",
       keywords: "matugen theme custom colors config colors.fz background text active accent status bar presets gallery tokyo night catppuccin gruvbox nord dracula",
       content: "Configure custom TUI colors and export colors.fz configurations. Choose from presets like Tokyo Night, Catppuccin, Gruvbox, Nord, and Dracula."
     },
     {
-      id: "theme",
+      id: "theming",
       title: "C++ Color Variables (Matugen Templates)",
       keywords: "colors variables 19 matugen active bg border statusbar accent glow",
       content: "Customize all 19 parsed C++ variables to skin your file manager to match Matugen color templates."
+    },
+    {
+      id: "overview",
+      title: "Archive Tree Previewer",
+      keywords: "zip tar tgz gz rar 7z bz2 xz archive content listing popen unzip",
+      content: "Inspect contents of .zip, .tar.gz, .rar, and .7z archives directly in the TUI preview pane asynchronously without blocking navigation."
+    },
+    {
+      id: "overview",
+      title: "Rich Media Metadata Reader",
+      keywords: "mediainfo ffprobe ffmpeg audio video image metadata codec sample rate resolution bitrate",
+      content: "Read codec names, bitrates, dimensions, sample rates, title, and artist metadata tags for images, audio, and video tracks."
+    },
+    {
+      id: "theming",
+      title: "Custom Keyboard Macros (keys.fz)",
+      keywords: "custom keys keybinds config keys.fz macros $f $s shell subprocess def_prog_mode",
+      content: "Map single-key shortcuts in ~/.config/fyzenor/keys.fz to execute shell commands with macro path variables $f and $s."
     },
     {
       id: "community",
@@ -1215,6 +1233,37 @@ export default function App() {
                       Automatically detects filesystem changes (creations,
                       deletions, renames) in the current directory and refreshes
                       the TUI instantly.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Archive Previewer</strong>
+                    </td>
+                    <td>
+                      Inspect contents of <code>.zip</code>, <code>.tar.gz</code>,{" "}
+                      <code>.rar</code>, and <code>.7z</code> archives directly in
+                      the TUI preview pane without extracting them.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Media Metadata Inspector</strong>
+                    </td>
+                    <td>
+                      Read codec names, bitrates, dimensions, sample rates, title,
+                      and artist metadata tags for images, audio, and video tracks
+                      using <code>mediainfo</code> or <code>ffprobe</code>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Custom Key Macros</strong>
+                    </td>
+                    <td>
+                      Map single-key binds in <code>~/.config/fyzenor/keys.fz</code>{" "}
+                      to run shell commands with path placeholders (
+                      <code>$f</code>, <code>$s</code>). Suspends TUI mode for full
+                      interactive I/O, waiting for Enter before return.
                     </td>
                   </tr>
                 </tbody>
@@ -3408,6 +3457,78 @@ output_path = "~/.config/fyzenor/colors.fz"`}</div>
                 </div>
               </div>
             </div>
+            <h2 style={{ marginTop: "3rem" }}>🛠️ Custom Keyboard Macros</h2>
+            <p>
+              Fyzenor allows you to map single-key shortcuts to run shell
+              commands globally on currently highlighted or selected files. These
+              are configured in a keybind macro settings file.
+            </p>
+            <h3>Configuration File Path</h3>
+            <p>
+              Settings are loaded from: <code>~/.config/fyzenor/keys.fz</code>.
+              If the file does not exist, Fyzenor generates a default template
+              containing helpful comments on launch.
+            </p>
+
+            <div className="code-container">
+              <div className="code-header">
+                <span>~/.config/fyzenor/keys.fz</span>
+                <button
+                  className="copy-btn"
+                  onClick={() =>
+                    handleCopy(
+                      "# Fyzenor Custom Keys Macro Configuration\n# Format: single_key=command\n# Macros:\n#   $f - expands to the currently highlighted file's absolute path\n#   $s - expands to space-separated paths of all selected files\n\nv=nvim \"$f\"\ng=git status\nl=ls -la",
+                      "keys-macro-sample",
+                    )
+                  }
+                >
+                  {copiedText === "keys-macro-sample" ? (
+                    <Check size={12} />
+                  ) : (
+                    <Copy size={12} />
+                  )}
+                  {copiedText === "keys-macro-sample" ? "Copied!" : "Copy"}
+                </button>
+              </div>
+              <div className="code-block">{`# Fyzenor Custom Keys Macro Configuration
+# Format: single_key=command
+# Macros:
+#   $f - expands to the currently highlighted file's absolute path
+#   $s - expands to space-separated paths of all selected files
+
+v=nvim "$f"
+g=git status
+l=ls -la`}</div>
+            </div>
+
+            <h3>Macro Execution Behavior</h3>
+            <p>
+              When a bound key (e.g. <code>v</code>) is pressed inside the file
+              list panel, the following operations run:
+            </p>
+            <ul style={{ marginLeft: "1.5rem", marginBottom: "2rem" }}>
+              <li style={{ margin: "0.5rem 0" }}>
+                <strong>NCurses Suspension:</strong> NCurses screen state is cleanly
+                saved and suspended via <code>def_prog_mode()</code> and{" "}
+                <code>endwin()</code>.
+              </li>
+              <li style={{ margin: "0.5rem 0" }}>
+                <strong>Placeholder Expansion:</strong> Path placeholders (
+                <code>$f</code>, <code>$s</code>) are replaced with the correct
+                absolute paths.
+              </li>
+              <li style={{ margin: "0.5rem 0" }}>
+                <strong>Subprocess Execution:</strong> The command executes in the
+                foreground shell with standard terminal I/O (meaning programs like{" "}
+                <code>nvim</code> or <code>git diff</code> run interactively).
+              </li>
+              <li style={{ margin: "0.5rem 0" }}>
+                <strong>TUI Restoration:</strong> After completion, Fyzenor prompts{" "}
+                <em>"Press Enter to return..."</em>, calls{" "}
+                <code>reset_prog_mode()</code>, redraws the interface, and reloads
+                the file list to reflect any changes.
+              </li>
+            </ul>
           </div>
         )}
 
