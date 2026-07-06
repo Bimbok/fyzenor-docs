@@ -455,17 +455,7 @@ export default function App() {
             placeholder="Search topics..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            style={{
-              width: "100%",
-              padding: "0.65rem 1rem 0.65rem 2.25rem",
-              backgroundColor: "var(--bg-terminal)",
-              border: "1px solid var(--border-color)",
-              borderRadius: "9999px",
-              color: "var(--text-primary)",
-              fontSize: "0.9rem",
-              outline: "none",
-              transition: "border-color 0.2s",
-            }}
+            className="sidebar-search-input"
           />
         </div>
 
