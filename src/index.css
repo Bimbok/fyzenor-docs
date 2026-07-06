@@ -161,13 +161,13 @@ body {
   flex-grow: 1;
   margin-left: 320px;
   padding: 3rem 4rem;
-  max-width: 1200px;
+  max-width: 1600px;
   overflow-y: auto;
   min-height: 100vh;
   position: relative;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1150px) {
   .sidebar {
     transform: translateX(-100%);
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -750,7 +750,7 @@ p {
   z-index: 45;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1150px) {
   .mobile-header {
     display: flex;
   }
