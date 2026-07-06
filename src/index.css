@@ -725,16 +725,18 @@ p {
 .mobile-header {
   display: none;
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
+  top: 0.75rem;
+  left: 0.75rem;
+  right: 0.75rem;
+  height: 54px;
   background-color: var(--bg-sidebar);
-  border-bottom: 1px solid var(--border-color);
+  border: 1px solid var(--border-color);
+  border-radius: 9999px;
   align-items: center;
-  padding: 0 1.5rem;
+  padding: 0 1.25rem;
   justify-content: space-between;
   z-index: 40;
+  box-shadow: var(--shadow-premium), 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
 .mobile-backdrop {
@@ -754,7 +756,7 @@ p {
   }
   .main-content {
     margin-left: 0;
-    padding: 5rem 1.5rem 2rem;
+    padding: 6.25rem 1.25rem 2rem;
   }
   .keyboard-grid {
     overflow-x: auto;
