@@ -2774,7 +2774,7 @@ DeletionDate=2026-07-05T20:14:05`}</div>
                   className="copy-btn"
                   onClick={() =>
                     handleCopy(
-                      "DIR: #89b4fa\nFILE: #cdd6f4\nSEL_BG: #585b70\nMEDIA: #f9e2af\nIMAGE: #f5c2e7\nBORDER: #b4befe\nSUCCESS: #a6e3a1\nERROR: #f38ba8\nMULTI: #fab387\nPIN_BG: #cba6f7\nPIN_BORDER: #89b4fa\nSEC_SEL_BG: #313244\nCODE: #a6e3a1\nARCHIVE: #eba0ac",
+                      "DIR: #89b4fa\nFILE: #cdd6f4\nSEL_BG: #585b70\nMEDIA: #f9e2af\nIMAGE: #f5c2e7\nBORDER: #b4befe\nSUCCESS: #a6e3a1\nERROR: #f38ba8\nMULTI: #f5e0dc\nPIN_BG: #cba6f7\nPIN_BORDER: #89b4fa\nSEC_SEL_BG: #313244\nCORE: #a6e3a1\nARCHIVE: #eba0ac\nFRONTEND: #fab387\nCONFIG: #94e2d5\nSCRIPT: #f9e2af\nDOCS: #f2cdcd\nFONT: #cba6f7",
                       "theme-vars-sample",
                     )
                   }
@@ -2795,12 +2795,17 @@ IMAGE: #f5c2e7
 BORDER: #b4befe
 SUCCESS: #a6e3a1
 ERROR: #f38ba8
-MULTI: #fab387
+MULTI: #f5e0dc
 PIN_BG: #cba6f7
 PIN_BORDER: #89b4fa
 SEC_SEL_BG: #313244
-CODE: #a6e3a1
-ARCHIVE: #eba0ac`}</div>
+CORE: #a6e3a1
+ARCHIVE: #eba0ac
+FRONTEND: #fab387
+CONFIG: #94e2d5
+SCRIPT: #f9e2af
+DOCS: #f2cdcd
+FONT: #cba6f7`}</div>
             </div>
 
             <h2>Wallpaper-Based Theming (Matugen)</h2>
@@ -2821,7 +2826,7 @@ ARCHIVE: #eba0ac`}</div>
                   className="copy-btn"
                   onClick={() =>
                     handleCopy(
-                      "# Fyzenor Theme: Matugen Generated\nDIR: {{colors.primary.default.hex}}\nFILE: {{colors.on_surface.default.hex}}\nSEL_BG: {{colors.surface_variant.default.hex}}\nMEDIA: {{colors.tertiary.default.hex}}\nIMAGE: {{colors.secondary.default.hex}}\nBORDER: {{colors.outline.default.hex}}\nSUCCESS: {{colors.primary_fixed.default.hex}}\nERROR: {{colors.error.default.hex}}\nMULTI: {{colors.tertiary_container.default.hex}}\nPIN_BG: {{colors.secondary_container.default.hex}}\nPIN_BORDER: {{colors.primary.default.hex}}\nSEC_SEL_BG: {{colors.surface_dim.default.hex}}",
+                      "# Fyzenor Theme: Matugen Generated\nDIR: {{colors.primary.default.hex}}\nFILE: {{colors.on_surface.default.hex}}\nSEL_BG: {{colors.surface_variant.default.hex}}\nMEDIA: {{colors.tertiary.default.hex}}\nIMAGE: {{colors.secondary.default.hex}}\nBORDER: {{colors.outline.default.hex}}\nSUCCESS: {{colors.primary_fixed.default.hex}}\nERROR: {{colors.error.default.hex}}\nMULTI: {{colors.tertiary_container.default.hex}}\nPIN_BG: {{colors.secondary_container.default.hex}}\nPIN_BORDER: {{colors.primary.default.hex}}\nSEC_SEL_BG: {{colors.surface_dim.default.hex}}\nCORE: {{colors.primary.default.hex}}\nARCHIVE: {{colors.error_container.default.hex}}\nFRONTEND: {{colors.secondary.default.hex}}\nCONFIG: {{colors.inverse_primary.default.hex}}\nSCRIPT: {{colors.tertiary.default.hex}}\nDOCS: {{colors.surface_bright.default.hex}}\nFONT: {{colors.on_tertiary.default.hex}}",
                       "matugen-temp",
                     )
                   }
@@ -2846,7 +2851,14 @@ ERROR: {{colors.error.default.hex}}
 MULTI: {{colors.tertiary_container.default.hex}}
 PIN_BG: {{colors.secondary_container.default.hex}}
 PIN_BORDER: {{colors.primary.default.hex}}
-SEC_SEL_BG: {{colors.surface_dim.default.hex}}`}</div>
+SEC_SEL_BG: {{colors.surface_dim.default.hex}}
+CORE: {{colors.primary.default.hex}}
+ARCHIVE: {{colors.error_container.default.hex}}
+FRONTEND: {{colors.secondary.default.hex}}
+CONFIG: {{colors.inverse_primary.default.hex}}
+SCRIPT: {{colors.tertiary.default.hex}}
+DOCS: {{colors.surface_bright.default.hex}}
+FONT: {{colors.on_tertiary.default.hex}}`}</div>
             </div>
 
             <h3>Step 2: Update Matugen Config</h3>
