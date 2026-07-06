@@ -1386,6 +1386,54 @@ sudo apt install build-essential libncursesw5-dev ffmpeg zip bat xclip wl-copy r
 sudo dnf install gcc gcc-c++ make ncurses-devel ffmpeg zip bat xclip wl-clipboard ripgrep`}</div>
             </div>
 
+            <div className="code-container">
+              <div className="code-header">
+                <span>Arch Linux Package Installer</span>
+                <button
+                  className="copy-btn"
+                  onClick={() =>
+                    handleCopy(
+                      "sudo pacman -Sy && sudo pacman -S base-devel ncurses ffmpeg zip bat xclip wl-clipboard ripgrep",
+                      "pacman-install",
+                    )
+                  }
+                >
+                  {copiedText === "pacman-install" ? (
+                    <Check size={12} />
+                  ) : (
+                    <Copy size={12} />
+                  )}
+                  {copiedText === "pacman-install" ? "Copied!" : "Copy"}
+                </button>
+              </div>
+              <div className="code-block">{`sudo pacman -Sy
+sudo pacman -S base-devel ncurses ffmpeg zip bat xclip wl-clipboard ripgrep`}</div>
+            </div>
+
+            <div className="code-container">
+              <div className="code-header">
+                <span>Termux (Android) Package Installer</span>
+                <button
+                  className="copy-btn"
+                  onClick={() =>
+                    handleCopy(
+                      "pkg update && pkg install clang cmake ndk-sysroot ncurses-utils ffmpeg zip bat ripgrep",
+                      "termux-install",
+                    )
+                  }
+                >
+                  {copiedText === "termux-install" ? (
+                    <Check size={12} />
+                  ) : (
+                    <Copy size={12} />
+                  )}
+                  {copiedText === "termux-install" ? "Copied!" : "Copy"}
+                </button>
+              </div>
+              <div className="code-block">{`pkg update
+pkg install clang cmake ndk-sysroot ncurses-utils ffmpeg zip bat ripgrep`}</div>
+            </div>
+
             <h3>Package Descriptions:</h3>
             <ul>
               <li>
