@@ -1,83 +1,256 @@
-# Fyzenor - Modern C++ Terminal File Manager
+# Fyzenor - Exhaustive System Reference & Technical Documentation
 
-Fyzenor is a lightweight, high-performance TUI (Terminal User Interface) file manager engineered in C++17. It features a responsive three-column Miller columns layout, asynchronous background task offloading (non-blocking copy/move/trash/zip), smart delta-copy resumption, and native block device mounting.
+This document contains the complete page-by-page reference for **Fyzenor**, a lightweight, high-performance terminal user interface (TUI) file manager written in modern C++17. It details features, installation instructions, keyboard keymaps, the Trash specification, async tasks, threading architecture, theme configurator parameters, and troubleshooting guides.
 
-## Key Features
+---
 
-- **Three-Column Miller Columns**: Pinned Bookmarks, Directory Lists, and Live File/Media Previews.
-- **Asynchronous Operations**: Move-to-Trash, Copier, Zipping, and Unzipping run on background worker threads (`std::thread`), leaving the NCurses UI completely responsive.
-- **Smart Copy Resumption**: Detects interrupted copy operations and prompts options: Replace, Replace Older, or Skip. Resumes block-level writes from where they failed.
-- **Compliance-Tested Trash**: Follows Freedesktop.org Desktop Trash Can Specification. Moves files instantly to partition-local trash folders (`<mount>/.Trash-<uid>`) or primary home trash folder (`~/.local/share/Trash`).
-- **Block Device Mounts**: Direct overlay to mount/unmount USB drives and Android mobile phones (MTP).
-- **Global Shell Macros**: Run terminal commands inside Fyzenor. Use `$f` for current file path, `$s` for selected items, and `&` to spawn background launches.
-- **Matugen Configurator**: Custom skinning using a `colors.fz` file with 19 parsed C++ TUI variables.
+## PAGE 1: OVERVIEW & FEATURES
 
-## Keyboard Controls & Vim Keymaps
+### Core Philosophy
+Fyzenor is built to bridge the gap between the raw power of the command line and the visual feedback of modern GUIs. It uses a decoupled multi-threaded architecture to ensure heavy I/O operations never block the user interface.
 
-### Navigation
-- `h` : Go back to parent directory / Clear search.
-- `j` : Move selection down.
-- `k` : Move selection up.
-- `l` : Open highlighted file in default editor / Enter highlighted directory.
-- `g` / `G` : Jump to top / bottom of active list.
-- `Tab` : Toggle panel focus between bookmarks list and file manager browser pane.
+### Key Features
+1. **Three-Column Miller Layout**:
+   - Left Column: Pinned Bookmarks panel.
+   - Middle Column: Active browser pane showing directories, metadata, file sizes, and modification dates.
+   - Right Column: Live previews showing code snippets, video/audio details, file information, and images (via Kitty Graphics Protocol).
+2. **Asynchronous I/O Offloading**:
+   - Copying, moving, zipping, extraction, and trashing operations are offloaded to background threads (`std::thread`).
+   - NCurses TUI drawing loops run completely non-blocking, maintaining 0ms input latency even during heavy bulk operations.
+3. **Smart Copy Resumption (Delta Overwrite)**:
+   - Tracks interrupted transfers and resumes writing block-by-block.
+   - If conflicts arise, prompts choices: `[r]eplace`, `[o]verwrite if older`, `[s]kip`, or `[a]sk`.
+4. **Compliance-Tested Multi-Partition Trash**:
+   - Complies with Freedesktop.org Desktop Trash Can Specification.
+   - Uses zero-copy local renames on the same partition, falling back to secure permanent deletion prompts when trash directories are unsupported (FAT/NTFS/Read-Only mounts).
+5. **Block Device Mounts**:
+   - Built-in overlay to mount and browse external USB flash drives and Android mobile phones (MTP).
+6. **Global Shell Macros**:
+   - Run terminal commands locally inside directories. Use `$f` for the highlighted file path, `$s` for selected item buffers, and `&` at the end to execute commands in the background without UI blockages.
 
-### File Operations
-- `Space` / `v` : Toggle selection of highlighted item.
-- `a` : Select all visible items.
-- `d` : Move selected items to Trash (Runs asynchronously).
-- `D` : Delete permanently (Bypasses Trash).
-- `u` : Undo last Trash action (Restores files to original paths).
-- `c` : Copy absolute path of highlighted item to clipboard.
-- `y` : Yank (Copy) selected items to internal clipboard buffer.
-- `x` : Cut selected items to internal clipboard buffer.
-- `p` : Paste yanked/cut items (Triggers smart resumption if target exists).
-- `Shift+Y` : Paste highlighted items as absolute symbolic links.
-- `r` : Rename current file / Bulk rename multiple selected files / Restore highlighted items if inside Trash Manager.
-- `n` : Create new blank file.
-- `N` : Create new empty directory.
-- `z` : Zip selected items asynchronously.
-- `e` : Extract selected archive / Empty all partition trash bins if inside Trash Manager.
+---
 
-### Overlays & Views
-- `w` : Open Active Tasks & Workers manager (Pause/Resume/Cancel background copy, move, trash, zip tasks).
-- `T` : Open Trash Manager overlay.
-- `m` : Open Mounts & Block Devices manager (Manage USB/Android MTP connections).
-- `F2` : Reload current directory listing / Refresh mounts.
-- `s` : Cycle sorting modes: Name -> Size (Desc) -> Date Modified (Desc).
-- `P` : Pin highlighted directory path to persistent bookmarks (`~/.fm_pins`).
-- `:` : Launch global shell command prompt.
-- `?` : Open built-in help and keybindings overlay panel.
-- `Esc` : Close current overlay window / Cancel action.
+## PAGE 2: QUICK START & INSTALLATION
 
-## Installation
+### 1. Dependencies
+Before compiling or running Fyzenor, install the required packages for your system:
 
-### Dependencies
-- **Debian/Ubuntu**: `build-essential libncursesw5-dev ffmpeg zip bat xclip wl-copy ripgrep`
-- **Fedora**: `gcc gcc-c++ make ncurses-devel ffmpeg zip bat xclip wl-clipboard ripgrep`
-- **Arch Linux**: `base-devel ncurses ffmpeg zip bat xclip wl-clipboard ripgrep`
-- **Termux**: `clang cmake ndk-sysroot ncurses-utils ffmpeg zip bat ripgrep`
+#### Debian / Ubuntu / Mint
+```bash
+sudo apt update
+sudo apt install build-essential libncursesw5-dev ffmpeg zip bat xclip wl-copy ripgrep
+```
 
-### Quick Install (Automated Script)
-Runs prefix detection, skips desktop settings in Termux, and places built binary in path:
+#### Fedora / RedHat
+```bash
+sudo dnf update
+sudo dnf install gcc gcc-c++ make ncurses-devel ffmpeg zip bat xclip wl-clipboard ripgrep
+```
+
+#### Arch Linux / Manjaro
+```bash
+sudo pacman -Sy
+sudo pacman -S base-devel ncurses ffmpeg zip bat xclip wl-clipboard ripgrep
+```
+
+#### Android (Termux)
+```bash
+pkg update
+pkg install clang cmake ndk-sysroot ncurses-utils ffmpeg zip bat ripgrep
+```
+
+---
+
+### 2. Installation Script
+Fyzenor provides an automated setup script that detects Termux vs. standard Linux environments, handles prefix variables, bypasses `sudo` prompts when appropriate, builds from source, and installs the binary to path:
 ```bash
 curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/install.sh | bash
 ```
 
-### Manual Compilation
+---
+
+### 3. Manual Compilation
+To compile manually from source:
 ```bash
 git clone https://github.com/Bimbok/fyzenor.git
 cd fyzenor
 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build
+# Run local binary
 ./fyzenor
 ```
 
-## Theme Configuration
+---
 
-Theme configurations are parsed from: `~/.config/fyzenor/colors.fz`. If invalid, falls back to NCurses default color pair values.
-Supported color variables:
-- `bg`, `border`, `statusbar`
-- `activeText`, `normalText`, `selectedBg`, `selectedFg`
-- `accentGlow`, `accentPurple`, `accentCyan`, `accentOrange`, `accentRed`
-- `fileDir`, `fileReg`, `fileExe`, `fileLnk`, `fileZip`, `fileMedia`, `fileOthers`
+### 4. Installation Troubleshooting
+- **Filesystem Compilation Errors**:
+  If compiling on GCC versions older than GCC 9, append `-lstdc++fs` to link libraries manually if `std::filesystem` is missing.
+- **NCurses Locale & Icons Clashing**:
+  If icons or folders render as strange glyphs (e.g. `?` or block characters), verify your system locale supports wide characters:
+  ```bash
+  locale
+  ```
+  Ensure your active shell environment variables set `LANG=en_US.UTF-8` or equivalent.
+- **Nerd Font Requirement**:
+  Fyzenor renders folder and file icons using Nerd Font glyphs. Configure your terminal application to use any Nerd Font (e.g. FiraCode, Hack, or JetBrainsMono Nerd Font) to display TUI icons cleanly.
+
+---
+
+## PAGE 3: KEYBOARD CONTROLS & SHORTCUTS
+
+Fyzenor employs Vim-style keystrokes for efficient, mouse-free directory navigation and file manipulation.
+
+### Category: Navigation
+- `h` : Navigates back to the parent directory.
+- `j` : Moves highlighted selection down.
+- `k` : Moves highlighted selection up.
+- `l` : Opens current file in editor (respects `$EDITOR` variable) or enters highlighted directory.
+- `g` : Jumps instantly to the top of the active file listing.
+- `G` : Jumps instantly to the bottom of the active file listing.
+- `Tab` : Switches focus between Bookmarks sidebar list and active directory panel.
+
+### Category: Selection
+- `Space` : Toggles selection state of highlighted file or folder.
+- `v` : Toggles selection state of highlighted file or folder.
+- `a` : Selects all files and folders in the current directory view.
+
+### Category: File Operations
+- `d` : Moves all selected/highlighted items to Trash (runs asynchronously in a background thread).
+- `D` : Permanently deletes items (bypasses Trash).
+- `u` : Undoes last Trash action, restoring items to original absolute paths.
+- `c` : Copies highlighted item's absolute path to clipboard.
+- `y` : Yanks (copies) selected/highlighted items to clipboard buffer.
+- `x` : Cuts selected/highlighted items to clipboard buffer.
+- `p` : Pastes items (spawns async task manager worker).
+- `Shift+Y` : Pastes absolute symbolic links pointing to yanked files.
+- `r` : Rename current file / Bulk rename selected items / Restore highlighted items if inside Trash Manager.
+- `n` : Creates new empty file in current directory.
+- `N` : Creates new directory folder.
+- `z` : Compresses selected items into a `.zip` archive asynchronously.
+- `e` : Extracts highlighted archive / Empties partition trash bins if inside Trash Manager.
+
+### Category: Views & Overlays
+- `w` : Opens the Asynchronous Task Manager.
+- `T` : Opens the Trash Manager.
+- `m` : Opens Block Devices & MTP Mounts manager.
+- `F2` : Reloads current directory / Refreshes mount listings.
+- `s` : Cycles sorting modes: Name -> Size (Desc) -> Date Modified (Desc).
+- `P` : Pins current directory path to bookmarks.
+- `:` : Launches global shell command prompt.
+- `?` : Opens help menu keymap overlay.
+- `Esc` : Closes active overlay window / cancels search.
+
+---
+
+## PAGE 4: TRASH DEEP DIVE
+
+### Architecture Overview
+Fyzenor incorporates a Freedesktop.org Desktop Trash Can Specification compliant subsystem to manage deletions safely. 
+
+1. **Partition-Local Trash Folders**:
+   To avoid slow, byte-copying operations when deleting on external drives (USB sticks, SSD partitions, external mounts), Fyzenor moves files to:
+   - `<mount_root>/.Trash-<uid>/files/`
+   Associated metadata files are written in standard formats to:
+   - `<mount_root>/.Trash-<uid>/info/`
+   This leverages the filesystem's instant constant-time metadata rename `std::filesystem::rename`.
+2. **Primary Drive Home Trash**:
+   Deletions on the primary partition move files to:
+   - `~/.local/share/Trash/files/`
+   - `~/.local/share/Trash/info/[file].trashinfo`
+
+### Metadata Format (`.trashinfo` Specification)
+Each deleted item creates a matching `.trashinfo` metadata file containing path translations and deletion timestamps:
+```ini
+[Trash Info]
+Path=/home/bimbok/shared/important_docs/invoice.pdf
+DeletionDate=2026-07-05T20:14:05
+```
+
+### Fallback Permanent Deletion
+On filesystems lacking UNIX file permission flags (FAT, NTFS, or read-only mounts), local trash directories cannot be initialized. Fyzenor catches this error state and prompts:
+`"Trash not supported. Delete permanently? (y/n)"`
+
+### Asynchronous AsyncTask Workers
+Move-to-trash operations are handled by background threads. When bulk-deleting large collections, a thread worker performs standard folder traversals and moves in the background, preventing UI lockups.
+
+---
+
+## PAGE 5: TASK CONTROLS & SMART COPY
+
+### 1. Active Task Manager (`w`)
+Pressing `w` displays all background operations. Supported actions:
+- **Copy**: Custom block-level readers/writers.
+- **Deletion**: Standard C++ filesystem remove loops.
+- **Trash**: Partition-local moves.
+- **Zip / Extract**: External tar/zip subprocesses.
+
+#### Process Controls
+- **Pause**: Sends POSIX signal `SIGSTOP` to subprocesses or suspends block iteration loop via conditional variables (consuming 0% CPU).
+- **Resume**: Sends POSIX signal `SIGCONT` or signals block threads to resume.
+- **Cancel**: Kills threads and cleans up partial remnants.
+
+---
+
+### 2. Smart Copy Resumption (Delta Overwrites)
+If a copy task is cancelled, incomplete destination files remain. Pasting the items again prompts a smart resolution dialog:
+1. `[r]eplace` : Overwrites destination file entirely.
+2. `[o]verwrite if older` : Compares timestamps and overwrites only if source modification date is newer than destination.
+3. `[s]kip` : Skips copying the file.
+4. `[a]sk` : Prompts resolution on every conflict.
+
+---
+
+## PAGE 6: ARCHITECTURE & THREADS CONCURRENCY
+
+Fyzenor separates rendering loops from heavy file I/O operations through a strict thread boundary.
+
+```mermaid
+graph TD
+    A[NCurses Main UI Thread] -->|Registers task & spawns| B(std::thread AsyncTask Worker)
+    B -->|Performs heavy I/O operations| C[Filesystem / External Disk]
+    B -->|Updates task registry| D(activeTasks Registry)
+    A -->|Periodically polls| D
+    D -->|Updates finished state| A
+    A -->|Triggers reload & redraws TUI| E[Terminal Screen]
+```
+
+### Ncurses Thread boundary Rules
+1. NCurses redraw methods (`wrefresh`, `mvwprintw`, `clear`) must only run on the main UI thread. 
+2. Background worker threads communicate progress exclusively by updating status flags inside the thread-safe `activeTasks` registry.
+3. The main UI loop polls the registry, clears finished tasks, and triggers safe, crash-free interface reloads.
+
+---
+
+## PAGE 7: THEME CONFIGURATOR
+
+Fyzenor matches custom skins and terminal Matugen templates by parsing colors from:
+`~/.config/fyzenor/colors.fz`
+
+### Custom Theme Variables (19 C++ Parameters)
+- `bg` : Terminal background color.
+- `border` : Border lines separating panels.
+- `statusbar` : Background for active status bars.
+- `activeText` : Selected text and highlight details.
+- `normalText` : Standard file and folder listings.
+- `selectedBg` : Highlight background capsule in directories.
+- `selectedFg` : Text color inside selected highlight capsules.
+- `accentGlow` : Primary glowing accents (shadows/highlights).
+- `accentPurple` : Second highlighting color.
+- `accentCyan` : Third highlighting color.
+- `accentOrange` : Warnings and mounts colors.
+- `accentRed` : Critical alerts and error prompts.
+- `fileDir` : Directory folder icons and text.
+- `fileReg` : Regular files.
+- `fileExe` : Executable scripts and binaries.
+- `fileLnk` : Symbolic link files.
+- `fileZip` : Zip, tar, and gz compressed archives.
+- `fileMedia` : Images, audio, and video files.
+- `fileOthers` : Unidentified file categories.
+
+---
+
+## PAGE 8: COMMUNITY & LICENSE
+
+- **License**: Fyzenor is open-source software distributed under the terms of the **MIT License**.
+- **Github**: Explore codebase, file issues, submit forks, and contribute pull requests:
+  `git@github.com:Bimbok/fyzenor.git`
