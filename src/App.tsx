@@ -2185,6 +2185,7 @@ make
               In compliance with the Freedesktop.org Desktop Trash Can
               Specification, Fyzenor v3.0.0 uses a highly optimized, local
               partition trash system to avoid slow byte-copying across drives.
+              <strong> All trashing operations are offloaded to background AsyncTask worker threads</strong>. This prevents long TUI redraw freezes or input latency during large bulk operations (e.g. <code>Select All</code> to <code>Delete</code>). Trashing tasks can be monitored, paused, resumed, or cancelled live inside the task overlay (<code>w</code>).
             </p>
 
             <div className="card-grid">
