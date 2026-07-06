@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Fuse from "fuse.js";
 import {
   BookOpen,
   Download,
@@ -420,42 +421,48 @@ export default function App() {
     }
   ];
 
-  // Character-by-character fuzzy matching helper
-  const fuzzyMatch = (text: string, query: string): boolean => {
-    if (!query) return true;
-    const target = text.toLowerCase();
-    const search = query.toLowerCase();
-    let searchIdx = 0;
-    for (let targetIdx = 0; targetIdx < target.length; targetIdx++) {
-      if (target[targetIdx] === search[searchIdx]) {
-        searchIdx++;
-        if (searchIdx === search.length) {
-          return true;
-        }
-      }
-    }
-    return false;
-  };
+  // Flatten shortcuts data map for Fuse.js searching
+  const shortcutData = Object.entries(keyMap).map(([key, details]) => ({
+    key,
+    title: details.title,
+    desc: details.desc,
+  }));
 
-  // Filter Command Palette search results using fuzzy matches
+  // Configure Fuse.js instances for weighted relevance searches
+  const fusePages = new Fuse(searchableContent, {
+    keys: [
+      { name: "title", weight: 1.0 },
+      { name: "keywords", weight: 0.7 },
+      { name: "content", weight: 0.4 },
+    ],
+    threshold: 0.4,
+    distance: 100,
+  });
+
+  const fuseShortcuts = new Fuse(shortcutData, {
+    keys: [
+      { name: "key", weight: 1.0 },
+      { name: "title", weight: 0.8 },
+      { name: "desc", weight: 0.4 },
+    ],
+    threshold: 0.4,
+    distance: 100,
+  });
+
+  // Filter Command Palette search results using Fuse.js fuzzy matching
   const getPaletteResults = () => {
-    const results: Array<{
-      type: "Page" | "Shortcut";
-      title: string;
-      subtitle: string;
-      action: () => void;
-    }> = [];
-
     const query = paletteQuery.trim();
+    if (!query) {
+      // Default placeholder list before typing queries
+      const defaultResults: Array<{
+        type: "Page" | "Shortcut";
+        title: string;
+        subtitle: string;
+        action: () => void;
+      }> = [];
 
-    // 1. Fuzzy match page content and keywords
-    searchableContent.forEach((item) => {
-      const matchTitle = fuzzyMatch(item.title, query);
-      const matchKeywords = fuzzyMatch(item.keywords, query);
-      const matchContent = fuzzyMatch(item.content, query);
-
-      if (matchTitle || matchKeywords || matchContent) {
-        results.push({
+      searchableContent.forEach((item) => {
+        defaultResults.push({
           type: "Page",
           title: item.title,
           subtitle: item.content,
@@ -467,33 +474,56 @@ export default function App() {
             }, 50);
           },
         });
-      }
-    });
+      });
 
-    // 2. Fuzzy match keyboard shortcuts
-    Object.entries(keyMap).forEach(([key, details]) => {
-      const matchKey = fuzzyMatch(key, query);
-      const matchTitle = fuzzyMatch(details.title, query);
-      const matchDesc = fuzzyMatch(details.desc, query);
-
-      if (matchKey || matchTitle || matchDesc) {
-        results.push({
+      shortcutData.forEach((item) => {
+        defaultResults.push({
           type: "Shortcut",
-          title: `${key} — ${details.title}`,
-          subtitle: details.desc,
+          title: `${item.key} — ${item.title}`,
+          subtitle: item.desc,
           action: () => {
             setActiveTab("keyboard");
-            setSelectedKey(key);
+            setSelectedKey(item.key);
             setCommandPaletteOpen(false);
             setTimeout(() => {
               mainContentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
             }, 50);
           },
         });
-      }
-    });
+      });
 
-    return results;
+      return defaultResults;
+    }
+
+    // Perform fuzzy weighted searches
+    const pageResults = fusePages.search(query).map((res) => ({
+      type: "Page" as const,
+      title: res.item.title,
+      subtitle: res.item.content,
+      action: () => {
+        setActiveTab(res.item.id);
+        setCommandPaletteOpen(false);
+        setTimeout(() => {
+          mainContentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+        }, 50);
+      },
+    }));
+
+    const shortcutResults = fuseShortcuts.search(query).map((res) => ({
+      type: "Shortcut" as const,
+      title: `${res.item.key} — ${res.item.title}`,
+      subtitle: res.item.desc,
+      action: () => {
+        setActiveTab("keyboard");
+        setSelectedKey(res.item.key);
+        setCommandPaletteOpen(false);
+        setTimeout(() => {
+          mainContentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+        }, 50);
+      },
+    }));
+
+    return [...pageResults, ...shortcutResults];
   };
 
   const filteredPaletteResults = getPaletteResults();
