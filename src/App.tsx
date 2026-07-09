@@ -1349,6 +1349,21 @@ export default function App() {
               </li>
             </ul>
 
+            <h3>3. PDF Text Layout Previewer</h3>
+            <p>
+              When navigating onto a Portable Document Format (<code>.pdf</code>) file, the previewer
+              asynchronously reads the document text structures to present a layout-preserved preview.
+            </p>
+            <ul style={{ marginLeft: "1.5rem", marginBottom: "2rem" }}>
+              <li style={{ margin: "0.4rem 0" }}>
+                <strong>Formatted Extraction:</strong> Utilizes <code>pdftotext</code> (from the <code>poppler-utils</code> package)
+                with layout-preservation parameters (<code>pdftotext -layout -l 3</code>) to parse the text lines of the first 3 pages of the PDF.
+              </li>
+              <li style={{ margin: "0.4rem 0" }}>
+                <strong>No-Block Fallback:</strong> If <code>pdftotext</code> is not installed on your system, it displays a friendly status notice advising how to install it (<code>poppler-utils</code>), avoiding terminal freezes.
+              </li>
+            </ul>
+
             <h2>🛠️ CLI Arguments & Usage</h2>
             <p>Fyzenor supports the following command-line flags on launch:</p>
             <div className="table-container">

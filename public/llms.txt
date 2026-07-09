@@ -274,12 +274,16 @@ Asynchronously lists files within compressed archives:
 Asynchronously reads metadata headers of images, audio, and video files:
 - **Backend Probes**: Uses `mediainfo` or `ffprobe` to list tracks info (resolution, bitrate, sample rate, codec name, title, artist).
 
-### 4. Visual Permissions & Ownership Editor (`I`)
+### 4. PDF Text Layout Previewer
+Asynchronously extracts and formats the text layouts of the first 3 pages of `.pdf` files:
+- **Backend Commands**: Invokes `pdftotext -layout -l 3` from `poppler-utils` via background pipe threads, showing a fallback warning if missing.
+
+### 5. Visual Permissions & Ownership Editor (`I`)
 Inspect and modify file permissions directly in the TUI without calling chmod/chown from the shell:
 - **Checkbox Grid**: Visual 3x3 grid to toggle Read, Write, and Execute bits for Owner, Group, and Others.
 - **Ownership Modifiers**: Highlight the Owner or Group rows and press `Enter` to change names or IDs via `chown`.
 
-### 5. Tab-Scoped Navigation History
+### 6. Tab-Scoped Navigation History
 Fyzenor tracks navigation directories independently per tab:
 - **Back & Forward**: Jump back with `Ctrl+O` and forward with `Ctrl+P`.
 - **History Jump Panel**: Press `H` to open a pop-up window listing visited folders for quick selection and jump.
