@@ -200,6 +200,13 @@ If a copy task is cancelled, incomplete destination files remain. Pasting the it
 
 ---
 
+### 3. Active Task Metrics & History Logs
+- **Throughput Metrics**: Live copy/move transfer speeds are computed dynamically in `MB/s` by tracking elapsed seconds and processed byte counts.
+- **Split-Pane Logging**: The task manager overlay features a bottom logs panel capturing all completed, failed, or cancelled tasks history logs.
+- **Log Clearing**: Clearing completed logs is accessible by pressing `c` in the task overlay.
+
+---
+
 ## PAGE 6: ARCHITECTURE & THREADS CONCURRENCY
 
 Fyzenor separates rendering loops from heavy file I/O operations through a strict thread boundary.
@@ -266,6 +273,16 @@ Asynchronously lists files within compressed archives:
 ### 3. Media Metadata Inspector
 Asynchronously reads metadata headers of images, audio, and video files:
 - **Backend Probes**: Uses `mediainfo` or `ffprobe` to list tracks info (resolution, bitrate, sample rate, codec name, title, artist).
+
+### 4. Visual Permissions & Ownership Editor (`I`)
+Inspect and modify file permissions directly in the TUI without calling chmod/chown from the shell:
+- **Checkbox Grid**: Visual 3x3 grid to toggle Read, Write, and Execute bits for Owner, Group, and Others.
+- **Ownership Modifiers**: Highlight the Owner or Group rows and press `Enter` to change names or IDs via `chown`.
+
+### 5. Tab-Scoped Navigation History
+Fyzenor tracks navigation directories independently per tab:
+- **Back & Forward**: Jump back with `Ctrl+O` and forward with `Ctrl+P`.
+- **History Jump Panel**: Press `H` to open a pop-up window listing visited folders for quick selection and jump.
 
 ---
 
