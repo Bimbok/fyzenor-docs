@@ -165,6 +165,21 @@ export default function App() {
       desc: "Opens the background task worker queue manager overlay to monitor, pause, or kill tasks.",
       category: "Navigation",
     },
+    "Ctrl+O": {
+      title: "Go Back",
+      desc: "Navigates back to the previously visited directory in the active tab's history.",
+      category: "Navigation",
+    },
+    "Ctrl+P": {
+      title: "Go Forward",
+      desc: "Navigates forward in the active tab's directory history.",
+      category: "Navigation",
+    },
+    H: {
+      title: "History Overlay",
+      desc: "Opens a scrollable overlay of recently visited directory paths to jump to.",
+      category: "Navigation",
+    },
     y: {
       title: "Copy (Yank)",
       desc: "Copies selected items or current file path to internal clipboard.",
@@ -299,6 +314,11 @@ export default function App() {
       title: "Show File Details",
       desc: "Displays detailed metadata overlay (UID, GID, file permissions, dates, size).",
       category: "View",
+    },
+    I: {
+      title: "Permissions & Ownership Editor",
+      desc: "Opens an interactive modal to visually inspect and edit chmod/chown fields for the highlighted file.",
+      category: "File Operations",
     },
     m: {
       title: "Mounts & External Devices",
@@ -1266,6 +1286,22 @@ export default function App() {
                       interactive I/O, waiting for Enter before return.
                     </td>
                   </tr>
+                  <tr>
+                    <td>
+                      <strong>Visual Permissions &amp; Ownership</strong>
+                    </td>
+                    <td>
+                      Inspect and edit file permissions (Read/Write/Execute) and ownership (UID/GID) using an interactive checkbox grid overlay by pressing <code>I</code>.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Tab-Scoped Jump History</strong>
+                    </td>
+                    <td>
+                      Navigate back and forth through visited directory paths independently per tab with <code>Ctrl+O</code> and <code>Ctrl+P</code>, or inspect the recent history panel using <code>H</code>.
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -1634,6 +1670,17 @@ export default function App() {
                 Clear Screen
               </button>
             </div>
+
+            <h2 style={{ marginTop: "2.5rem" }}>Tab-Scoped Navigation History</h2>
+            <p>
+              In Fyzenor, directory navigation is tracked independently inside each tab using a localized back and forward history stack.
+            </p>
+            <h3>Navigation Actions &amp; Hotkeys</h3>
+            <ul>
+              <li><strong>Go Back (<code>Ctrl+O</code>)</strong>: Jumps back to the previously visited directory. It pops from the active tab's back history stack and pushes the current path onto the forward history stack.</li>
+              <li><strong>Go Forward (<code>Ctrl+P</code>)</strong>: Jumps forward in the history stack, restoring directory navigation.</li>
+              <li><strong>Navigation History Panel (<code>H</code>)</strong>: Opens an overlay window listing all recently visited directory paths (newest first). You can scroll through the list and select any directory to jump directly to it.</li>
+            </ul>
           </div>
         )}
 
@@ -2638,6 +2685,24 @@ make
 Path=/home/bimbok/shared/important_docs/invoice.pdf
 DeletionDate=2026-07-05T20:14:05`}</div>
             </div>
+
+            <h2 style={{ marginTop: "2.5rem" }}>Visual Permissions &amp; Ownership Editor (<code>I</code>)</h2>
+            <p>
+              In Fyzenor, you can inspect and modify file metadata directly from the TUI interface. By highlighting a file and pressing <kbd>I</kbd> (Shift+i), you open the <strong>Permissions &amp; Ownership Editor</strong> overlay, bypassing the need to suspend the TUI and execute shell commands manually.
+            </p>
+            <h3>Interactive Permission Matrix</h3>
+            <p>
+              The editor renders a 3x3 checkbox grid representing Unix permissions for the Owner, Group, and Others across Read, Write, and Execute bits:
+            </p>
+            <ul>
+              <li><strong>Navigation</strong>: Use standard Vim keys (<code>h</code>/<code>j</code>/<code>k</code>/<code>l</code>) or the arrow keys to focus on checkboxes.</li>
+              <li><strong>Toggling</strong>: Press <code>Space</code> or <code>Enter</code> to check or uncheck individual permission bits.</li>
+              <li><strong>Applying Changes</strong>: Upon clicking <code>[ SAVE ]</code>, Fyzenor instantly calls <code>std::filesystem::permissions</code> to replace the old permission flags.</li>
+            </ul>
+            <h3>Ownership Modifications (chmod / chown)</h3>
+            <p>
+              You can also change the file's Owner and Group fields. Navigating to the Owner or Group rows and pressing <code>Enter</code> will prompt you to type the new user/group name or ID. When saving, Fyzenor uses the POSIX <code>chown</code> API to update the file ownership. If the application is running without sufficient privileges to change ownership, it displays a friendly <code>"Permission denied (run as root)"</code> status message rather than crashing.
+            </p>
           </div>
         )}
 
@@ -2807,6 +2872,28 @@ DeletionDate=2026-07-05T20:14:05`}</div>
                 </div>
               </div>
             </div>
+
+            <h2 style={{ marginTop: "2.5rem" }}>Live Task Throughput &amp; History Log Panel</h2>
+            <p>
+              In Fyzenor v3.0.0, the Task Manager overlay (accessible via <kbd>w</kbd>) includes detailed timing, speed metrics, and a historical completion log panel.
+            </p>
+            <h3>1. Active Task Metrics &amp; Speed Tracking</h3>
+            <p>
+              When running active copy or move operations, Fyzenor tracks transfer rates dynamically:
+            </p>
+            <ul>
+              <li><strong>Elapsed Time Tracker</strong>: Measures the exact task execution duration in seconds (e.g. <code>[12s]</code>) starting from task initiation.</li>
+              <li><strong>Live Throughput Speed</strong>: Calculates data transfer speed dynamically in Megabytes per second (e.g. <code>(45.2 MB/s)</code>) by dividing bytes copied by elapsed time.</li>
+            </ul>
+            <h3>2. Completed Tasks History Log Panel</h3>
+            <p>
+              When background threads or subprocesses finish executing, they write their exit statuses and details into a persistent in-memory log list:
+            </p>
+            <ul>
+              <li><strong>Detailed Logs</strong>: Records the operation type, task description, and result (e.g., <code>[Copy] Copying file.txt to dest - Finished (pasted 1 items)</code> or <code>[Delete] Deleting folder - Cancelled</code>).</li>
+              <li><strong>Split-Pane TUI Layout</strong>: The task manager overlay is split into two panels, with active queues at the top and the last few completed logs at the bottom.</li>
+              <li><strong>Log Clearing</strong>: Pressing <kbd>c</kbd> inside the task overlay cleans up finished background threads and clears all logged entries in the history panel.</li>
+            </ul>
           </div>
         )}
 
