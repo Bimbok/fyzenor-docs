@@ -233,8 +233,31 @@ graph TD
 
 ---
 
-## PAGE 7: THEME CONFIGURATOR
+## PAGE 7: CONFIGURATION & THEME CONFIGURATOR
 
+### ⚙️ External Configuration File (config.toml)
+Fyzenor loads settings, layout sizes, pane toggles, icons, and categories from:
+`~/.config/fyzenor/config.toml`
+
+#### 1. General Section (`[general]`)
+- `show_hidden` (bool): Render dotted/hidden files.
+- `sort_mode` (string): Default folder sorting (`"name"`, `"size"`, `"date"`).
+
+#### 2. Layout Section (`[layout]`)
+- `parent_width` (double): Proportional width of parent sidebar.
+- `current_width` (double): Proportional width of main list pane.
+- `hide_preview` (bool): Hide preview panel on startup (toggleable via `F3`).
+- `hide_parent` (bool): Hide parent panel on startup (toggleable via `F4`).
+
+#### 3. Icons Section (`[icons]`)
+Customizes glyphs (Nerd Fonts) for: `dir`, `video`, `image`, `core`, `frontend`, `config`, `script`, `docs`, `font`, `file`, `music`, `pin`, `zip`, `link`.
+
+#### 4. Categories Section (`[categories]`)
+Map arrays of file extensions to core groupings: `video`, `image`, `frontend`, `scripts`, `config`, `documentation`, `core`, `font`, `audio`, `archive`.
+
+---
+
+### 🎨 Theme Configurator (colors.fz)
 Fyzenor matches custom skins and terminal Matugen templates by parsing colors from:
 `~/.config/fyzenor/colors.fz`
 

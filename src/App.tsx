@@ -90,7 +90,7 @@ export default function App() {
     },
     {
       id: "theming",
-      title: "Theme Configurator",
+      title: "Configuration & Themes",
       icon: <Sparkles size={18} />,
     },
     {
@@ -3224,6 +3224,82 @@ DeletionDate=2026-07-05T20:14:05`}</div>
 
         {activeTab === "theming" && (
           <div className="animate-fade-in">
+            <h2>⚙️ Configuration (`config.toml`)</h2>
+            <p>
+              Fyzenor loads its general settings, layout configurations, panel sizes, pane visibility rules, Nerd Font icon glyphs, and file extension categories from an external TOML file at: <code>~/.config/fyzenor/config.toml</code>.
+            </p>
+
+            <div className="code-container" style={{ marginBottom: "2rem" }}>
+              <div className="code-header">
+                <span>~/.config/fyzenor/config.toml</span>
+                <button
+                  className="copy-btn"
+                  onClick={() =>
+                    handleCopy(
+                      `[general]\nshow_hidden = false\nsort_mode = "name"\n\n[layout]\nparent_width = 0.18\ncurrent_width = 0.32\nhide_preview = false\nhide_parent = false\n\n[icons]\ndir = " "\nvideo = " "\nimage = " "\ncore = " "\nfrontend = "󰖟 "\nconfig = " "\nscript = " "\ndocs = " "\nfont = " "\nfile = " "\nmusic = " "\npin = " "\nzip = "󰿺 "\nlink = "󰌹 "\n\n[categories]\nvideo = [".mp4", ".mkv", ".avi", ".mov", ".flv", ".wmv", ".webm", ".m4v", ".mpg", ".mpeg"]\nimage = [".png", ".jpg", ".jpeg", ".gif", ".bmp", ".webp", ".svg", ".tiff", ".ico", ".psd", ".ai"]\nfrontend = [".js", ".jsx", ".ts", ".tsx", ".css", ".scss", ".sass", ".less", ".styl", ".vue", ".html", ".svelte", ".htm", ".astro", ".mjx", ".dart", ".swift"]\nscripts = [".sh", ".bash", ".zsh", ".fish", ".ksh", ".command", ".pl", ".pm", ".t", ".awk", ".ps1", ".psm1", ".bat", ".cmd", ".vbs", ".wsf"]\nconfig = [".json", ".json5", ".jsonc", ".xml", ".xsd", ".xsl", ".gpx", ".yaml", ".yml", ".toml", ".ini", ".conf", ".cfg", ".prefs", ".properties", ".lock", ".env", ".dockerfile", ".gitignore", ".gitconfig", ".gitattributes", ".gitmodules"]\ndocumentation = [".md", ".markdown", ".txt", ".text", ".log", ".pdf", ".doc", ".docx", ".odt", ".rtf", ".ppt", ".pptx", ".odp", ".xls", ".xlsx", ".ods", ".csv"]\ncore = [".py", ".pyw", ".ipynb", ".pyc", ".pyd", ".rb", ".ru", ".gemspec", ".php", ".cpp", ".cxx", ".cc", ".hpp", ".hxx", ".ixx", ".c", ".h", ".rs", ".java", ".class", ".jar", ".war", ".go", ".lua", ".sql", ".db", ".sqlite", ".sqlite3", ".db3", ".mdb", ".accdb", ".cmake", ".make", ".diff", ".patch", ".kt", ".kts", ".cs", ".csx", ".scala", ".sc", ".hs", ".lhs", ".clj", ".cljs", ".cljc", ".edn", ".r", ".rmd", ".jl", ".fs", ".fsi", ".fsx"]\nfont = [".woff", ".woff2", ".ttf", ".eot", ".otf"]\naudio = [".mp3", ".wav", ".flac", ".m4a", ".aac", ".ogg", ".wma", ".opus", ".mid", ".midi"]\narchive = [".zip", ".tar", ".gz", ".tgz", ".7z", ".rar", ".xz", ".bz2", ".tbz2", ".lzma", ".cab"]`,
+                      "toml-vars-sample",
+                    )
+                  }
+                >
+                  {copiedText === "toml-vars-sample" ? (
+                    <Check size={12} />
+                  ) : (
+                    <Copy size={12} />
+                  )}
+                  {copiedText === "toml-vars-sample" ? "Copied!" : "Copy"}
+                </button>
+              </div>
+              <div className="code-block">{`[general]
+# Show hidden files by default on startup
+show_hidden = false
+
+# Default sorting mode: "name", "size" (descending), or "date" (descending)
+sort_mode = "name"
+
+[layout]
+# Proportional width of the left parent/pinned column in normal mode (ratio 0.0 to 1.0)
+parent_width = 0.18
+
+# Proportional width of the central files list column in normal mode
+current_width = 0.32
+
+# Set to true to hide the rightmost file preview pane by default (toggleable via F3)
+hide_preview = false
+
+# Set to true to hide the leftmost parent/pinned navigation sidebar by default (toggleable via F4)
+hide_parent = false
+
+[icons]
+# Glyph icons used for different file categories and states (Nerd Fonts required)
+dir = " "
+video = " "
+image = " "
+core = " "
+frontend = "󰖟 "
+config = " "
+script = " "
+docs = " "
+font = " "
+file = " "
+music = " "
+pin = " "
+zip = "󰿺 "
+link = "󰌹 "
+
+[categories]
+# Associate file extensions with styling and behavior groups
+video = [".mp4", ".mkv", ".avi", ".mov", ".flv", ".wmv", ".webm", ".m4v", ".mpg", ".mpeg"]
+image = [".png", ".jpg", ".jpeg", ".gif", ".bmp", ".webp", ".svg", ".tiff", ".ico", ".psd", ".ai"]
+frontend = [".js", ".jsx", ".ts", ".tsx", ".css", ".scss", ".sass", ".less", ".styl", ".vue", ".html", ".svelte", ".htm", ".astro", ".mjx", ".dart", ".swift"]
+scripts = [".sh", ".bash", ".zsh", ".fish", ".ksh", ".command", ".pl", ".pm", ".t", ".awk", ".ps1", ".psm1", ".bat", ".cmd", ".vbs", ".wsf"]
+config = [".json", ".json5", ".jsonc", ".xml", ".xsd", ".xsl", ".gpx", ".yaml", ".yml", ".toml", ".ini", ".conf", ".cfg", ".prefs", ".properties", ".lock", ".env", ".dockerfile", ".gitignore", ".gitconfig", ".gitattributes", ".gitmodules"]
+documentation = [".md", ".markdown", ".txt", ".text", ".log", ".pdf", ".doc", ".docx", ".odt", ".rtf", ".ppt", ".pptx", ".odp", ".xls", ".xlsx", ".ods", ".csv"]
+core = [".py", ".pyw", ".ipynb", ".pyc", ".pyd", ".rb", ".ru", ".gemspec", ".php", ".cpp", ".cxx", ".cc", ".hpp", ".hxx", ".ixx", ".c", ".h", ".rs", ".java", ".class", ".jar", ".war", ".go", ".lua", ".sql", ".db", ".sqlite", ".sqlite3", ".db3", ".mdb", ".accdb", ".cmake", ".make", ".diff", ".patch", ".kt", ".kts", ".cs", ".csx", ".scala", ".sc", ".hs", ".lhs", ".clj", ".cljs", ".cljc", ".edn", ".r", ".rmd", ".jl", ".fs", ".fsi", ".fsx"]
+font = [".woff", ".woff2", ".ttf", ".eot", ".otf"]
+audio = [".mp3", ".wav", ".flac", ".m4a", ".aac", ".ogg", ".wma", ".opus", ".mid", ".midi"]
+archive = [".zip", ".tar", ".gz", ".tgz", ".7z", ".rar", ".xz", ".bz2", ".tbz2", ".lzma", ".cab"]`}</div>
+            </div>
+
             <h2>🎨 Theme Customization</h2>
             <p>
               Fyzenor supports custom color themes loaded via{" "}
