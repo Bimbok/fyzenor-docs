@@ -468,8 +468,8 @@ export default function App() {
     {
       id: "theming",
       title: "Theme Configurator & Matugen",
-      keywords: "matugen theme custom colors config colors.fz background text active accent status bar presets gallery tokyo night catppuccin gruvbox nord dracula",
-      content: "Configure custom TUI colors and export colors.fz configurations. Choose from presets like Tokyo Night, Catppuccin, Gruvbox, Nord, and Dracula."
+      keywords: "matugen theme custom colors config theme.toml background text active accent status bar presets gallery tokyo night catppuccin gruvbox nord dracula",
+      content: "Configure custom TUI colors and export theme.toml configurations. Choose from presets like Tokyo Night, Catppuccin, Gruvbox, Nord, and Dracula."
     },
     {
       id: "theming",
@@ -491,9 +491,9 @@ export default function App() {
     },
     {
       id: "theming",
-      title: "Custom Keyboard Macros (keys.fz)",
-      keywords: "custom keys keybinds config keys.fz macros $f $s shell subprocess def_prog_mode",
-      content: "Map single-key shortcuts in ~/.config/fyzenor/keys.fz to execute shell commands with macro path variables $f and $s."
+      title: "Custom Keyboard Macros (keys.toml)",
+      keywords: "custom keys keybinds config keys.toml macros $f $s shell subprocess def_prog_mode",
+      content: "Map single-key shortcuts in ~/.config/fyzenor/keys.toml to execute shell commands with macro path variables $f and $s."
     },
     {
       id: "community",
@@ -505,7 +505,7 @@ export default function App() {
       id: "troubleshoot",
       title: "Troubleshooting & FAQ",
       keywords: "crashes terminal size ncurses compilation errors filesystem filesystem library g++ gcc",
-      content: "Fix filesystem library compilation errors. Check ncurses locale support for icons. Validate custom colors.fz syntax rules."
+      content: "Fix filesystem library compilation errors. Check ncurses locale support for icons. Validate custom theme.toml syntax rules."
     }
   ];
 
@@ -1211,7 +1211,7 @@ export default function App() {
                     </td>
                     <td>
                       Customize the UI through{" "}
-                      <code>~/.config/fyzenor/colors.fz</code>, with optional
+                      <code>~/.config/fyzenor/theme.toml</code>, with optional
                       Matugen-powered wallpaper theming.
                     </td>
                   </tr>
@@ -1301,7 +1301,7 @@ export default function App() {
                       <strong>Custom Key Macros</strong>
                     </td>
                     <td>
-                      Map single-key binds in <code>~/.config/fyzenor/keys.fz</code>{" "}
+                      Map single-key binds in <code>~/.config/fyzenor/keys.toml</code>{" "}
                       to run shell commands with path placeholders (
                       <code>$f</code>, <code>$s</code>). Suspends TUI mode for full
                       interactive I/O, waiting for Enter before return.
@@ -3303,7 +3303,7 @@ archive = [".zip", ".tar", ".gz", ".tgz", ".7z", ".rar", ".xz", ".bz2", ".tbz2",
             <h2>🎨 Theme Customization</h2>
             <p>
               Fyzenor supports custom color themes loaded via{" "}
-              <code>~/.config/fyzenor/colors.fz</code>. The default packaged
+              <code>~/.config/fyzenor/theme.toml</code>. The default packaged
               theme is <strong>Catppuccin Mocha</strong>.
             </p>
 
@@ -3315,12 +3315,12 @@ archive = [".zip", ".tar", ".gz", ".tgz", ".7z", ".rar", ".xz", ".bz2", ".tbz2",
 
             <div className="code-container">
               <div className="code-header">
-                <span>~/.config/fyzenor/colors.fz</span>
+                <span>~/.config/fyzenor/theme.toml</span>
                 <button
                   className="copy-btn"
                   onClick={() =>
                     handleCopy(
-                      "DIR: #89b4fa\nFILE: #cdd6f4\nSEL_BG: #585b70\nMEDIA: #f9e2af\nIMAGE: #f5c2e7\nBORDER: #b4befe\nSUCCESS: #a6e3a1\nERROR: #f38ba8\nMULTI: #f5e0dc\nPIN_BG: #cba6f7\nPIN_BORDER: #89b4fa\nSEC_SEL_BG: #313244\nCORE: #a6e3a1\nARCHIVE: #eba0ac\nFRONTEND: #fab387\nCONFIG: #94e2d5\nSCRIPT: #f9e2af\nDOCS: #f2cdcd\nFONT: #cba6f7",
+                      "[colors]\ndir = \"#89b4fa\"\nfile = \"#cdd6f4\"\nsel_bg = \"#585b70\"\nmedia = \"#f9e2af\"\nimage = \"#f5c2e7\"\nborder = \"#b4befe\"\nsuccess = \"#a6e3a1\"\nerror = \"#f38ba8\"\nmulti = \"#f5e0dc\"\npin_bg = \"#cba6f7\"\npin_border = \"#89b4fa\"\nsec_sel_bg = \"#313244\"\ncore = \"#a6e3a1\"\narchive = \"#eba0ac\"\nfrontend = \"#fab387\"\nconfig = \"#94e2d5\"\nscript = \"#f9e2af\"\ndocs = \"#f2cdcd\"\nfont = \"#cba6f7\"",
                       "theme-vars-sample",
                     )
                   }
@@ -3333,25 +3333,28 @@ archive = [".zip", ".tar", ".gz", ".tgz", ".7z", ".rar", ".xz", ".bz2", ".tbz2",
                   {copiedText === "theme-vars-sample" ? "Copied!" : "Copy"}
                 </button>
               </div>
-              <div className="code-block">{`DIR: #89b4fa
-FILE: #cdd6f4
-SEL_BG: #585b70
-MEDIA: #f9e2af
-IMAGE: #f5c2e7
-BORDER: #b4befe
-SUCCESS: #a6e3a1
-ERROR: #f38ba8
-MULTI: #f5e0dc
-PIN_BG: #cba6f7
-PIN_BORDER: #89b4fa
-SEC_SEL_BG: #313244
-CORE: #a6e3a1
-ARCHIVE: #eba0ac
-FRONTEND: #fab387
-CONFIG: #94e2d5
-SCRIPT: #f9e2af
-DOCS: #f2cdcd
-FONT: #cba6f7`}</div>
+              <div className="code-block">{`# Fyzenor Theme Configuration File
+
+[colors]
+dir = "#89b4fa"
+file = "#cdd6f4"
+sel_bg = "#585b70"
+media = "#f9e2af"
+image = "#f5c2e7"
+border = "#b4befe"
+success = "#a6e3a1"
+error = "#f38ba8"
+multi = "#f5e0dc"
+pin_bg = "#cba6f7"
+pin_border = "#89b4fa"
+sec_sel_bg = "#313244"
+core = "#a6e3a1"
+archive = "#eba0ac"
+frontend = "#fab387"
+config = "#94e2d5"
+script = "#f9e2af"
+docs = "#f2cdcd"
+font = "#cba6f7"`}</div>
             </div>
 
             <h2>Wallpaper-Based Theming (Matugen)</h2>
@@ -3372,7 +3375,7 @@ FONT: #cba6f7`}</div>
                   className="copy-btn"
                   onClick={() =>
                     handleCopy(
-                      "# Fyzenor Theme: Matugen Generated\nDIR: {{colors.primary.default.hex}}\nFILE: {{colors.on_surface.default.hex}}\nSEL_BG: {{colors.surface_variant.default.hex}}\nMEDIA: {{colors.tertiary.default.hex}}\nIMAGE: {{colors.secondary.default.hex}}\nBORDER: {{colors.outline.default.hex}}\nSUCCESS: {{colors.primary_fixed.default.hex}}\nERROR: {{colors.error.default.hex}}\nMULTI: {{colors.tertiary_container.default.hex}}\nPIN_BG: {{colors.secondary_container.default.hex}}\nPIN_BORDER: {{colors.primary.default.hex}}\nSEC_SEL_BG: {{colors.surface_dim.default.hex}}\nCORE: {{colors.primary.default.hex}}\nARCHIVE: {{colors.error_container.default.hex}}\nFRONTEND: {{colors.secondary.default.hex}}\nCONFIG: {{colors.inverse_primary.default.hex}}\nSCRIPT: {{colors.tertiary.default.hex}}\nDOCS: {{colors.surface_bright.default.hex}}\nFONT: {{colors.on_tertiary.default.hex}}",
+                      "# Fyzenor Theme: Matugen Generated\n\n[colors]\ndir = \"{{colors.primary.default.hex}}\"\nfile = \"{{colors.on_surface.default.hex}}\"\nsel_bg = \"{{colors.surface_variant.default.hex}}\"\nmedia = \"{{colors.tertiary.default.hex}}\"\nimage = \"{{colors.secondary.default.hex}}\"\nborder = \"{{colors.outline.default.hex}}\"\nsuccess = \"{{colors.primary_fixed.default.hex}}\"\nerror = \"{{colors.error.default.hex}}\"\nmulti = \"{{colors.tertiary_container.default.hex}}\"\npin_bg = \"{{colors.secondary_container.default.hex}}\"\npin_border = \"{{colors.primary.default.hex}}\"\nsec_sel_bg = \"{{colors.surface_dim.default.hex}}\"",
                       "matugen-temp",
                     )
                   }
@@ -3386,25 +3389,20 @@ FONT: #cba6f7`}</div>
                 </button>
               </div>
               <div className="code-block">{`# Fyzenor Theme: Matugen Generated
-DIR: {{colors.primary.default.hex}}
-FILE: {{colors.on_surface.default.hex}}
-SEL_BG: {{colors.surface_variant.default.hex}}
-MEDIA: {{colors.tertiary.default.hex}}
-IMAGE: {{colors.secondary.default.hex}}
-BORDER: {{colors.outline.default.hex}}
-SUCCESS: {{colors.primary_fixed.default.hex}}
-ERROR: {{colors.error.default.hex}}
-MULTI: {{colors.tertiary_container.default.hex}}
-PIN_BG: {{colors.secondary_container.default.hex}}
-PIN_BORDER: {{colors.primary.default.hex}}
-SEC_SEL_BG: {{colors.surface_dim.default.hex}}
-CORE: {{colors.primary.default.hex}}
-ARCHIVE: {{colors.error_container.default.hex}}
-FRONTEND: {{colors.secondary.default.hex}}
-CONFIG: {{colors.inverse_primary.default.hex}}
-SCRIPT: {{colors.tertiary.default.hex}}
-DOCS: {{colors.surface_bright.default.hex}}
-FONT: {{colors.on_tertiary.default.hex}}`}</div>
+
+[colors]
+dir = "{{colors.primary.default.hex}}"
+file = "{{colors.on_surface.default.hex}}"
+sel_bg = "{{colors.surface_variant.default.hex}}"
+media = "{{colors.tertiary.default.hex}}"
+image = "{{colors.secondary.default.hex}}"
+border = "{{colors.outline.default.hex}}"
+success = "{{colors.primary_fixed.default.hex}}"
+error = "{{colors.error.default.hex}}"
+multi = "{{colors.tertiary_container.default.hex}}"
+pin_bg = "{{colors.secondary_container.default.hex}}"
+pin_border = "{{colors.primary.default.hex}}"
+sec_sel_bg = "{{colors.surface_dim.default.hex}}"`}</div>
             </div>
 
             <h3>Step 2: Update Matugen Config</h3>
@@ -3419,7 +3417,7 @@ FONT: {{colors.on_tertiary.default.hex}}`}</div>
                   className="copy-btn"
                   onClick={() =>
                     handleCopy(
-                      '[templates.fyzenor]\ninput_path = "~/.config/matugen/templates/fyzenor-colors.template"\noutput_path = "~/.config/fyzenor/colors.fz"',
+                      '[templates.fyzenor]\ninput_path = "~/.config/matugen/templates/fyzenor-colors.template"\noutput_path = "~/.config/fyzenor/theme.toml"',
                       "matugen-config",
                     )
                   }
@@ -3434,7 +3432,7 @@ FONT: {{colors.on_tertiary.default.hex}}`}</div>
               </div>
               <div className="code-block">{`[templates.fyzenor]
 input_path = "~/.config/matugen/templates/fyzenor-colors.template"
-output_path = "~/.config/fyzenor/colors.fz"`}</div>
+output_path = "~/.config/fyzenor/theme.toml"`}</div>
             </div>
 
             <h3>Step 3: Generate the Colors</h3>
@@ -3593,7 +3591,7 @@ output_path = "~/.config/fyzenor/colors.fz"`}</div>
                   className="terminal-interactive-btn"
                   onClick={() =>
                     handleCopy(
-                      `# Fyzenor colors config\nDIR: ${themeConfig.activeText}\nFILE: ${themeConfig.normalText}\nBORDER: ${themeConfig.border}\nSEL_BG: ${themeConfig.statusBar}\nSEC_SEL_BG: ${themeConfig.statusBar}`,
+                      `# Fyzenor theme config\n\n[colors]\ndir = "${themeConfig.activeText}"\nfile = "${themeConfig.normalText}"\nborder = "${themeConfig.border}"\nsel_bg = "${themeConfig.statusBar}"\nsec_sel_bg = "${themeConfig.statusBar}"`,
                       "colors-fz-copy",
                     )
                   }
@@ -3613,7 +3611,7 @@ output_path = "~/.config/fyzenor/colors.fz"`}</div>
                   )}
                   {copiedText === "colors-fz-copy"
                     ? "Copied Config!"
-                    : "Copy colors.fz"}
+                    : "Copy theme.toml"}
                 </button>
               </div>
 
@@ -3707,19 +3705,19 @@ output_path = "~/.config/fyzenor/colors.fz"`}</div>
             </p>
             <h3>Configuration File Path</h3>
             <p>
-              Settings are loaded from: <code>~/.config/fyzenor/keys.fz</code>.
+              Settings are loaded from: <code>~/.config/fyzenor/keys.toml</code>.
               If the file does not exist, Fyzenor generates a default template
               containing helpful comments on launch.
             </p>
 
             <div className="code-container">
               <div className="code-header">
-                <span>~/.config/fyzenor/keys.fz</span>
+                <span>~/.config/fyzenor/keys.toml</span>
                 <button
                   className="copy-btn"
                   onClick={() =>
                     handleCopy(
-                      "# Fyzenor Custom Keys Macro Configuration\n# Format: single_key=command\n# Macros:\n#   $f - expands to the currently highlighted file's absolute path\n#   $s - expands to space-separated paths of all selected files\n\nv=nvim \"$f\"\ng=git status\nl=ls -la",
+                      "[macros]\nv = 'nvim \"$f\"'\ng = 'git status'\nl = 'ls -la'",
                       "keys-macro-sample",
                     )
                   }
@@ -3733,14 +3731,16 @@ output_path = "~/.config/fyzenor/colors.fz"`}</div>
                 </button>
               </div>
               <div className="code-block">{`# Fyzenor Custom Keys Macro Configuration
-# Format: single_key=command
-# Macros:
+# Macros allow you to execute shell command shortcuts using single keystrokes.
+# Use single quotes for command strings in TOML.
+# Place them under the [macros] section.
 #   $f - expands to the currently highlighted file's absolute path
 #   $s - expands to space-separated paths of all selected files
 
-v=nvim "$f"
-g=git status
-l=ls -la`}</div>
+[macros]
+v = 'nvim "$f"'
+g = 'git status'
+l = 'ls -la'`}</div>
             </div>
 
             <h3>Macro Execution Behavior</h3>
@@ -3967,15 +3967,15 @@ l=ls -la`}</div>
                   }}
                 >
                   <HelpCircle size={18} />
-                  My theme changes in colors.fz are not loading.
+                  My theme changes in theme.toml are not loading.
                 </h4>
                 <p style={{ margin: "0.5rem 0 0" }}>
                   Make sure your theme config is written to the exact location:{" "}
-                  <code>~/.config/fyzenor/colors.fz</code>. If the syntax
+                  <code>~/.config/fyzenor/theme.toml</code>. If the syntax
                   contains errors, Fyzenor falls back to the default Terminal
                   Dark theme without crashing. You can validate the
                   configuration format by copying it from the{" "}
-                  <strong>Theme Configurator</strong> tab.
+                  <strong>Configuration & Themes</strong> tab.
                 </p>
               </div>
             </div>

@@ -257,9 +257,9 @@ Map arrays of file extensions to core groupings: `video`, `image`, `frontend`, `
 
 ---
 
-### 🎨 Theme Configurator (colors.fz)
+### 🎨 Theme Configurator (theme.toml)
 Fyzenor matches custom skins and terminal Matugen templates by parsing colors from:
-`~/.config/fyzenor/colors.fz`
+`~/.config/fyzenor/theme.toml`
 
 ### Custom Theme Variables (19 C++ Parameters)
 - `bg` : Terminal background color.
@@ -286,10 +286,10 @@ Fyzenor matches custom skins and terminal Matugen templates by parsing colors fr
 
 ## PAGE 8: CUSTOM KEYBOARD MACROS & RICH PREVIEWS
 
-### 1. Custom Keyboard Macros (`keys.fz`)
+### 1. Custom Keyboard Macros (`keys.toml`)
 Map single-key shortcuts to run shell commands on highlighted/selected items.
-- **Config Path**: `~/.config/fyzenor/keys.fz` (auto-generated if missing).
-- **Format**: `key=command` (e.g. `v=nvim "$f"`).
+- **Config Path**: `~/.config/fyzenor/keys.toml` (auto-generated if missing).
+- **Format**: `key = 'command'` (e.g. `v = 'nvim "$f"'`).
 - **Placeholders**: `$f` (highlighted path), `$s` (space-separated selected paths).
 - **Execution**: Suspends NCurses, changes directory to the browsed folder, runs in foreground interactive terminal, and prompts Enter to return.
 
