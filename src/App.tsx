@@ -2916,6 +2916,7 @@ DeletionDate=2026-07-05T20:14:05`}</div>
             <ul>
               <li><strong>Elapsed Time Tracker</strong>: Measures the exact task execution duration in seconds (e.g. <code>[12s]</code>) starting from task initiation.</li>
               <li><strong>Live Throughput Speed</strong>: Calculates data transfer speed dynamically in Megabytes per second (e.g. <code>(45.2 MB/s)</code>) by dividing bytes copied by elapsed time.</li>
+              <li><strong>Time to Finish (ETA)</strong>: Calculates the estimated remaining execution duration based on total file size, bytes processed, and transfer rates (e.g. <code>ETA: 1m 24s</code>).</li>
             </ul>
             <h3>2. Completed Tasks History Log Panel</h3>
             <p>
