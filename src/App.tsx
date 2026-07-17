@@ -300,6 +300,16 @@ export default function App() {
       desc: "Toggles side-by-side vertical file browser panels for rapid navigation and copying.",
       category: "View",
     },
+    "Ctrl+G": {
+      title: "Grow Active Pane Width",
+      desc: "Increases the horizontal size of the currently focused pane in Dual-Pane mode.",
+      category: "View",
+    },
+    "Ctrl+B": {
+      title: "Shrink Active Pane Width",
+      desc: "Decreases the horizontal size of the currently focused pane in Dual-Pane mode. (Alternative: <code>Ctrl+H</code>).",
+      category: "View",
+    },
     F5: {
       title: "Refresh Directory",
       desc: "Forces folder re-indexing, clears sizes caches, and redraws the UI.",
@@ -1232,7 +1242,8 @@ export default function App() {
                     <td>
                       Toggle (<code>F2</code>) side-by-side active file listings
                       for drag-free copying, with easy tab focus switching (
-                      <code>Tab</code>).
+                      <code>Tab</code>) and active column resizing (
+                      <code>Ctrl+G</code> to grow, <code>Ctrl+B</code> / <code>Ctrl+H</code> to shrink).
                     </td>
                   </tr>
                   <tr>

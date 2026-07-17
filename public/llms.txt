@@ -133,7 +133,10 @@ Fyzenor employs Vim-style keystrokes for efficient, mouse-free directory navigat
 - `w` : Opens the Asynchronous Task Manager.
 - `T` : Opens the Trash Manager.
 - `m` : Opens Block Devices & MTP Mounts manager.
-- `F2` : Reloads current directory / Refreshes mount listings.
+- `F2` : Toggles Dual-Pane mode (split-screen side-by-side files lists).
+- `Ctrl+G` : Grows currently active pane width (Dual-Pane mode only).
+- `Ctrl+B` / `Ctrl+H` : Shrinks currently active pane width (Dual-Pane mode only).
+- `F5` / `Ctrl+R` : Reloads current directory / Refreshes file listings.
 - `s` : Cycles sorting modes: Name -> Size (Desc) -> Date Modified (Desc).
 - `P` : Pins current directory path to bookmarks.
 - `:` : Launches global shell command prompt.
