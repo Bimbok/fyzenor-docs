@@ -134,6 +134,8 @@ Fyzenor employs Vim-style keystrokes for efficient, mouse-free directory navigat
 - `T` : Opens the Trash Manager.
 - `m` : Opens Block Devices & MTP Mounts manager.
 - `F2` : Toggles Dual-Pane mode (split-screen side-by-side files lists).
+- `F3` : Toggles Preview Pane visibility (normal mode only).
+- `F4` : Toggles Parent/Sidebar Pane visibility (normal mode only).
 - `Ctrl+G` : Grows currently active pane width (Dual-Pane mode only).
 - `Ctrl+B` / `Ctrl+H` : Shrinks currently active pane width (Dual-Pane mode only).
 - `F5` / `Ctrl+R` : Reloads current directory / Refreshes file listings.

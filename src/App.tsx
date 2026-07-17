@@ -310,6 +310,16 @@ export default function App() {
       desc: "Decreases the horizontal size of the currently focused pane in Dual-Pane mode. (Alternative: <code>Ctrl+H</code>).",
       category: "View",
     },
+    F3: {
+      title: "Toggle Preview Pane",
+      desc: "Toggles visibility of the rightmost file preview pane in normal view mode.",
+      category: "View",
+    },
+    F4: {
+      title: "Toggle Parent Pane",
+      desc: "Toggles visibility of the leftmost parent/pinned navigation sidebar in normal view mode.",
+      category: "View",
+    },
     F5: {
       title: "Refresh Directory",
       desc: "Forces folder re-indexing, clears sizes caches, and redraws the UI.",
