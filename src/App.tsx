@@ -19,6 +19,7 @@ import {
   FolderOpen,
   Users,
   ChevronUp,
+  Hand,
 } from "lucide-react";
 
 interface DocSection {
@@ -78,6 +79,11 @@ export default function App() {
       icon: <Keyboard size={18} />,
     },
     { id: "trash", title: "Trash Deep Dive", icon: <Trash2 size={18} /> },
+    {
+      id: "dragdrop",
+      title: "Drag & Drop Support",
+      icon: <Hand size={18} />,
+    },
     {
       id: "tasks",
       title: "Task Controls & Smart Copy",
@@ -2751,6 +2757,115 @@ DeletionDate=2026-07-05T20:14:05`}</div>
             <p>
               You can also change the file's Owner and Group fields. Navigating to the Owner or Group rows and pressing <code>Enter</code> will prompt you to type the new user/group name or ID. When saving, Fyzenor uses the POSIX <code>chown</code> API to update the file ownership. If the application is running without sufficient privileges to change ownership, it displays a friendly <code>"Permission denied (run as root)"</code> status message rather than crashing.
             </p>
+          </div>
+        )}
+
+        {activeTab === "dragdrop" && (
+          <div className="animate-fade-in">
+            <h2>Seamless GUI &amp; Terminal Drag-and-Drop Integration</h2>
+            <p>
+              Fyzenor bridges the gap between text-based terminals and graphical desktop environments. 
+              You can drag files directly from your desktop into Fyzenor, or drag highlighted items out 
+              of the terminal into external web browsers (e.g., Discord, GitHub, Gmail) or folder windows.
+            </p>
+
+            <div className="card-grid">
+              <div className="card-premium">
+                <div
+                  style={{
+                    color: "var(--accent-cyan)",
+                    fontWeight: 800,
+                    fontSize: "1.25rem",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  📥 1. Dropping Files INTO Fyzenor
+                </div>
+                <p>
+                  Quickly transfer files from external desktop folders directly into your active terminal directory:
+                </p>
+                <ol style={{ paddingLeft: "1.2rem", margin: "0.5rem 0" }}>
+                  <li>Open Fyzenor and navigate to the target directory.</li>
+                  <li>Drag any file or folder from your GUI file manager (Nautilus, Dolphin, Finder, Desktop, etc.).</li>
+                  <li>Drop the items anywhere onto the terminal window running Fyzenor.</li>
+                  <li>An overlay dialog will immediately prompt you:
+                    <ul style={{ paddingLeft: "1rem", marginTop: "0.25rem" }}>
+                      <li>Press <kbd>c</kbd> to <strong>Copy</strong> the files here.</li>
+                      <li>Press <kbd>m</kbd> to <strong>Move</strong> the files here.</li>
+                      <li>Press <kbd>Esc</kbd> to <strong>Cancel</strong>.</li>
+                    </ul>
+                  </li>
+                </ol>
+                <p style={{ fontSize: "0.85rem", opacity: 0.8, marginTop: "0.5rem" }}>
+                  💡 <strong>How it works:</strong> Fyzenor leverages <em>Bracketed Paste Mode</em> (ANSI escapes) to intercept files, URL-decodes percent encodings (converting <code>%20</code> back to spaces), tokenizes the file list, and triggers background AsyncTask jobs.
+                </p>
+              </div>
+
+              <div className="card-premium">
+                <div
+                  style={{
+                    color: "var(--accent-purple)",
+                    fontWeight: 800,
+                    fontSize: "1.25rem",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  📤 2. Dragging Files OUT of Fyzenor
+                </div>
+                <p>
+                  Drag files out of your terminal list directly into browsers, chat clients, or GUI editors:
+                </p>
+                <ol style={{ paddingLeft: "1.2rem", margin: "0.5rem 0" }}>
+                  <li>Highlight a file (or select multiple using <kbd>Space</kbd> or <kbd>v</kbd>).</li>
+                  <li>Press <kbd>Ctrl+D</kbd> on your keyboard.</li>
+                  <li>A tiny, floating drop-zone widget window will immediately pop up at your mouse cursor.</li>
+                  <li>Click and hold this floating widget, drag it over to another app (e.g., Discord chat, Slack, a web browser uploader, or a GUI folder), and drop it.</li>
+                  <li>The widget window automatically closes upon a successful drop.</li>
+                </ol>
+                <p style={{ fontSize: "0.85rem", opacity: 0.8, marginTop: "0.5rem" }}>
+                  💡 <strong>How it works:</strong> Spawns a lightweight drag source utility asynchronously. The background job is completely decoupled from the TUI main loop, guaranteeing a fluid, freeze-free cursor response.
+                </p>
+              </div>
+            </div>
+
+            <h2 style={{ marginTop: "2.5rem" }}>🛠️ Installing Drag &amp; Drop Dependencies</h2>
+            <p>
+              To support dragging files <strong>out</strong> of the terminal, you must install one of the supported drag-and-drop helper utilities on your system path. We recommend <strong><code>ripdrag</code></strong> (modern Rust rewrite) or <strong><code>dragon</code></strong> (classic GTK3 version).
+            </p>
+
+            <div style={{ marginTop: "1rem" }}>
+              <h3>Option A: `ripdrag` (Recommended - Rust)</h3>
+              <p>Install via your package manager or Rust Cargo:</p>
+              <pre className="code-block" style={{ position: "relative" }}>
+                <code>
+{`# Cargo (Works on any Linux/macOS distro)
+cargo install ripdrag
+
+# Arch Linux
+yay -S ripdrag
+
+# Fedora
+sudo dnf install ripdrag`}
+                </code>
+              </pre>
+            </div>
+
+            <div style={{ marginTop: "1.5rem" }}>
+              <h3>Option B: `dragon` (Alternative - GTK3)</h3>
+              <p>Install via your package manager:</p>
+              <pre className="code-block" style={{ position: "relative" }}>
+                <code>
+{`# Debian / Ubuntu
+sudo apt install dragon-drag-and-drop
+
+# Arch Linux
+yay -S dragon-drag-and-drop-git
+
+# Fedora
+sudo dnf install dragon`}
+                </code>
+              </pre>
+            </div>
           </div>
         )}
 
