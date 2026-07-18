@@ -255,6 +255,11 @@ export default function App() {
       desc: "Copies the absolute path of the current file directly into the system clipboard.",
       category: "File Operations",
     },
+    "Ctrl+D": {
+      title: "Drag Out",
+      desc: "Triggers drag-and-drop out of the terminal. Spawns ripdrag or dragon asynchronously to drag files into browsers or GUI folders.",
+      category: "File Operations",
+    },
     Space: {
       title: "Select Item",
       desc: "Toggles the selection state of the highlighted file/folder for bulk operations.",
@@ -1011,6 +1016,17 @@ export default function App() {
                       Select multiple files and press <code>r</code> to rename
                       them all at once inside your default text editor (e.g.{" "}
                       <code>nvim</code>, <code>nano</code>).
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Drag &amp; Drop Integration</strong>
+                    </td>
+                    <td>
+                      Drop files directly into the terminal window to Copy/Move
+                      them, or press <code>Ctrl+D</code> to drag files out into
+                      GUI applications (via <code>ripdrag</code> or{" "}
+                      <code>dragon</code>).
                     </td>
                   </tr>
                   <tr>
