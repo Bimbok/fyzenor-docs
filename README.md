@@ -1,6 +1,6 @@
 # Fyzenor Documentation Website
 
-This is a modern, responsive, and interactive React + TypeScript + Vite documentation application for **Fyzenor (v4.0.0)**.
+This is a modern, responsive, and interactive React + TypeScript + Vite documentation application for **Fyzenor (v4.1.0)**.
 
 ## 🚀 Quick Start
 
