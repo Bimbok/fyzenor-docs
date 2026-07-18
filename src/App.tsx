@@ -328,7 +328,12 @@ export default function App() {
     },
     F4: {
       title: "Toggle Parent Pane",
-      desc: "Toggles visibility of the leftmost parent/pinned navigation sidebar in normal view mode.",
+      desc: "Toggles visibility of the leftmost parent directory navigation sidebar in normal view mode.",
+      category: "View",
+    },
+    F6: {
+      title: "Toggle Bookmarks Pane",
+      desc: "Toggles visibility of the leftmost pinned bookmarks sidebar in normal view mode.",
       category: "View",
     },
     F5: {
@@ -3394,8 +3399,11 @@ current_width = 0.32
 # Set to true to hide the rightmost file preview pane by default (toggleable via F3)
 hide_preview = false
 
-# Set to true to hide the leftmost parent/pinned navigation sidebar by default (toggleable via F4)
+# Set to true to hide the parent directory pane by default (toggleable via F4)
 hide_parent = false
+
+# Set to true to hide the pinned bookmarks pane by default (toggleable via F6)
+hide_pinned = false
 
 [icons]
 # Glyph icons used for different file categories and states (Nerd Fonts required)
