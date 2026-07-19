@@ -20,6 +20,7 @@ import {
   Users,
   ChevronUp,
   Hand,
+  GitBranch,
 } from "lucide-react";
 
 interface DocSection {
@@ -83,6 +84,11 @@ export default function App() {
       id: "dragdrop",
       title: "Drag & Drop Support",
       icon: <Hand size={18} />,
+    },
+    {
+      id: "git",
+      title: "Git & Lazygit",
+      icon: <GitBranch size={18} />,
     },
     {
       id: "tasks",
@@ -2871,6 +2877,93 @@ sudo dnf install dragon`}
                 </code>
               </pre>
             </div>
+          </div>
+        )}
+
+        {activeTab === "git" && (
+          <div className="animate-fade-in">
+            <h2>Native Git &amp; Lazygit Integration</h2>
+            <p>
+              Fyzenor includes built-in support for launching <strong>Lazygit</strong> (a popular, interactive Git TUI written in Go) directly inside your current directory. It is designed to provide a fluid, seamless Git workflow without leaving your file manager interface.
+            </p>
+
+            <div className="card-grid">
+              <div className="card-premium">
+                <div
+                  style={{
+                    color: "var(--accent-green)",
+                    fontWeight: 800,
+                    fontSize: "1.25rem",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  ⚡ Centered Tmux Popup Overlay
+                </div>
+                <p>
+                  If Fyzenor is running inside an active <code>tmux</code> session, launching Lazygit uses <code>tmux display-popup</code> to create a floating overlay window:
+                </p>
+                <ul style={{ paddingLeft: "1.2rem", margin: "0.5rem 0" }}>
+                  <li>It renders as a centered, double-bordered popup modal inside the terminal screen.</li>
+                  <li>It has a configured size of <strong>85% width and height</strong>, leaving a gorgeous, desktop-like padding gap around it.</li>
+                  <li>When you exit Lazygit (by pressing <kbd>q</kbd>), the popup window closes instantly, returning keyboard focus to Fyzenor cleanly.</li>
+                </ul>
+              </div>
+
+              <div className="card-premium">
+                <div
+                  style={{
+                    color: "var(--accent-purple)",
+                    fontWeight: 800,
+                    fontSize: "1.25rem",
+                    marginBottom: "0.5rem",
+                  }}
+                >
+                  🖥️ Full-Screen Console Fallback
+                </div>
+                <p>
+                  When running outside of a tmux session:
+                </p>
+                <ul style={{ paddingLeft: "1.2rem", margin: "0.5rem 0" }}>
+                  <li>Fyzenor safely suspends its ncurses terminal state (restoring your shell terminal).</li>
+                  <li>It launches Lazygit in full-screen mode, allowing it to claim full console input and draw correctly at coordinate <code>0,0</code>.</li>
+                  <li>Once Lazygit exits, Fyzenor instantly resumes, restoring your layout state perfectly.</li>
+                </ul>
+              </div>
+            </div>
+
+            <h2 style={{ marginTop: "2.5rem" }}>⌨️ Launching and Auto-Reload</h2>
+            <div className="alert-info-box" style={{ marginBottom: "1rem" }}>
+              <Info size={20} style={{ flexShrink: 0 }} />
+              <div>
+                <strong>How to Launch:</strong> Press <kbd>Ctrl+G</kbd> in normal mode.
+              </div>
+            </div>
+            <p>
+              Upon exit, Fyzenor triggers an automatic <strong>full cache invalidation and reload</strong> (<code>reloadAll()</code>). Any Git commits, branch checkouts, resets, or file additions performed inside Lazygit reflect instantly in the browser list panels without needing to press manual refresh.
+            </p>
+
+            <h2 style={{ marginTop: "2.5rem" }}>🛠️ Installing Lazygit</h2>
+            <p>
+              To support this integration, ensure <code>lazygit</code> is installed and available in your system <code>PATH</code>:
+            </p>
+            <pre className="code-block" style={{ position: "relative" }}>
+              <code>
+{`# Debian / Ubuntu
+sudo add-apt-repository ppa:lazygit-team/release
+sudo apt update
+sudo apt install lazygit
+
+# Fedora / CentOS
+sudo dnf copr enable atim/lazygit -y
+sudo dnf install lazygit -y
+
+# Arch Linux
+yay -S lazygit
+
+# macOS (Homebrew)
+brew install lazygit`}
+              </code>
+            </pre>
           </div>
         )}
 
