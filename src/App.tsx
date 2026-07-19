@@ -44,7 +44,7 @@ export default function App() {
   // Terminal Simulator State
   const [termInput, setTermInput] = useState<string>("");
   const [termLines, setTermLines] = useState<string[]>([
-    "Fyzenor Terminal Simulator v4.1.0",
+    "Fyzenor Terminal Simulator v4.2.0",
     'Type "help" or click one of the preset commands below to test.',
     "",
   ]);
@@ -673,7 +673,7 @@ export default function App() {
   const handlePresetCommand = (cmd: string) => {
     let output: string[] = [];
     if (cmd === "fyzenor --version") {
-      output = ["$", "fyzenor --version", "Fyzenor version 4.1.0"];
+      output = ["$", "fyzenor --version", "Fyzenor version 4.2.0"];
     } else if (cmd === "fyzenor --help") {
       output = [
         "$",
@@ -695,7 +695,7 @@ export default function App() {
         '[✔] Installation completed successfully! Run "fyzenor" to start.',
       ];
     } else if (cmd === "clear") {
-      setTermLines(["Fyzenor Terminal Simulator v4.1.0", ""]);
+      setTermLines(["Fyzenor Terminal Simulator v4.2.0", ""]);
       return;
     } else if (cmd === "help") {
       output = [
@@ -766,7 +766,7 @@ export default function App() {
                 letterSpacing: "0.05em",
               }}
             >
-              DOCS • V4.1.0
+              DOCS • V4.2.0
             </span>
           </div>
         </div>
@@ -946,7 +946,7 @@ export default function App() {
             </p>
           </div>
           <div style={{ display: "flex", gap: "0.5rem" }}>
-            <span className="badge badge-green">v4.1.0</span>
+            <span className="badge badge-green">v4.2.0</span>
             <span className="badge badge-purple">C++17</span>
             <span className="badge badge-cyan">Ncurses</span>
           </div>
@@ -975,7 +975,7 @@ export default function App() {
             <div className="alert-info-box">
               <Info size={20} style={{ flexShrink: 0 }} />
               <div>
-                <strong>V4.0.0 Release Note:</strong> This version introduces major breaking changes, migrating all custom configurations (colors, macros, keymaps) to standard TOML files (<code>config.toml</code>, <code>theme.toml</code>, <code>keys.toml</code>) for a robust and standardized developer experience.
+                <strong>V4.2.0 Release Note:</strong> Integrates native <strong>Lazygit</strong> support (mapped to <code>Ctrl+G</code>) with centered floating popup overlays inside <code>tmux</code> sessions. Resolves several stability/robustness bugs including a critical UTF-8 safe truncation underflow, search thread path data races, scroll calculation math, and memory usage optimization via LRU image cache limits.
               </div>
             </div>
 
@@ -2636,7 +2636,7 @@ make
             <h2>Compliance-Tested Multi-Partition Trash System</h2>
             <p>
               In compliance with the Freedesktop.org Desktop Trash Can
-              Specification, Fyzenor v4.1.0 uses a highly optimized, local
+              Specification, Fyzenor v4.2.0 uses a highly optimized, local
               partition trash system to avoid slow byte-copying across drives.
               <strong> All trashing operations are offloaded to background AsyncTask worker threads</strong>. This prevents long TUI redraw freezes or input latency during large bulk operations (e.g. <code>Select All</code> to <code>Delete</code>). Trashing tasks can be monitored, paused, resumed, or cancelled live inside the task overlay (<code>w</code>).
             </p>
@@ -3043,7 +3043,7 @@ sudo dnf install dragon`}
 
             <h2 style={{ marginTop: "2.5rem" }}>Live Task Throughput &amp; History Log Panel</h2>
             <p>
-              In Fyzenor v4.1.0, the Task Manager overlay (accessible via <kbd>w</kbd>) includes detailed timing, speed metrics, and a historical completion log panel.
+              In Fyzenor v4.2.0, the Task Manager overlay (accessible via <kbd>w</kbd>) includes detailed timing, speed metrics, and a historical completion log panel.
             </p>
             <h3>1. Active Task Metrics &amp; Speed Tracking</h3>
             <p>
