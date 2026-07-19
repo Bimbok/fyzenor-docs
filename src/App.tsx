@@ -312,8 +312,8 @@ export default function App() {
       category: "View",
     },
     "Ctrl+G": {
-      title: "Grow Active Pane Width",
-      desc: "Increases the horizontal size of the currently focused pane in Dual-Pane mode.",
+      title: "Open Lazygit / Grow Width",
+      desc: "Launches lazygit in the active directory (normal mode) or increases the horizontal size of the currently focused pane (Dual-Pane mode).",
       category: "View",
     },
     "Ctrl+B": {
