@@ -2977,7 +2977,8 @@ brew install lazygit`}
           <div className="animate-fade-in">
             <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
               <h2>Lua Plugin System Architecture</h2>
-              <span className="badge badge-purple">BETA FEATURE</span>
+              <span className="badge badge-purple">v4.3.0-beta.1</span>
+              <span className="badge badge-cyan">BETA CHANNEL</span>
             </div>
             <p>
               Fyzenor features an embedded <strong>Lua Plugin Engine</strong> (inspired by <em>Yazi</em> and <em>Neovim</em>). 
@@ -2987,7 +2988,7 @@ brew install lazygit`}
             <div className="alert-info-box" style={{ marginBottom: "1.5rem" }}>
               <Info size={20} style={{ flexShrink: 0 }} />
               <div>
-                <strong>Beta Feature Notice:</strong> The Lua Plugin System is currently a <strong>Beta Feature</strong>. The core API bindings are stable, but additional C++ bindings and UI hook events are actively being expanded. Plugins are loaded automatically from <code>~/.config/fyzenor/plugins/*/init.lua</code> on startup.
+                <strong>v4.3.0-beta.1 Release Notice:</strong> The Lua Plugin System is available in the <strong>v4.3.0-beta.1</strong> release. Install the Beta Channel directly via the smart installer: <code>curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/install.sh | bash -s -- --beta</code>. Plugins load automatically from <code>~/.config/fyzenor/plugins/*/init.lua</code> on startup.
               </div>
             </div>
 
