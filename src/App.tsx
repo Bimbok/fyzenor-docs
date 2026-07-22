@@ -530,6 +530,25 @@ export default function App() {
       content: "Fyzenor is released under the MIT License. Contributions are welcome on GitHub! Open issues, submit pull requests, or star the repo."
     },
     {
+      id: "plugins",
+      title: "Lua Plugin Engine (v4.3.0-beta.1)",
+      icon: "Puzzle",
+      keywords: "lua plugin plugins engine beta v4.3.0-beta.1 keymaps keybindings extensions custom previewer fyzenor.add_keymap fyzenor.register_previewer fyzenor.shell_output fyzenor.prompt fyzenor.change_directory",
+      content: "Embedded Lua plugin engine in v4.3.0-beta.1. Build custom keybindings, interactive fast-jumps, status bar extensions, and previewers without recompiling C++."
+    },
+    {
+      id: "plugins",
+      title: "Official Plugins Repository (fyzenor-plugins)",
+      keywords: "fyzenor-plugins git plugin zoxide plugin json previewer official plugins repo git clone",
+      content: "Official Fyzenor plugins repo at github.com/Bimbok/fyzenor-plugins. Includes git status & staging plugin, zoxide fast jump plugin, and json previewer."
+    },
+    {
+      id: "install",
+      title: "Smart Installer Channels (--stable vs --beta)",
+      keywords: "install installer smart installer --beta --stable channel bash script curl main beta channel selection",
+      content: "Universal smart installer script. Run --stable for v4.2.0 production release or --beta for v4.3.0-beta.1 cutting-edge channel with Lua plugins."
+    },
+    {
       id: "troubleshoot",
       title: "Troubleshooting & FAQ",
       keywords: "crashes terminal size ncurses compilation errors filesystem filesystem library g++ gcc",
