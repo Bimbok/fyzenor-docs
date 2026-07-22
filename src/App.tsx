@@ -3012,8 +3012,19 @@ brew install lazygit`}
               </div>
             </div>
 
-            <h2 style={{ marginTop: "2.5rem" }}>󰊢 Included Official / Example Plugins</h2>
-            <p>Fyzenor ships with several example Lua plugins pre-configured or auto-generated in <code>~/.config/fyzenor/plugins/</code>:</p>
+            <h2 style={{ marginTop: "2.5rem" }}>📦 Official Plugins Repository</h2>
+            <p>
+              The official Fyzenor plugins are maintained in a dedicated repository: <a href="https://github.com/Bimbok/fyzenor-plugins" target="_blank" rel="noreferrer" style={{ color: "var(--accent-cyan)", fontWeight: 600 }}>github.com/Bimbok/fyzenor-plugins</a>.
+            </p>
+            <pre className="code-block" style={{ position: "relative", margin: "1rem 0" }}>
+              <code>
+{`# Install all official plugins via single-command clone
+git clone https://github.com/Bimbok/fyzenor-plugins.git ~/.config/fyzenor/plugins`}
+              </code>
+            </pre>
+
+            <h2 style={{ marginTop: "2.5rem" }}>󰊢 Included Official Plugins</h2>
+            <p>Fyzenor official plugins available in <code>~/.config/fyzenor/plugins/</code>:</p>
 
             <div className="table-container" style={{ marginTop: "1rem" }}>
               <table className="doc-table">
