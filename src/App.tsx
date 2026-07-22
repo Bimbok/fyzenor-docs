@@ -21,6 +21,7 @@ import {
   ChevronUp,
   Hand,
   GitBranch,
+  Puzzle,
 } from "lucide-react";
 
 interface DocSection {
@@ -89,6 +90,11 @@ export default function App() {
       id: "git",
       title: "Git & Lazygit",
       icon: <GitBranch size={18} />,
+    },
+    {
+      id: "plugins",
+      title: "Lua Plugins (Beta)",
+      icon: <Puzzle size={18} />,
     },
     {
       id: "tasks",
@@ -2962,6 +2968,186 @@ yay -S lazygit
 
 # macOS (Homebrew)
 brew install lazygit`}
+              </code>
+            </pre>
+          </div>
+        )}
+
+        {activeTab === "plugins" && (
+          <div className="animate-fade-in">
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
+              <h2>Lua Plugin System Architecture</h2>
+              <span className="badge badge-purple">BETA FEATURE</span>
+            </div>
+            <p>
+              Fyzenor features an embedded <strong>Lua Plugin Engine</strong> (inspired by <em>Yazi</em> and <em>Neovim</em>). 
+              This allows community developers and users to build custom keybindings, interactive fast-jumps, status bar extensions, and custom file previewers <strong>without modifying or recompiling C++ source code</strong>.
+            </p>
+
+            <div className="alert-info-box" style={{ marginBottom: "1.5rem" }}>
+              <Info size={20} style={{ flexShrink: 0 }} />
+              <div>
+                <strong>Beta Feature Notice:</strong> The Lua Plugin System is currently a <strong>Beta Feature</strong>. The core API bindings are stable, but additional C++ bindings and UI hook events are actively being expanded. Plugins are loaded automatically from <code>~/.config/fyzenor/plugins/*/init.lua</code> on startup.
+              </div>
+            </div>
+
+            <div className="card-grid">
+              <div className="card-premium">
+                <div style={{ color: "var(--accent-green)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
+                  ⚡ 1. Zero-Recompile Extensibility
+                </div>
+                <p>
+                  Plugins run in-memory using an embedded Lua state. Drop any Lua script into <code>~/.config/fyzenor/plugins/&lt;plugin_name&gt;/init.lua</code> and Fyzenor will discover and execute it automatically upon boot.
+                </p>
+              </div>
+
+              <div className="card-premium">
+                <div style={{ color: "var(--accent-purple)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
+                  🔌 2. Hotkeys, Previews &amp; UI Prompts
+                </div>
+                <p>
+                  Plugins can map custom hotkeys (e.g., <code>Ctrl+S</code>, <code>z</code>, <code>Alt+Z</code>), register custom text previewers for unsupported file extensions, open modal text prompts, and run async shell utilities.
+                </p>
+              </div>
+            </div>
+
+            <h2 style={{ marginTop: "2.5rem" }}>󰊢 Included Official / Example Plugins</h2>
+            <p>Fyzenor ships with several example Lua plugins pre-configured or auto-generated in <code>~/.config/fyzenor/plugins/</code>:</p>
+
+            <div className="table-container" style={{ marginTop: "1rem" }}>
+              <table className="doc-table">
+                <thead>
+                  <tr>
+                    <th>Plugin</th>
+                    <th>Location</th>
+                    <th>Hotkeys</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Git Status &amp; Staging</strong></td>
+                    <td><code>plugins/git/init.lua</code></td>
+                    <td><kbd>Ctrl+B</kbd> / <kbd>Ctrl+S</kbd> / <kbd>Ctrl+K</kbd></td>
+                    <td>Parses Git branch status, toggles <code>git add</code> / <code>git restore --staged</code> for highlighted files, and displays instant <code>git diff</code> stats in the status bar.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Zoxide Fast Jump</strong></td>
+                    <td><code>plugins/zoxide/init.lua</code></td>
+                    <td><kbd>z</kbd> / <kbd>Alt+Z</kbd></td>
+                    <td>Opens a modal query prompt and queries <code>zoxide query &lt;keyword&gt;</code> to jump directly to your most used directories.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>JSON Custom Previewer</strong></td>
+                    <td><code>plugins/json_previewer/init.lua</code></td>
+                    <td>Automatic</td>
+                    <td>Overrides standard text previews for <code>.json</code> files with formatted layout streams.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2 style={{ marginTop: "2.5rem" }}>📖 Complete Lua C++ API Reference</h2>
+            <p>The global <code>fyzenor</code> Lua module exposes the following C++ engine bindings:</p>
+
+            <div className="table-container" style={{ marginTop: "1rem" }}>
+              <table className="doc-table">
+                <thead>
+                  <tr>
+                    <th>Lua Method</th>
+                    <th>Return Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>fyzenor.get_current_file()</code></td>
+                    <td><code>table / nil</code></td>
+                    <td>Returns table containing <code>{`{ path, name, extension, size, is_dir, is_symlink }`}</code> for the highlighted item.</td>
+                  </tr>
+                  <tr>
+                    <td><code>fyzenor.get_selected_files()</code></td>
+                    <td><code>array of tables</code></td>
+                    <td>Returns list of file tables for all multi-selected items in the active pane.</td>
+                  </tr>
+                  <tr>
+                    <td><code>fyzenor.get_current_path()</code></td>
+                    <td><code>string</code></td>
+                    <td>Returns absolute path string of the current active directory.</td>
+                  </tr>
+                  <tr>
+                    <td><code>fyzenor.set_status(message)</code></td>
+                    <td><code>void</code></td>
+                    <td>Updates the bottom status bar message text.</td>
+                  </tr>
+                  <tr>
+                    <td><code>fyzenor.prompt(title, defaultVal)</code></td>
+                    <td><code>string</code></td>
+                    <td>Spawns a centered modal input dialog window in TUI and returns user typed text.</td>
+                  </tr>
+                  <tr>
+                    <td><code>fyzenor.change_directory(path)</code></td>
+                    <td><code>void</code></td>
+                    <td>Programmatically navigates Fyzenor to target path.</td>
+                  </tr>
+                  <tr>
+                    <td><code>fyzenor.shell_output(cmd)</code></td>
+                    <td><code>string</code></td>
+                    <td>Runs shell command synchronously and returns stdout output text.</td>
+                  </tr>
+                  <tr>
+                    <td><code>fyzenor.exec(cmd)</code></td>
+                    <td><code>void</code></td>
+                    <td>Forks and executes shell command asynchronously in the background.</td>
+                  </tr>
+                  <tr>
+                    <td><code>fyzenor.read_file(path, maxLines)</code></td>
+                    <td><code>string / nil</code></td>
+                    <td>Reads up to <code>maxLines</code> from target file.</td>
+                  </tr>
+                  <tr>
+                    <td><code>fyzenor.reload()</code></td>
+                    <td><code>void</code></td>
+                    <td>Triggers directory cache invalidation and UI reloads.</td>
+                  </tr>
+                  <tr>
+                    <td><code>fyzenor.add_keymap(key, function)</code></td>
+                    <td><code>void</code></td>
+                    <td>Maps key combination (e.g. <code>"Ctrl+S"</code>, <code>"z"</code>, <code>"Alt+Z"</code>) to a Lua callback function.</td>
+                  </tr>
+                  <tr>
+                    <td><code>fyzenor.register_previewer(ext, function)</code></td>
+                    <td><code>void</code></td>
+                    <td>Registers a custom preview formatter callback for file extension <code>ext</code>.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2 style={{ marginTop: "2.5rem" }}>🛠️ Step-by-Step: Writing Your First Plugin</h2>
+            <p>Create a directory <code>~/.config/fyzenor/plugins/pastebin/init.lua</code>:</p>
+
+            <pre className="code-block" style={{ position: "relative" }}>
+              <code>
+{`-- Pastebin File Uploader Plugin (~/.config/fyzenor/plugins/pastebin/init.lua)
+fyzenor.add_keymap("u", function()
+    local file = fyzenor.get_current_file()
+    if not file or file.is_dir then
+        fyzenor.set_status("Please select a file to upload!")
+        return
+    end
+
+    fyzenor.set_status("Uploading " .. file.name .. " to 0x0.st...")
+
+    -- Query curl via shell_output
+    local url = fyzenor.shell_output("curl -F 'file=@" .. file.path .. "' https://0x0.st 2>/dev/null")
+
+    if url and url ~= "" then
+        fyzenor.set_status("Uploaded! Link: " .. url)
+    else
+        fyzenor.set_status("Upload failed!")
+    end
+end)`}
               </code>
             </pre>
           </div>
