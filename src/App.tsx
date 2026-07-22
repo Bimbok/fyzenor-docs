@@ -1928,28 +1928,51 @@ pkg install clang cmake ndk-sysroot ncurses-utils ffmpeg zip bat ripgrep`}</div>
               universal installation script.
             </p>
 
-            <h3>One-Liner Install</h3>
+            <h3>Smart One-Liner (Stable vs Beta Channels)</h3>
             <div className="code-container">
               <div className="code-header">
-                <span>Universal Script</span>
+                <span>📦 Install Stable Release (v4.2.0 - Default)</span>
                 <button
                   className="copy-btn"
                   onClick={() =>
                     handleCopy(
-                      "curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/install.sh | bash",
-                      "one-liner-script",
+                      "curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/install.sh | bash -s -- --stable",
+                      "install-stable",
                     )
                   }
                 >
-                  {copiedText === "one-liner-script" ? (
+                  {copiedText === "install-stable" ? (
                     <Check size={12} />
                   ) : (
                     <Copy size={12} />
                   )}
-                  {copiedText === "one-liner-script" ? "Copied!" : "Copy"}
+                  {copiedText === "install-stable" ? "Copied!" : "Copy"}
                 </button>
               </div>
-              <div className="code-block">{`curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/install.sh | bash`}</div>
+              <div className="code-block">{`curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/install.sh | bash -s -- --stable`}</div>
+            </div>
+
+            <div className="code-container">
+              <div className="code-header">
+                <span>🧪 Install Beta Channel (v4.3.0-beta.1 - Lua Plugins)</span>
+                <button
+                  className="copy-btn"
+                  onClick={() =>
+                    handleCopy(
+                      "curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/install.sh | bash -s -- --beta",
+                      "install-beta",
+                    )
+                  }
+                >
+                  {copiedText === "install-beta" ? (
+                    <Check size={12} />
+                  ) : (
+                    <Copy size={12} />
+                  )}
+                  {copiedText === "install-beta" ? "Copied!" : "Copy"}
+                </button>
+              </div>
+              <div className="code-block">{`curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/install.sh | bash -s -- --beta`}</div>
             </div>
 
             <p>The installer does the following automatically:</p>
