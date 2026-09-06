@@ -250,7 +250,7 @@ export default function App() {
     },
     n: {
       title: "Create File or Folder",
-      desc: "Prompts to create a new item. Enter 'name' to create a file, or 'name/' (ending with /) to create a folder.",
+      desc: "Prompts to create a new item with dynamic Nerd Font type indicator (displays file icon  for files, dynamically flips to folder icon  when ending with / or \\).",
       category: "File Operations",
     },
     z: {
@@ -542,6 +542,12 @@ export default function App() {
       title: "Official Plugins Repository (fyzenor-plugins)",
       keywords: "fyzenor-plugins git plugin zoxide plugin json previewer official plugins repo git clone",
       content: "Official Fyzenor plugins repo at github.com/Bimbok/fyzenor-plugins. Includes git status & staging plugin, zoxide fast jump plugin, and json previewer."
+    },
+    {
+      id: "plugins",
+      title: "Dynamic Nerd Font Type Indicator & Centered Input (Beta)",
+      keywords: "create item file folder indicator dynamic nerd font active border modal centered prompt utf-8",
+      content: "Unified file and folder creation (n) with real-time dynamic Nerd Font icon switching, active accent borders, and centered modals in v4.3.0-beta.2."
     },
     {
       id: "install",
@@ -1974,7 +1980,7 @@ pkg install clang cmake ndk-sysroot ncurses-utils ffmpeg zip bat ripgrep`}</div>
 
             <div className="code-container">
               <div className="code-header">
-                <span>🧪 Install Beta Channel (v4.3.0-beta.2 - Cursor Memory, Universal 256-Color &amp; Lua Plugins)</span>
+                <span>🧪 Install Beta Channel (v4.3.0-beta.2 - Dynamic Type Icons, Centered Modals &amp; Lua Plugins)</span>
                 <button
                   className="copy-btn"
                   onClick={() =>
@@ -3031,7 +3037,7 @@ brew install lazygit`}
             <div className="alert-info-box" style={{ marginBottom: "1.5rem" }}>
               <Info size={20} style={{ flexShrink: 0 }} />
               <div>
-                <strong>v4.3.0-beta.2 Release Notice:</strong> Includes persistent cursor tracking across sorting, per-directory cursor memory across navigation history, universal 256-color palette matching, clipboard paste support in modal prompts, and the Lua Plugin Engine. Install the Beta Channel directly via: <code>curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/install.sh | bash -s -- --beta</code>.
+                <strong>v4.3.0-beta.2 Release Notice:</strong> Includes dynamic Nerd Font type indicator (<code>n</code>) for real-time file vs. folder visual confirmation, centered themed modals with active border accent coloring, multi-byte UTF-8 codepoint navigation, persistent cursor tracking across sorting, per-directory cursor memory across navigation history, universal 256-color palette matching, clipboard paste support in modal prompts, and the Lua Plugin Engine. Install the Beta Channel directly via: <code>curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/install.sh | bash -s -- --beta</code>.
               </div>
             </div>
 
@@ -3051,6 +3057,42 @@ brew install lazygit`}
                 </div>
                 <p>
                   Plugins can map custom hotkeys (e.g., <code>Ctrl+S</code>, <code>z</code>, <code>Alt+Z</code>), register custom text previewers for unsupported file extensions, open modal text prompts, and run async shell utilities.
+                </p>
+              </div>
+
+              <div className="card-premium">
+                <div style={{ color: "var(--accent-yellow)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
+                  📁 3. Dynamic Type Indicator &amp; Unified Creation (n)
+                </div>
+                <p>
+                  Single <kbd>n</kbd> shortcut creates files or folders seamlessly. The centered prompt displays a file icon (<code style={{ color: "var(--accent-yellow)" }}></code>) and dynamically flips to a folder icon (<code style={{ color: "var(--accent-cyan)" }}></code>) in real time the instant a trailing slash (<code>/</code> or <code>\</code>) is typed.
+                </p>
+              </div>
+
+              <div className="card-premium">
+                <div style={{ color: "var(--accent-cyan)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
+                  🎨 4. Centered Modals &amp; Active Accent Borders
+                </div>
+                <p>
+                  Clean, focused 3-line input dialogs centered on screen. Borders and headers adopt the active theme accent (<code>active_border</code> or <code>pin_border</code> in <code>theme.toml</code>), with live re-centering on terminal resize (<code>KEY_RESIZE</code>).
+                </p>
+              </div>
+
+              <div className="card-premium">
+                <div style={{ color: "var(--accent-pink)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
+                  🔤 5. Multi-Byte UTF-8 Codepoint Navigation
+                </div>
+                <p>
+                  Full codepoint-aware Backspace, Delete, and arrow navigation across all modal prompts (Rename, Create, Zip, Search). Eliminates terminal corruption and partial-byte artifacts when typing emojis or international characters.
+                </p>
+              </div>
+
+              <div className="card-premium">
+                <div style={{ color: "var(--accent-orange)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
+                  📋 6. Modal Clipboard Pasting &amp; Smart Nested Creation
+                </div>
+                <p>
+                  Full clipboard paste support (<code>Ctrl+V</code>, <code>Ctrl+Shift+V</code>, bracketed paste) in all prompts. Supports nested recursive path creation (e.g. <code>src/components/button.tsx</code>) with smart automatic cursor focus.
                 </p>
               </div>
             </div>
@@ -3795,7 +3837,7 @@ archive = [".zip", ".tar", ".gz", ".tgz", ".7z", ".rar", ".xz", ".bz2", ".tbz2",
                   className="copy-btn"
                   onClick={() =>
                     handleCopy(
-                      "[colors]\ndir = \"#89b4fa\"\nfile = \"#cdd6f4\"\nsel_bg = \"#585b70\"\nmedia = \"#f9e2af\"\nimage = \"#f5c2e7\"\nborder = \"#b4befe\"\nsuccess = \"#a6e3a1\"\nerror = \"#f38ba8\"\nmulti = \"#f5e0dc\"\npin_bg = \"#cba6f7\"\npin_border = \"#89b4fa\"\nsec_sel_bg = \"#313244\"\ncore = \"#a6e3a1\"\narchive = \"#eba0ac\"\nfrontend = \"#fab387\"\nconfig = \"#94e2d5\"\nscript = \"#f9e2af\"\ndocs = \"#f2cdcd\"\nfont = \"#cba6f7\"",
+                      "[colors]\ndir = \"#89b4fa\"\nfile = \"#cdd6f4\"\nsel_bg = \"#585b70\"\nmedia = \"#f9e2af\"\nimage = \"#f5c2e7\"\nborder = \"#b4befe\"\nactive_border = \"#89b4fa\"\nsuccess = \"#a6e3a1\"\nerror = \"#f38ba8\"\nmulti = \"#f5e0dc\"\npin_bg = \"#cba6f7\"\npin_border = \"#89b4fa\"\nsec_sel_bg = \"#313244\"\ncore = \"#a6e3a1\"\narchive = \"#eba0ac\"\nfrontend = \"#fab387\"\nconfig = \"#94e2d5\"\nscript = \"#f9e2af\"\ndocs = \"#f2cdcd\"\nfont = \"#cba6f7\"",
                       "theme-vars-sample",
                     )
                   }
@@ -3817,6 +3859,7 @@ sel_bg = "#585b70"
 media = "#f9e2af"
 image = "#f5c2e7"
 border = "#b4befe"
+active_border = "#89b4fa"
 success = "#a6e3a1"
 error = "#f38ba8"
 multi = "#f5e0dc"
@@ -3850,7 +3893,7 @@ font = "#cba6f7"`}</div>
                   className="copy-btn"
                   onClick={() =>
                     handleCopy(
-                      "# Fyzenor Theme: Matugen Generated\n\n[colors]\ndir = \"{{colors.primary.default.hex}}\"\nfile = \"{{colors.on_surface.default.hex}}\"\nsel_bg = \"{{colors.surface_variant.default.hex}}\"\nmedia = \"{{colors.tertiary.default.hex}}\"\nimage = \"{{colors.secondary.default.hex}}\"\nborder = \"{{colors.outline.default.hex}}\"\nsuccess = \"{{colors.primary_fixed.default.hex}}\"\nerror = \"{{colors.error.default.hex}}\"\nmulti = \"{{colors.tertiary_container.default.hex}}\"\npin_bg = \"{{colors.secondary_container.default.hex}}\"\npin_border = \"{{colors.primary.default.hex}}\"\nsec_sel_bg = \"{{colors.surface_dim.default.hex}}\"",
+                      "# Fyzenor Theme: Matugen Generated\n\n[colors]\ndir = \"{{colors.primary.default.hex}}\"\nfile = \"{{colors.on_surface.default.hex}}\"\nsel_bg = \"{{colors.surface_variant.default.hex}}\"\nmedia = \"{{colors.tertiary.default.hex}}\"\nimage = \"{{colors.secondary.default.hex}}\"\nborder = \"{{colors.outline.default.hex}}\"\nactive_border = \"{{colors.primary.default.hex}}\"\nsuccess = \"{{colors.primary_fixed.default.hex}}\"\nerror = \"{{colors.error.default.hex}}\"\nmulti = \"{{colors.tertiary_container.default.hex}}\"\npin_bg = \"{{colors.secondary_container.default.hex}}\"\npin_border = \"{{colors.primary.default.hex}}\"\nsec_sel_bg = \"{{colors.surface_dim.default.hex}}\"",
                       "matugen-temp",
                     )
                   }
@@ -3872,6 +3915,7 @@ sel_bg = "{{colors.surface_variant.default.hex}}"
 media = "{{colors.tertiary.default.hex}}"
 image = "{{colors.secondary.default.hex}}"
 border = "{{colors.outline.default.hex}}"
+active_border = "{{colors.primary.default.hex}}"
 success = "{{colors.primary_fixed.default.hex}}"
 error = "{{colors.error.default.hex}}"
 multi = "{{colors.tertiary_container.default.hex}}"
