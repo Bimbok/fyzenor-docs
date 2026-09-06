@@ -249,13 +249,13 @@ export default function App() {
       category: "File Operations",
     },
     n: {
-      title: "New File",
-      desc: "Prompts to create a new blank file in the current directory.",
+      title: "Create File or Folder",
+      desc: "Prompts to create a new item. Enter 'name' to create a file, or 'name/' (ending with /) to create a folder.",
       category: "File Operations",
     },
     N: {
-      title: "New Folder",
-      desc: "Prompts to create a new empty directory.",
+      title: "Create File or Folder",
+      desc: "Prompts to create a new item. Enter 'name' to create a file, or 'name/' (ending with /) to create a folder.",
       category: "File Operations",
     },
     z: {
