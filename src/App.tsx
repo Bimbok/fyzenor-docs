@@ -253,11 +253,6 @@ export default function App() {
       desc: "Prompts to create a new item. Enter 'name' to create a file, or 'name/' (ending with /) to create a folder.",
       category: "File Operations",
     },
-    N: {
-      title: "Create File or Folder",
-      desc: "Prompts to create a new item. Enter 'name' to create a file, or 'name/' (ending with /) to create a folder.",
-      category: "File Operations",
-    },
     z: {
       title: "Zip",
       desc: "Asynchronously packs selected files and folders into a zip archive.",
