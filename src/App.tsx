@@ -531,10 +531,16 @@ export default function App() {
     },
     {
       id: "plugins",
-      title: "Lua Plugin Engine (v4.3.0-beta.1)",
+      title: "Lua Plugin Engine (v4.3.0-beta.2)",
       icon: "Puzzle",
-      keywords: "lua plugin plugins engine beta v4.3.0-beta.1 keymaps keybindings extensions custom previewer fyzenor.add_keymap fyzenor.register_previewer fyzenor.shell_output fyzenor.prompt fyzenor.change_directory",
-      content: "Embedded Lua plugin engine in v4.3.0-beta.1. Build custom keybindings, interactive fast-jumps, status bar extensions, and previewers without recompiling C++."
+      keywords: "lua plugin plugins engine beta v4.3.0-beta.2 keymaps keybindings extensions custom previewer fyzenor.add_keymap fyzenor.register_previewer fyzenor.shell_output fyzenor.prompt fyzenor.change_directory fyzenor.get_version",
+      content: "Embedded Lua plugin engine in v4.3.0-beta.2. Build custom keybindings, interactive fast-jumps, status bar extensions, and previewers without recompiling C++."
+    },
+    {
+      id: "plugins",
+      title: "Yazi-like Cursor Tracking & Directory Navigation Memory (Beta)",
+      keywords: "yazi cursor tracking sort memory per-directory history navigation selection scroll preserve",
+      content: "Persistent cursor tracking across sorting modes and per-directory selection memory across back/forward navigation in v4.3.0-beta.2."
     },
     {
       id: "plugins",
@@ -546,7 +552,7 @@ export default function App() {
       id: "install",
       title: "Smart Installer Channels (--stable vs --beta)",
       keywords: "install installer smart installer --beta --stable channel bash script curl main beta channel selection",
-      content: "Universal smart installer script. Run --stable for v4.2.0 production release or --beta for v4.3.0-beta.1 cutting-edge channel with Lua plugins."
+      content: "Universal smart installer script. Run --stable for v4.2.0 production release or --beta for v4.3.0-beta.2 cutting-edge channel with cursor memory and Lua plugins."
     },
     {
       id: "troubleshoot",
@@ -1973,7 +1979,7 @@ pkg install clang cmake ndk-sysroot ncurses-utils ffmpeg zip bat ripgrep`}</div>
 
             <div className="code-container">
               <div className="code-header">
-                <span>🧪 Install Beta Channel (v4.3.0-beta.1 - Lua Plugins)</span>
+                <span>🧪 Install Beta Channel (v4.3.0-beta.2 - Cursor Memory, Universal 256-Color &amp; Lua Plugins)</span>
                 <button
                   className="copy-btn"
                   onClick={() =>
@@ -3018,19 +3024,19 @@ brew install lazygit`}
         {activeTab === "plugins" && (
           <div className="animate-fade-in">
             <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
-              <h2>Lua Plugin System Architecture</h2>
-              <span className="badge badge-purple">v4.3.0-beta.1</span>
+              <h2>Cutting-Edge Features &amp; Lua Plugins</h2>
+              <span className="badge badge-purple">v4.3.0-beta.2</span>
               <span className="badge badge-cyan">BETA CHANNEL</span>
             </div>
             <p>
-              Fyzenor features an embedded <strong>Lua Plugin Engine</strong> (inspired by <em>Yazi</em> and <em>Neovim</em>). 
+              Fyzenor features cutting-edge features including an embedded <strong>Lua Plugin Engine</strong> (inspired by <em>Yazi</em> and <em>Neovim</em>), Yazi-like persistent cursor tracking across sorting, and per-directory navigation memory. 
               This allows community developers and users to build custom keybindings, interactive fast-jumps, status bar extensions, and custom file previewers <strong>without modifying or recompiling C++ source code</strong>.
             </p>
 
             <div className="alert-info-box" style={{ marginBottom: "1.5rem" }}>
               <Info size={20} style={{ flexShrink: 0 }} />
               <div>
-                <strong>v4.3.0-beta.1 Release Notice:</strong> The Lua Plugin System is available in the <strong>v4.3.0-beta.1</strong> release. Install the Beta Channel directly via the smart installer: <code>curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/install.sh | bash -s -- --beta</code>. Plugins load automatically from <code>~/.config/fyzenor/plugins/*/init.lua</code> on startup.
+                <strong>v4.3.0-beta.2 Release Notice:</strong> Includes persistent cursor tracking across sorting, per-directory cursor memory across navigation history, universal 256-color palette matching, clipboard paste support in modal prompts, and the Lua Plugin Engine. Install the Beta Channel directly via: <code>curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/install.sh | bash -s -- --beta</code>.
               </div>
             </div>
 
@@ -3173,6 +3179,11 @@ git clone https://github.com/Bimbok/fyzenor-plugins.git ~/.config/fyzenor/plugin
                     <td><code>fyzenor.register_previewer(ext, function)</code></td>
                     <td><code>void</code></td>
                     <td>Registers a custom preview formatter callback for file extension <code>ext</code>.</td>
+                  </tr>
+                  <tr>
+                    <td><code>fyzenor.get_version()</code></td>
+                    <td><code>string</code></td>
+                    <td>Returns the current Fyzenor engine version (e.g. <code>"4.3.0-beta.2"</code>).</td>
                   </tr>
                 </tbody>
               </table>
