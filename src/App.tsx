@@ -308,6 +308,11 @@ export default function App() {
       desc: "Pins current directory path to persistent bookmarks saved in <code>~/.fm_pins</code> (focused list panel).",
       category: "View",
     },
+    U: {
+      title: "Visual Disk Usage (ncdu Mode)",
+      desc: "Toggles interactive disk usage view with real-time proportional Unicode bar graphs (<code>[████████░░]</code>), directory percentages, and descending size hierarchy. (Alternative: <code>Space+u</code>).",
+      category: "View",
+    },
     Tab: {
       title: "Toggle Pinned / Switch Pane",
       desc: "Switches keyboard focus between Files list and Bookmarks sidebar. In Dual-Pane, switches active pane focus.",
@@ -1338,6 +1343,14 @@ export default function App() {
                     </td>
                     <td>
                       Hover and scroll your mouse wheel over any pane: middle pane scrolls file listings, preview pane scrolls long code, text, archives, or directories with dynamic range indicators (e.g. <code>[1-40/350]</code>), and the pinned pane scrolls bookmarks.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Visual Disk Usage Mode (<code>U</code> / <code>Space+u</code>)</strong>
+                    </td>
+                    <td>
+                      Interactive <strong>ncdu / gdu-style</strong> disk usage visualizer with dynamic proportional Unicode bar meters (<code>[████████░░] 74.2%</code>), directory percentages, and background multi-threaded size calculations.
                     </td>
                   </tr>
                   <tr>
