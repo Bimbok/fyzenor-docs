@@ -353,6 +353,21 @@ export default function App() {
       desc: "Forces folder re-indexing, clears sizes caches, and redraws the UI. (Alternative to F5).",
       category: "View",
     },
+    "Ctrl+E": {
+      title: "Scroll Preview Down",
+      desc: "Scrolls the preview pane downwards through long text, code, or directory listings without moving file cursor.",
+      category: "Navigation",
+    },
+    "Ctrl+Y": {
+      title: "Scroll Preview Up",
+      desc: "Scrolls the preview pane upwards through long text, code, or directory listings without moving file cursor.",
+      category: "Navigation",
+    },
+    "Wheel": {
+      title: "Pane-Aware Mouse Scrolling",
+      desc: "Hover over the middle pane to virtually scroll files; hover over the preview pane to scroll text, code, or folder contents; hover over the bookmarks pane to scroll pins.",
+      category: "Navigation",
+    },
     i: {
       title: "Show File Details",
       desc: "Displays detailed metadata overlay (UID, GID, file permissions, dates, size).",
@@ -1315,6 +1330,14 @@ export default function App() {
                       for drag-free copying, with easy tab focus switching (
                       <code>Tab</code>) and active column resizing (
                       <code>Ctrl+G</code> to grow, <code>Ctrl+B</code> / <code>Ctrl+H</code> to shrink).
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Context-Aware Mouse Scrolling</strong>
+                    </td>
+                    <td>
+                      Hover and scroll your mouse wheel over any pane: middle pane scrolls file listings, preview pane scrolls long code, text, archives, or directories with dynamic range indicators (e.g. <code>[1-40/350]</code>), and the pinned pane scrolls bookmarks.
                     </td>
                   </tr>
                   <tr>
