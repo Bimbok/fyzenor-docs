@@ -2039,7 +2039,7 @@ pkg install clang cmake ndk-sysroot ncurses-utils ffmpeg zip bat ripgrep`}</div>
 
             <p>The installer does the following automatically:</p>
             <ol style={{ marginLeft: "1.5rem", marginBottom: "1.5rem" }}>
-              <li>Compiles the C++ source into an optimized binary.</li>
+              <li>Compiles the C++ source using parallel jobs (-j$(nproc)).</li>
               <li>
                 Installs <code>fyzenor</code> into <code>/usr/local/bin/</code>.
               </li>
@@ -2050,7 +2050,44 @@ pkg install clang cmake ndk-sysroot ncurses-utils ffmpeg zip bat ripgrep`}</div>
                 Installs the desktop application shortcut and branding icon
                 globally.
               </li>
+              <li>
+                Initializes configuration and themes in <code>~/.config/fyzenor/</code>.
+              </li>
             </ol>
+
+            <h3>Uninstallation</h3>
+            <p>
+              To remove Fyzenor, its desktop shortcut, icon, and <code>fm</code> symlink cleanly:
+            </p>
+            <div className="code-container">
+              <div className="code-header">
+                <span>Uninstall Command</span>
+                <button
+                  className="copy-btn"
+                  onClick={() =>
+                    handleCopy(
+                      "./uninstall.sh",
+                      "uninstall-cmd",
+                    )
+                  }
+                >
+                  {copiedText === "uninstall-cmd" ? (
+                    <Check size={12} />
+                  ) : (
+                    <Copy size={12} />
+                  )}
+                  {copiedText === "uninstall-cmd" ? "Copied!" : "Copy"}
+                </button>
+              </div>
+              <div className="code-block">{`# Standard uninstall (keeps ~/.config/fyzenor)
+./uninstall.sh
+
+# Complete purge (removes binaries, configs, and bookmarks)
+./uninstall.sh --purge
+
+# Or via curl:
+curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/uninstall.sh | bash`}</div>
+            </div>
 
             <h3>Manual Compilation</h3>
             <p>
@@ -3763,10 +3800,10 @@ end)`}
             <h2>🏗️ Repository Structure</h2>
             <div className="code-container">
               <div className="code-block">{`fyzenor/
-├── file_manager.cpp   # Core application logic, UI rendering, preview pipeline
-├── install.sh         # Installer and shell integration bootstrap
-├── fyzenor.png        # Branding asset used in the README
-├── src/               # Code headers and classes
+├── src/               # Core C++ source files (file_manager, utils, plugins)
+├── install.sh         # Universal installer, updater, and manager
+├── uninstall.sh       # Standalone uninstaller script
+├── fyzenor.png        # Branding asset used in desktop entry and README
 └── Sample/            # Showcase screenshots`}</div>
             </div>
           </div>
