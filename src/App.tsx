@@ -414,8 +414,8 @@ export default function App() {
       category: "Tabs",
     },
     "?": {
-      title: "Show Help Panel",
-      desc: "Opens the built-in help and keybindings overlay panel.",
+      title: "Show Keybindings Modal",
+      desc: "Opens the spacious 2-column keybindings overlay with smooth scrolling.",
       category: "General",
     },
     ":": {
