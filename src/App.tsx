@@ -250,7 +250,7 @@ export default function App() {
     },
     n: {
       title: "Create File or Folder",
-      desc: "Prompts to create a new item with dynamic Nerd Font type indicator (displays file icon  for files, dynamically flips to folder icon  when ending with / or \\).",
+      desc: "Prompts to create a new item with dynamic extension/type Nerd Font indicator (shows file icon , dynamically changes to language glyphs like  for .c,  for .cc/.cpp,  for .py,  for .rs, or folder icon  when ending with / or \\).",
       category: "File Operations",
     },
     z: {
@@ -545,9 +545,9 @@ export default function App() {
     },
     {
       id: "plugins",
-      title: "Dynamic Nerd Font Type Indicator & Centered Input (Beta)",
-      keywords: "create item file folder indicator dynamic nerd font active border modal centered prompt utf-8",
-      content: "Unified file and folder creation (n) with real-time dynamic Nerd Font icon switching, active accent borders, and centered modals in v4.3.0-beta.2."
+      title: "Dynamic Type & Extension Indicator (Beta)",
+      keywords: "create item file folder indicator dynamic nerd font extension c cc cpp python rust zig active border modal centered prompt utf-8",
+      content: "Unified file and folder creation (n) and rename (r) with real-time dynamic extension-based Nerd Font icon and color switching in v4.3.0-beta.2."
     },
     {
       id: "install",
@@ -3062,10 +3062,10 @@ brew install lazygit`}
 
               <div className="card-premium">
                 <div style={{ color: "var(--accent-yellow)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  📁 3. Dynamic Type Indicator &amp; Unified Creation (n)
+                  📁 3. Dynamic Type &amp; Extension Indicator (n &amp; r)
                 </div>
                 <p>
-                  Single <kbd>n</kbd> shortcut creates files or folders seamlessly. The centered prompt displays a file icon (<code style={{ color: "var(--accent-yellow)" }}></code>) and dynamically flips to a folder icon (<code style={{ color: "var(--accent-cyan)" }}></code>) in real time the instant a trailing slash (<code>/</code> or <code>\</code>) is typed.
+                  Real-time extension and type detection in modal prompts. Displays generic file icon (<code style={{ color: "var(--accent-yellow)" }}></code>) and dynamically switches to language glyphs as you type extensions (e.g. <code style={{ color: "var(--accent-green)" }}></code> for <code>.c</code>, <code style={{ color: "var(--accent-green)" }}></code> for <code>.cc</code>/<code>.cpp</code>, <code style={{ color: "var(--accent-green)" }}></code> for <code>.py</code>, <code style={{ color: "var(--accent-green)" }}></code> for <code>.rs</code>, <code style={{ color: "var(--accent-cyan)" }}></code> for <code>.ts</code>, <code style={{ color: "var(--accent-orange)" }}></code> for <code>.json</code>), or folder icon (<code style={{ color: "var(--accent-cyan)" }}></code>) the instant a trailing slash (<code>/</code>) is typed.
                 </p>
               </div>
 
