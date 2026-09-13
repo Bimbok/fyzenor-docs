@@ -533,6 +533,12 @@ export default function App() {
       content: "Read codec names, bitrates, dimensions, sample rates, title, and artist metadata tags for images, audio, and video tracks."
     },
     {
+      id: "overview",
+      title: "Kitty Graphics & Terminal Previews",
+      keywords: "kitty ghostty wezterm konsole terminal compatibility graphics protocol image preview video thumbnail dec mode 2026",
+      content: "High-resolution image and video previews using the Kitty Graphics Protocol across Kitty, Ghostty, and WezTerm with zero flicker and memory-safe caching."
+    },
+    {
       id: "theming",
       title: "Custom Keyboard Macros (keys.toml)",
       keywords: "custom keys keybinds config keys.toml macros $f $s shell subprocess def_prog_mode",
@@ -1192,9 +1198,9 @@ export default function App() {
                       <strong>Async Media Preview</strong>
                     </td>
                     <td>
-                      Generate image and video previews in the background using
-                      the Kitty Graphics Protocol and <code>ffmpeg</code>,
-                      without freezing navigation.
+                      Generate high-resolution image and video previews asynchronously using
+                      the Kitty Graphics Protocol with zero flicker across <strong>Kitty</strong>,{" "}
+                      <strong>Ghostty</strong>, and <strong>WezTerm</strong>.
                     </td>
                   </tr>
                   <tr>
@@ -1479,6 +1485,39 @@ export default function App() {
               </li>
               <li style={{ margin: "0.4rem 0" }}>
                 <strong>No-Block Fallback:</strong> If <code>pdftotext</code> is not installed on your system, it displays a friendly status notice advising how to install it (<code>poppler-utils</code>), avoiding terminal freezes.
+              </li>
+            </ul>
+
+            <h3>4. High-Resolution Visual Previews (Kitty Graphics Protocol)</h3>
+            <p>
+              Fyzenor incorporates a high-performance, asynchronous media preview engine built on the{" "}
+              <a
+                href="https://sw.kovidgoyal.net/kitty/graphics-protocol/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "var(--accent-blue)", fontWeight: 600 }}
+              >
+                Kitty Graphics Protocol
+              </a>
+              , delivering true-color image and video thumbnails without slowing down directory navigation:
+            </p>
+            <ul style={{ marginLeft: "1.5rem", marginBottom: "2rem" }}>
+              <li style={{ margin: "0.4rem 0" }}>
+                <strong>Zero-Flicker Synchronized Updates:</strong> Utilizes DEC Mode 2026 (<code>\033[?2026h</code> / <code>\033[?2026l</code>)
+                to batch graphics placement and TUI redraws into single atomic frame passes. This completely eliminates cursor jumping and visual tearing across fast GPU-accelerated terminals like <strong>Kitty</strong> and <strong>Ghostty</strong>.
+              </li>
+              <li style={{ margin: "0.4rem 0" }}>
+                <strong>Memory-Safe Texture Lifecycle:</strong> Employs targeted Kitty graphics commands (<code>a=T,i=1</code>) to swap image previews directly in-place, and explicit image ID deletion (<code>d=A</code>)
+                to purge stale image buffers from GPU memory. This prevents runaway VRAM consumption and terminal freezes during rapid browsing in memory-sensitive emulators like <strong>WezTerm</strong>.
+              </li>
+              <li style={{ margin: "0.4rem 0" }}>
+                <strong>Selective Cell Preservation:</strong> Selectively refreshes only the preview viewport while keeping unaffected panes (file list, parent tree, status bar) perfectly stable.
+              </li>
+              <li style={{ margin: "0.4rem 0" }}>
+                <strong>Non-Blocking Worker Engine:</strong> High-resolution thumbnails are generated in background threads via <code>ffmpeg</code> and cached in an in-memory LRU session cache for instant recall.
+              </li>
+              <li style={{ margin: "0.4rem 0" }}>
+                <strong>Graceful Fallback:</strong> If opened in terminals without graphics protocol support (e.g. Alacritty, GNOME Terminal, Foot, xterm), Fyzenor automatically falls back to rich text metadata and layout inspection without corrupted character artifacts.
               </li>
             </ul>
 
@@ -1826,39 +1865,68 @@ export default function App() {
             </p>
 
             <h3>1. A Compatible Terminal</h3>
-            <ul>
-              <li>
-                <strong>Recommended:</strong>{" "}
+            <p>
+              To experience high-resolution image and video previews directly inside the TUI,
+              use a modern terminal emulator supporting the Kitty Graphics Protocol:
+            </p>
+            <ul style={{ marginLeft: "1.5rem", marginBottom: "1.5rem" }}>
+              <li style={{ margin: "0.4rem 0" }}>
                 <a
                   href="https://sw.kovidgoyal.net/kitty/"
                   target="_blank"
                   rel="noopener noreferrer"
+                  style={{ color: "var(--accent-blue)", fontWeight: 600 }}
                 >
                   Kitty
                 </a>{" "}
-                with native Kitty Graphics Protocol support.
+                — First-class support with native Kitty Graphics Protocol, synchronized frame updates (DEC Mode 2026), and smart cell preservation for a zero-flicker experience.
               </li>
-              <li>
-                <strong>Others:</strong>{" "}
+              <li style={{ margin: "0.4rem 0" }}>
+                <a
+                  href="https://ghostty.org/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: "var(--accent-blue)", fontWeight: 600 }}
+                >
+                  Ghostty
+                </a>{" "}
+                — Native Kitty Graphics Protocol support with GPU-accelerated tear-free rendering.
+              </li>
+              <li style={{ margin: "0.4rem 0" }}>
                 <a
                   href="https://wezfurlong.org/wezterm/"
                   target="_blank"
                   rel="noopener noreferrer"
+                  style={{ color: "var(--accent-blue)", fontWeight: 600 }}
                 >
                   WezTerm
                 </a>{" "}
-                or{" "}
+                — Full native support with memory-safe GPU texture pruning (<code>d=A</code>) and atomic in-place image swapping (<code>a=T,i=1</code>).
+              </li>
+              <li style={{ margin: "0.4rem 0" }}>
                 <a
                   href="https://konsole.kde.org/"
                   target="_blank"
                   rel="noopener noreferrer"
+                  style={{ color: "var(--accent-blue)", fontWeight: 600 }}
                 >
                   Konsole
                 </a>{" "}
-                may work, but Kitty is the primary development and testing
-                target.
+                — Compatible with the Kitty Graphics protocol.
               </li>
             </ul>
+
+            <div
+              style={{
+                padding: "0.85rem 1.25rem",
+                borderRadius: "8px",
+                background: "rgba(59, 130, 246, 0.08)",
+                border: "1px solid rgba(59, 130, 246, 0.2)",
+                marginBottom: "1.5rem",
+              }}
+            >
+              <strong>Note for other terminals:</strong> If you use Alacritty, GNOME Terminal, Foot, xterm, or another terminal without Kitty Graphics support, Fyzenor works out-of-the-box! Media previews gracefully fall back to detailed file metadata and syntax-highlighted text previews without any visual artifacts.
+            </div>
 
             <h3>2. System Dependencies</h3>
             <p>
@@ -4517,12 +4585,13 @@ l = 'ls -la'`}</div>
                 </h4>
                 <p style={{ margin: "0.5rem 0 0" }}>
                   Fyzenor uses the native{" "}
-                  <strong>Kitty Graphics Protocol</strong>. Pixel-perfect
-                  rendering is only supported inside terminal emulators that
-                  fully implement this protocol (e.g. Kitty, WezTerm, Ghostty).
-                  If you run Fyzenor in standard Alacritty, GNOME Terminal, or
-                  xterm, it will gracefully fallback to standard text metadata
-                  layouts in the preview pane.
+                  <strong>Kitty Graphics Protocol</strong>. High-resolution visual
+                  rendering is natively supported inside modern terminal emulators including{" "}
+                  <strong>Kitty</strong>, <strong>Ghostty</strong>, and <strong>WezTerm</strong>, complete
+                  with zero-flicker synchronized frame updates (DEC Mode 2026) and GPU texture lifecycle management.
+                  If you run Fyzenor in terminals without graphics protocol support (e.g. Alacritty, GNOME Terminal, Foot, or
+                  xterm), it will automatically and gracefully fallback to standard text metadata layouts in the preview pane
+                  without any visual glitching or corrupted character artifacts.
                 </p>
               </div>
 
