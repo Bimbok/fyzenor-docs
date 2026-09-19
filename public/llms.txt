@@ -318,8 +318,62 @@ Fyzenor tracks navigation directories independently per tab:
 
 ---
 
-## PAGE 9: COMMUNITY & LICENSE
+## PAGE 10: CUTTING-EDGE BETA FEATURES (v4.3.0-beta.2)
+
+### 1. Neovim Native Integration (`fyzenor.nvim`)
+Native Neovim integration inspired by `yazi.nvim`. Operates inside a centered floating terminal window with background dimming, netrw hijacking, multi-file buffer loading, and split/tab opening shortcuts:
+- **Package Manager**: Install `Bimbok/fyzenor` with `branch = "beta"`.
+- **In-Terminal Keymaps**: `<Enter>` to open and set `:args`, `<c-v>` vertical split, `<c-x>` horizontal split, `<c-t>` tab, `<c-q>` quickfix list, `<c-y>` yank relative path, `<c-f>` live grep.
+- **Multi-Selection Integration**: Selecting multiple files via `<Tab>` or `<Space>` registers buffers with `buflisted = true` and `bufload`, populating Neovim's argument list (`:args`) or tiling across splits.
+- **Netrw Hijack**: Set `open_for_directories = true` to automatically replace `netrw` when editing directories.
+- **CWD Synchronization**: Set `change_neovim_cwd_on_close = true` to sync Neovim's `:cd` upon closing.
+- **User Commands**: `:Fyzenor [path]`, `:FyzenorToggle [path]`, `:FyzenorCwd`.
+
+### 2. Embedded Lua Plugin Engine
+Zero-recompile extensibility powered by Lua (inspired by Yazi and Neovim):
+- **Plugin Path**: `~/.config/fyzenor/plugins/<name>/init.lua`.
+- **C++ Lua Bindings**: `fyzenor.add_keymap`, `fyzenor.register_previewer`, `fyzenor.shell_output`, `fyzenor.prompt`, `fyzenor.change_directory`, `fyzenor.get_version`, `fyzenor.get_selected_path`, `fyzenor.get_current_directory`.
+- **Official Plugins**: `github.com/Bimbok/fyzenor-plugins` (Zoxide fast jump, git staging, json previewer).
+
+### 3. Visual Disk Usage & Bar Graph Mode (`U`)
+Single-key `U` toggle turns any directory into an interactive visual storage analyzer (like `ncdu`):
+- **Proportional Bar Graphs**: Unicode proportional visual bars (`██████░░░░ 60%`) rendered alongside directory sizes.
+- **Background Scanner**: Calculates directory sizes recursively on background worker threads without freezing the UI; handles 12GB+ massive directories.
+- **Circular Symlink Protection**: Inode-based tracking skips cyclic symlinks to prevent infinite loops.
+- **Interactive Drill-Down**: Step into bloated folders, press `U` to scan subdirectories, and clean up with `d`.
+
+### 4. Unified Creation & Dynamic Modals (`n` / `r`)
+Modernized modal dialog system with dynamic extension detection:
+- **Unified `n`**: Press `n` to create a file; typing a trailing slash (`/`) dynamically converts the modal to folder mode.
+- **Real-Time Icon Morphing**: As extensions are typed, Nerd Font glyphs adapt dynamically (`` -> `` `.c` -> `` `.cpp` -> `` `.py` -> `` `.rs` -> `` `.ts` -> `` `.json` -> `` folder).
+- **Centered Modals**: 3-line input dialogs centered on screen with theme accent borders, auto-recentering on `KEY_RESIZE`.
+- **UTF-8 Codepoint Navigation**: Full codepoint-aware Backspace, Delete, and arrow keys for international characters and emojis.
+- **Clipboard Pasting**: `Ctrl+V`, `Ctrl+Shift+V`, and terminal bracketed paste in all prompts.
+- **Smart Nested Creation**: `path/to/nested/file.py` creates parent directories (`mkdir -p`) and auto-focuses the new item.
+
+### 5. Terminal Compatibility & Truecolor Engine
+Pixel-perfect consistency across Kitty, Ghostty, WezTerm, Alacritty, Foot, Tmux, and Neovim terminal:
+- **Universal 256-Color Engine (`hexTo256`)**: Weighted Euclidean RGB matching algorithm ensures themes look accurate on 256-color palettes.
+- **Native Truecolor (24-bit RGB)**: Automatic detection of `$COLORTERM=truecolor` / `24bit`.
+- **DEC 2026 Synchronized Updates**: Atomic frame rendering (`\033[?2026h` / `\033[?2026l`) eliminates preview tearing and flicker.
+- **Pristine State Restoration**: Restores cursor, mouse reporting, alternate screen, and bracketed paste on exit.
+
+### 6. Mouse Controls & Pane-Aware Scrolling
+Fluid mouse workflow for modern terminals:
+- **Pane-Aware Hover Scrolling**: Scrolling over parent, active browser, pinned, or preview pane scrolls that pane directly without changing focus.
+- **Preview Scrolling**: Scroll long text, code, or directory previews with mouse wheel or `Ctrl+E` / `Ctrl+Y`.
+- **Drag-and-Drop**: Drag out files via Dragon (`Ctrl+D`) to browsers, Discord, or desktop apps.
+
+### 7. Yazi-like Cursor Tracking & Directory Navigation Memory
+- **Cursor Tracking Across Sorts**: Pressing `s` to change sorting retains the cursor on the currently selected item instead of jumping to index 0.
+- **Per-Directory Memory**: Remembers exact cursor position and scroll offset across visited directories.
+- **Safe Directory Recovery**: Automatically catches deleted or moved directories outside Fyzenor and safely recovers to the nearest ancestor without crashing.
+
+---
+
+## PAGE 11: COMMUNITY & LICENSE
 
 - **License**: Fyzenor is open-source software distributed under the terms of the **MIT License**.
 - **Github**: Explore codebase, file issues, submit forks, and contribute pull requests:
   `git@github.com:Bimbok/fyzenor.git`
+
