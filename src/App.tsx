@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Fuse from "fuse.js";
 import { Showcase } from "./components/Showcase";
+import { CommunitySection } from "./components/CommunitySection";
 import {
   BookOpen,
   Download,
@@ -5416,98 +5417,7 @@ l = 'ls -la'`}</div>
           </div>
         )}
 
-        {activeTab === "community" && (
-          <div className="animate-fade-in">
-            <h2>Contributing</h2>
-            <p>Contributions are welcome to make Fyzenor even better!</p>
-            <ol style={{ marginLeft: "1.5rem", marginBottom: "1.5rem" }}>
-              <li>Fork the repository on GitHub.</li>
-              <li>
-                Create a descriptive feature branch (
-                <code>git checkout -b feature/cool-idea</code>).
-              </li>
-              <li>Implement and test your changes locally.</li>
-              <li>
-                Submit a clear pull request describing the implementation
-                details.
-              </li>
-            </ol>
-            <p>
-              Detailed workflow instructions can be found inside{" "}
-              <a
-                href="https://github.com/Bimbok/fyzenor/blob/main/CONTRIBUTING.md"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                CONTRIBUTING.md
-              </a>
-              , and community participation is governed by{" "}
-              <a
-                href="https://github.com/Bimbok/fyzenor/blob/main/CODE_OF_CONDUCT.md"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                CODE_OF_CONDUCT.md
-              </a>
-              .
-            </p>
-
-            <h2>Contact &amp; Support</h2>
-            <ul>
-              <li>
-                <strong>GitHub Profile</strong>:{" "}
-                <a
-                  href="https://github.com/Bimbok"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  @Bimbok
-                </a>
-              </li>
-              <li>
-                <strong>Issues &amp; Requests</strong>:{" "}
-                <a
-                  href="https://github.com/Bimbok/fyzenor/issues"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Submit an Issue
-                </a>
-              </li>
-            </ul>
-
-            <h2>License</h2>
-            <p>Distributed under the MIT License. See standard terms below:</p>
-            <div
-              className="code-container"
-              style={{ maxHeight: "200px", overflowY: "auto" }}
-            >
-              <div
-                className="code-block"
-                style={{ fontSize: "0.8rem", whiteSpace: "pre-wrap" }}
-              >
-                MIT License Copyright (c) 2026 Bimbok Permission is hereby
-                granted, free of charge, to any person obtaining a copy of this
-                software and associated documentation files (the "Software"), to
-                deal in the Software without restriction, including without
-                limitation the rights to use, copy, modify, merge, publish,
-                distribute, sublicense, and/or sell copies of the Software, and
-                to permit persons to whom the Software is furnished to do so,
-                subject to the following conditions: The above copyright notice
-                and this permission notice shall be included in all copies or
-                substantial portions of the Software. THE SOFTWARE IS PROVIDED
-                "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
-                INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-                FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
-                EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-                CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
-                CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-                CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-                SOFTWARE.
-              </div>
-            </div>
-          </div>
-        )}
+        {activeTab === "community" && <CommunitySection />}
 
         {activeTab === "troubleshoot" && (
           <div className="animate-fade-in">
