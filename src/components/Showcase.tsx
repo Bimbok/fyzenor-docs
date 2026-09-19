@@ -159,7 +159,7 @@ export const Showcase: React.FC<ShowcaseProps> = ({
         "[*] Packages verified: cmake, ncursesw, ffmpeg, bat, ripgrep",
         "[*] Compiling fyzenor engine v4.3.0...",
         "[100%] Built target fyzenor",
-        "[✔] Installation complete! Binary installed to ~/.local/bin/fyzenor",
+        "[OK] Installation complete! Binary installed to ~/.local/bin/fyzenor",
       ];
     } else if (cmd === "ncdu") {
       output = [

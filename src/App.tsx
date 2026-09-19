@@ -977,7 +977,7 @@ export default function App() {
         "[*] Installing packages: cmake, ncursesw, ffmpeg, bat, ripgrep...",
         "[*] Building project binaries...",
         "[100%] Built target fyzenor",
-        '[✔] Installation completed successfully! Run "fyzenor" to start.',
+        '[OK] Installation completed successfully! Run "fyzenor" to start.',
       ];
     } else if (cmd === "clear") {
       setTermLines(["Fyzenor Terminal Simulator v4.3.0", ""]);
@@ -1342,7 +1342,7 @@ export default function App() {
               </div>
             </div>
 
-            <h2>🚀 Key Features</h2>
+            <h2>Key Features</h2>
             <div className="table-container">
               <table className="doc-table">
                 <thead>
@@ -1729,7 +1729,7 @@ export default function App() {
               </table>
             </div>
 
-            <h2>🔍 Rich Media & Archive Previews</h2>
+            <h2>Rich Media & Archive Previews</h2>
             <p>
               Fyzenor uses an asynchronous background preview pipeline to inspect
               compressed archives and query multimedia metadata. This prevents navigation
@@ -1820,7 +1820,7 @@ export default function App() {
               </li>
             </ul>
 
-            <h2>🛠️ CLI Arguments & Usage</h2>
+            <h2>CLI Arguments & Usage</h2>
             <p>Fyzenor supports the following command-line flags on launch:</p>
             <div className="table-container">
               <table className="doc-table">
@@ -1856,7 +1856,7 @@ export default function App() {
               </table>
             </div>
 
-            <h2>💻 Shell Macros &amp; Background Execution</h2>
+            <h2>Shell Macros &amp; Background Execution</h2>
             <p>
               Toggling the command prompt (<code>:</code>) allows you to pass
               commands directly to your underlying shell. Fyzenor automatically
@@ -1892,7 +1892,7 @@ export default function App() {
               </li>
             </ul>
 
-            <h2>🔌 Natively Integrated Drive Mounting</h2>
+            <h2>Natively Integrated Drive Mounting</h2>
             <p>
               Fyzenor avoids requiring graphical desktop environments or complex
               manual <code>mount</code> terminal setups by communicating
@@ -2351,7 +2351,7 @@ pkg install clang cmake ndk-sysroot ncurses-utils ffmpeg zip bat ripgrep`}</div>
               </li>
             </ul>
 
-            <h2>⚙️ Installation &amp; Update</h2>
+            <h2>Installation &amp; Update</h2>
             <p>
               The easiest way to install or update Fyzenor is using the
               universal installation script.
@@ -2360,7 +2360,7 @@ pkg install clang cmake ndk-sysroot ncurses-utils ffmpeg zip bat ripgrep`}</div>
             <h3>Smart One-Liner Installer</h3>
             <div className="code-container">
               <div className="code-header">
-                <span>📦 Install Stable Release (v4.3.0 - Default)</span>
+                <span>Install Stable Release (v4.3.0 - Default)</span>
                 <button
                   className="copy-btn"
                   onClick={() =>
@@ -2383,7 +2383,7 @@ pkg install clang cmake ndk-sysroot ncurses-utils ffmpeg zip bat ripgrep`}</div>
 
             <div className="code-container">
               <div className="code-header">
-                <span>🧪 Install Development Channel (Beta)</span>
+                <span>Install Development Channel (Beta)</span>
                 <button
                   className="copy-btn"
                   onClick={() =>
@@ -2513,7 +2513,7 @@ make
               <div className="code-block">{`g++ --version`}</div>
             </div>
 
-            <h2>🛠️ Tech Stack</h2>
+            <h2>Tech Stack</h2>
             <ul>
               <li>
                 <strong>Language</strong>: C++17
@@ -2944,7 +2944,7 @@ make
               </div>
             </div>
 
-            <h2>⌨️ Complete Key Bindings Map</h2>
+            <h2>Complete Key Bindings Map</h2>
 
             <h3>1. Navigation</h3>
             <div className="table-container">
@@ -3285,7 +3285,7 @@ DeletionDate=2026-07-05T20:14:05`}</div>
                     marginBottom: "0.5rem",
                   }}
                 >
-                  📥 1. Dropping Files INTO Fyzenor
+                  1. Dropping Files INTO Fyzenor
                 </div>
                 <p>
                   Quickly transfer files from external desktop folders directly into your active terminal directory:
@@ -3303,7 +3303,7 @@ DeletionDate=2026-07-05T20:14:05`}</div>
                   </li>
                 </ol>
                 <p style={{ fontSize: "0.85rem", opacity: 0.8, marginTop: "0.5rem" }}>
-                  💡 <strong>How it works:</strong> Fyzenor leverages <em>Bracketed Paste Mode</em> (ANSI escapes) to intercept files, URL-decodes percent encodings (converting <code>%20</code> back to spaces), tokenizes the file list, and triggers background AsyncTask jobs.
+                  <strong>How it works:</strong> Fyzenor leverages <em>Bracketed Paste Mode</em> (ANSI escapes) to intercept files, URL-decodes percent encodings (converting <code>%20</code> back to spaces), tokenizes the file list, and triggers background AsyncTask jobs.
                 </p>
               </div>
 
@@ -3316,7 +3316,7 @@ DeletionDate=2026-07-05T20:14:05`}</div>
                     marginBottom: "0.5rem",
                   }}
                 >
-                  📤 2. Dragging Files OUT of Fyzenor
+                  2. Dragging Files OUT of Fyzenor
                 </div>
                 <p>
                   Drag files out of your terminal list directly into browsers, chat clients, or GUI editors:
@@ -3329,12 +3329,12 @@ DeletionDate=2026-07-05T20:14:05`}</div>
                   <li>The widget window automatically closes upon a successful drop.</li>
                 </ol>
                 <p style={{ fontSize: "0.85rem", opacity: 0.8, marginTop: "0.5rem" }}>
-                  💡 <strong>How it works:</strong> Spawns a lightweight drag source utility asynchronously. The background job is completely decoupled from the TUI main loop, guaranteeing a fluid, freeze-free cursor response.
+                  <strong>How it works:</strong> Spawns a lightweight drag source utility asynchronously. The background job is completely decoupled from the TUI main loop, guaranteeing a fluid, freeze-free cursor response.
                 </p>
               </div>
             </div>
 
-            <h2 style={{ marginTop: "2.5rem" }}>🛠️ Installing Drag &amp; Drop Dependencies</h2>
+            <h2 style={{ marginTop: "2.5rem" }}>Installing Drag &amp; Drop Dependencies</h2>
             <p>
               To support dragging files <strong>out</strong> of the terminal, you must install one of the supported drag-and-drop helper utilities on your system path. We recommend <strong><code>ripdrag</code></strong> (modern Rust rewrite) or <strong><code>dragon</code></strong> (classic GTK3 version).
             </p>
@@ -3392,7 +3392,7 @@ sudo dnf install dragon`}
                     marginBottom: "0.5rem",
                   }}
                 >
-                  ⚡ Centered Tmux Popup Overlay
+                  Centered Tmux Popup Overlay
                 </div>
                 <p>
                   If Fyzenor is running inside an active <code>tmux</code> session, launching Lazygit uses <code>tmux display-popup</code> to create a floating overlay window:
@@ -3413,7 +3413,7 @@ sudo dnf install dragon`}
                     marginBottom: "0.5rem",
                   }}
                 >
-                  🖥️ Full-Screen Console Fallback
+                  Full-Screen Console Fallback
                 </div>
                 <p>
                   When running outside of a tmux session:
@@ -3426,7 +3426,7 @@ sudo dnf install dragon`}
               </div>
             </div>
 
-            <h2 style={{ marginTop: "2.5rem" }}>⌨️ Launching and Auto-Reload</h2>
+            <h2 style={{ marginTop: "2.5rem" }}>Launching and Auto-Reload</h2>
             <div className="alert-info-box" style={{ marginBottom: "1rem" }}>
               <Info size={20} style={{ flexShrink: 0 }} />
               <div>
@@ -3437,7 +3437,7 @@ sudo dnf install dragon`}
               Upon exit, Fyzenor triggers an automatic <strong>full cache invalidation and reload</strong> (<code>reloadAll()</code>). Any Git commits, branch checkouts, resets, or file additions performed inside Lazygit reflect instantly in the browser list panels without needing to press manual refresh.
             </p>
 
-            <h2 style={{ marginTop: "2.5rem" }}>🛠️ Installing Lazygit</h2>
+            <h2 style={{ marginTop: "2.5rem" }}>Installing Lazygit</h2>
             <p>
               To support this integration, ensure <code>lazygit</code> is installed and available in your system <code>PATH</code>:
             </p>
@@ -3485,7 +3485,7 @@ brew install lazygit`}
             <div className="card-grid">
               <div className="card-premium">
                 <div style={{ color: "var(--accent-green)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  🪟 1. Centered Floating Terminal
+                  1. Centered Floating Terminal
                 </div>
                 <p>
                   Spawns in a centered floating window with configurable dimensions (default 90% width, 85% height), customizable border styles (<code>rounded</code>, <code>single</code>, <code>double</code>), and background dimming.
@@ -3494,7 +3494,7 @@ brew install lazygit`}
 
               <div className="card-premium">
                 <div style={{ color: "var(--accent-purple)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  📂 2. Netrw Directory Hijacking
+                  2. Netrw Directory Hijacking
                 </div>
                 <p>
                   Optionally replaces default <code>netrw</code> when opening directory paths (e.g. <code>nvim .</code> or <code>:edit src/</code>). Seamlessly swaps directory buffers with an interactive Fyzenor session.
@@ -3503,7 +3503,7 @@ brew install lazygit`}
 
               <div className="card-premium">
                 <div style={{ color: "var(--accent-cyan)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  📑 3. Multi-Buffer &amp; Split Loading
+                  3. Multi-Buffer &amp; Split Loading
                 </div>
                 <p>
                   Select multiple files with <kbd>Tab</kbd> or <kbd>Space</kbd>. Pressing <kbd>Enter</kbd> loads all chosen files into Neovim's buffer list (<code>buflisted = true</code>) and populates the argument list (<code>:args</code>). Or tile them across vertical (<kbd>Ctrl+V</kbd>) or horizontal (<kbd>Ctrl+X</kbd>) splits!
@@ -3512,7 +3512,7 @@ brew install lazygit`}
 
               <div className="card-premium">
                 <div style={{ color: "var(--accent-yellow)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  🔄 4. CWD Auto-Synchronization
+                  4. CWD Auto-Synchronization
                 </div>
                 <p>
                   When enabled (<code>change_neovim_cwd_on_close = true</code>), closing Fyzenor automatically updates Neovim's working directory (<code>:cd</code>) to match the last folder you navigated to in Fyzenor.
@@ -3520,7 +3520,7 @@ brew install lazygit`}
               </div>
             </div>
 
-            <h2 style={{ marginTop: "2.5rem" }}>📦 Installation &amp; Setup</h2>
+            <h2 style={{ marginTop: "2.5rem" }}>Installation &amp; Setup</h2>
             <p>Install <code>Bimbok/fyzenor</code> using your favorite Neovim package manager:</p>
 
             <h3 style={{ marginTop: "1.5rem" }}>Using <code>lazy.nvim</code> (Recommended)</h3>
@@ -3608,7 +3608,7 @@ require("fyzenor").setup({
               </code>
             </pre>
 
-            <h2 style={{ marginTop: "2.5rem" }}>⌨️ In-Terminal Floating Keymaps</h2>
+            <h2 style={{ marginTop: "2.5rem" }}>In-Terminal Floating Keymaps</h2>
             <p>When the Fyzenor floating window is open inside Neovim, the following dedicated shortcuts are active:</p>
 
             <div className="table-container" style={{ marginTop: "1rem" }}>
@@ -3680,7 +3680,7 @@ require("fyzenor").setup({
               </table>
             </div>
 
-            <h2 style={{ marginTop: "2.5rem" }}>⚙️ Complete Configuration Options</h2>
+            <h2 style={{ marginTop: "2.5rem" }}>Complete Configuration Options</h2>
             <p>All options supported by <code>require("fyzenor").setup(opts)</code>:</p>
 
             <div className="table-container" style={{ marginTop: "1rem" }}>
@@ -3752,7 +3752,7 @@ require("fyzenor").setup({
               </table>
             </div>
 
-            <h2 style={{ marginTop: "2.5rem" }}>💬 Ex Commands Reference</h2>
+            <h2 style={{ marginTop: "2.5rem" }}>Ex Commands Reference</h2>
             <div className="table-container" style={{ marginTop: "1rem" }}>
               <table className="doc-table">
                 <thead>
@@ -3807,7 +3807,7 @@ require("fyzenor").setup({
             <div className="card-grid">
               <div className="card-premium">
                 <div style={{ color: "var(--accent-green)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  ⚡ 1. Zero-Recompile Extensibility
+                  1. Zero-Recompile Extensibility
                 </div>
                 <p>
                   Plugins run in-memory using an embedded Lua state. Drop any Lua script into <code>~/.config/fyzenor/plugins/&lt;plugin_name&gt;/init.lua</code> and Fyzenor will discover and execute it automatically upon boot.
@@ -3816,7 +3816,7 @@ require("fyzenor").setup({
 
               <div className="card-premium">
                 <div style={{ color: "var(--accent-purple)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  🔌 2. Hotkeys, Previews &amp; UI Prompts
+                  2. Hotkeys, Previews &amp; UI Prompts
                 </div>
                 <p>
                   Plugins can map custom hotkeys (e.g., <code>Ctrl+S</code>, <code>z</code>, <code>Alt+Z</code>), register custom text previewers for unsupported file extensions, open modal text prompts, and run async shell utilities.
@@ -3825,7 +3825,7 @@ require("fyzenor").setup({
 
               <div className="card-premium">
                 <div style={{ color: "var(--accent-cyan)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  📦 3. Official Plugins Repository
+                  3. Official Plugins Repository
                 </div>
                 <p>
                   Browse and install ready-made plugins from the official community repository: <a href="https://github.com/Bimbok/fyzenor-plugins" target="_blank" rel="noreferrer" style={{ color: "var(--accent-cyan)", fontWeight: 600 }}>github.com/Bimbok/fyzenor-plugins</a>.
@@ -3834,7 +3834,7 @@ require("fyzenor").setup({
 
               <div className="card-premium">
                 <div style={{ color: "var(--accent-yellow)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  🛡️ 4. Thread-Safe Sandbox
+                  4. Thread-Safe Sandbox
                 </div>
                 <p>
                   UI operations, directory changes, and status updates communicate through safe mutex-locked C++ API boundaries, ensuring plugins never crash the main rendering loop.
@@ -3842,7 +3842,7 @@ require("fyzenor").setup({
               </div>
             </div>
 
-            <h2 style={{ marginTop: "2.5rem" }}>📦 Official Plugins Repository</h2>
+            <h2 style={{ marginTop: "2.5rem" }}>Official Plugins Repository</h2>
             <p>
               The official Fyzenor plugins are maintained in a dedicated repository: <a href="https://github.com/Bimbok/fyzenor-plugins" target="_blank" rel="noreferrer" style={{ color: "var(--accent-cyan)", fontWeight: 600 }}>github.com/Bimbok/fyzenor-plugins</a>.
             </p>
@@ -3889,7 +3889,7 @@ git clone https://github.com/Bimbok/fyzenor-plugins.git ~/.config/fyzenor/plugin
               </table>
             </div>
 
-            <h2 style={{ marginTop: "2.5rem" }}>📖 Complete Lua C++ API Reference</h2>
+            <h2 style={{ marginTop: "2.5rem" }}>Complete Lua C++ API Reference</h2>
             <p>The global <code>fyzenor</code> Lua module exposes the following C++ engine bindings:</p>
 
             <div className="table-container" style={{ marginTop: "1rem" }}>
@@ -3971,7 +3971,7 @@ git clone https://github.com/Bimbok/fyzenor-plugins.git ~/.config/fyzenor/plugin
               </table>
             </div>
 
-            <h2 style={{ marginTop: "2.5rem" }}>🛠️ Real-World Plugin Example: Interactive Zoxide Fast Jump</h2>
+            <h2 style={{ marginTop: "2.5rem" }}>Real-World Plugin Example: Interactive Zoxide Fast Jump</h2>
             <p>Create a file at <code>~/.config/fyzenor/plugins/zoxide/init.lua</code>:</p>
 
             <pre className="code-block" style={{ position: "relative" }}>
@@ -4021,7 +4021,7 @@ end)`}
             <div className="card-grid">
               <div className="card-premium">
                 <div style={{ color: "var(--accent-green)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  📊 1. Proportional Visual Bar Graphs
+                  1. Proportional Visual Bar Graphs
                 </div>
                 <p>
                   Every directory and file displays high-contrast unicode bar graphs (e.g. <code>██████░░░░ 60%</code>) dynamically scaled relative to the largest item in the current directory.
@@ -4030,7 +4030,7 @@ end)`}
 
               <div className="card-premium">
                 <div style={{ color: "var(--accent-purple)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  ⚡ 2. Non-Blocking Background Scanning
+                  2. Non-Blocking Background Scanning
                 </div>
                 <p>
                   Folder sizes are calculated recursively on dedicated worker threads. Massive directories (12GB+) calculate smoothly in the background while you continue navigating with zero UI latency.
@@ -4039,7 +4039,7 @@ end)`}
 
               <div className="card-premium">
                 <div style={{ color: "var(--accent-cyan)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  🛡️ 3. Circular Symlink Protection
+                  3. Circular Symlink Protection
                 </div>
                 <p>
                   The traversal algorithm actively tracks visited inodes and excludes symlinked directories from recursive size sums, preventing infinite loops and filesystem hangs.
@@ -4048,7 +4048,7 @@ end)`}
 
               <div className="card-premium">
                 <div style={{ color: "var(--accent-yellow)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  🔍 4. Interactive Storage Drill-Down
+                  4. Interactive Storage Drill-Down
                 </div>
                 <p>
                   Spot a bloated folder? Press <kbd>Enter</kbd> or <kbd>l</kbd> to step inside, press <kbd>U</kbd> to analyze its subfolders, and press <kbd>d</kbd> to trash or delete bloated caches and <code>node_modules</code>.
@@ -4056,7 +4056,7 @@ end)`}
               </div>
             </div>
 
-            <h2 style={{ marginTop: "2.5rem" }}>📈 Visual Breakdown Example</h2>
+            <h2 style={{ marginTop: "2.5rem" }}>Visual Breakdown Example</h2>
             <div className="terminal-simulator" style={{ margin: "1.5rem 0", padding: "1.5rem", borderRadius: "12px", background: "var(--bg-card)", border: "1px solid var(--border-color)", fontFamily: "var(--font-mono)" }}>
               <div style={{ color: "var(--accent-cyan)", fontWeight: 700, marginBottom: "1rem" }}>
                 󰋚 Active Mode: Visual Disk Usage (Total: 14.8 GB)
@@ -4103,7 +4103,7 @@ end)`}
             <div className="card-grid">
               <div className="card-premium">
                 <div style={{ color: "var(--accent-green)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  🔀 1. Unified 'n' Creation
+                  1. Unified 'n' Creation
                 </div>
                 <p>
                   No need for separate shortcuts for files and folders! Press <kbd>n</kbd> to open the creation dialog. 
@@ -4113,7 +4113,7 @@ end)`}
 
               <div className="card-premium">
                 <div style={{ color: "var(--accent-yellow)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  🎨 2. Real-Time Extension Morphing
+                  2. Real-Time Extension Morphing
                 </div>
                 <p>
                   As you type file extensions, the prompt icon morphs dynamically: generic file (<code style={{ color: "var(--accent-yellow)" }}></code>), 
@@ -4125,7 +4125,7 @@ end)`}
 
               <div className="card-premium">
                 <div style={{ color: "var(--accent-cyan)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  🖼️ 3. Centered Modals &amp; Active Accent Borders
+                  3. Centered Modals &amp; Active Accent Borders
                 </div>
                 <p>
                   Dialogs are centered both horizontally and vertically on screen. Borders dynamically adopt your theme's <code>active_border</code> or <code>pin_border</code> color, and cleanly re-center on terminal resize (<code>KEY_RESIZE</code>).
@@ -4134,16 +4134,16 @@ end)`}
 
               <div className="card-premium">
                 <div style={{ color: "var(--accent-pink)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  🌐 4. Multi-Byte UTF-8 Codepoint Navigation
+                  4. Multi-Byte UTF-8 Codepoint Navigation
                 </div>
                 <p>
-                  Arrow navigation, Backspace, and Delete operate on full UTF-8 codepoints rather than raw bytes. Emojis (🚀, 📁) and non-ASCII characters (Japanese, Chinese, Cyrillic) edit smoothly without screen corruption or partial-byte artifacts.
+                  Arrow navigation, Backspace, and Delete operate on full UTF-8 codepoints rather than raw bytes. Emojis (, ) and non-ASCII characters (Japanese, Chinese, Cyrillic) edit smoothly without screen corruption or partial-byte artifacts.
                 </p>
               </div>
 
               <div className="card-premium">
                 <div style={{ color: "var(--accent-purple)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  📋 5. Universal Clipboard Pasting
+                  5. Universal Clipboard Pasting
                 </div>
                 <p>
                   Paste file paths and text directly into any prompt using <kbd>Ctrl+V</kbd>, <kbd>Ctrl+Shift+V</kbd>, or terminal bracketed paste mode sequences.
@@ -4152,7 +4152,7 @@ end)`}
 
               <div className="card-premium">
                 <div style={{ color: "var(--accent-orange)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  📂 6. Smart Nested Path Creation
+                  6. Smart Nested Path Creation
                 </div>
                 <p>
                   Type deep nested paths like <code>src/components/ui/Button.tsx</code> and Fyzenor recursively creates missing parent folders (<code>mkdir -p</code>) while automatically selecting the newly created file upon completion.
@@ -4178,7 +4178,7 @@ end)`}
             <div className="card-grid">
               <div className="card-premium">
                 <div style={{ color: "var(--accent-green)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  🎨 1. Universal 256-Color Engine (hexTo256)
+                  1. Universal 256-Color Engine (hexTo256)
                 </div>
                 <p>
                   Uses a perceptual weighted Euclidean distance formula in RGB color space to match hex color codes to the closest ANSI 256 palette index. Ensures beautiful theme colors inside Tmux and Neovim terminals.
@@ -4187,7 +4187,7 @@ end)`}
 
               <div className="card-premium">
                 <div style={{ color: "var(--accent-cyan)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  🌈 2. Native Truecolor (24-bit RGB)
+                  2. Native Truecolor (24-bit RGB)
                 </div>
                 <p>
                   Detects <code>COLORTERM=truecolor</code> and <code>24bit</code> to emit direct 24-bit ANSI escapes (<code>\033[38;2;R;G;Bm</code>) for rich gradients and subtle theme tones.
@@ -4196,7 +4196,7 @@ end)`}
 
               <div className="card-premium">
                 <div style={{ color: "var(--accent-purple)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  ⚡ 3. Atomic Synchronized Updates (DEC 2026)
+                  3. Atomic Synchronized Updates (DEC 2026)
                 </div>
                 <p>
                   Implements the DEC 2026 synchronized update protocol (<code>\033[?2026h</code> and <code>\033[?2026l</code>) supported by Kitty, Ghostty, and WezTerm. Redraws frames atomically, eliminating preview tearing and flicker during fast scrolling.
@@ -4205,7 +4205,7 @@ end)`}
 
               <div className="card-premium">
                 <div style={{ color: "var(--accent-yellow)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  🧹 4. Pristine Terminal State Restoration
+                  4. Pristine Terminal State Restoration
                 </div>
                 <p>
                   Properly cleans up alternate screens, mouse tracking (<code>\033[?1000l</code>), cursor visibility, and bracketed paste modes upon exit or process suspension (<kbd>Ctrl+Z</kbd>).
@@ -4213,7 +4213,7 @@ end)`}
               </div>
             </div>
 
-            <h2 style={{ marginTop: "2.5rem" }}>🖥️ Verified Terminal Matrix</h2>
+            <h2 style={{ marginTop: "2.5rem" }}>Verified Terminal Matrix</h2>
             <div className="table-container" style={{ marginTop: "1rem" }}>
               <table className="doc-table">
                 <thead>
@@ -4282,7 +4282,7 @@ end)`}
             <div className="card-grid">
               <div className="card-premium">
                 <div style={{ color: "var(--accent-green)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  🖱️ 1. Pane-Aware Hover Scrolling
+                  1. Pane-Aware Hover Scrolling
                 </div>
                 <p>
                   Hover your cursor over the Left (Pinned/Parent), Center (Current), or Right (Preview) pane and scroll the wheel: 
@@ -4292,7 +4292,7 @@ end)`}
 
               <div className="card-premium">
                 <div style={{ color: "var(--accent-cyan)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  📜 2. Preview Pane Scrolling
+                  2. Preview Pane Scrolling
                 </div>
                 <p>
                   Scroll through long source code, markdown documentation, or directory tree previews using the mouse wheel or keyboard shortcuts (<kbd>Ctrl+E</kbd> down / <kbd>Ctrl+Y</kbd> up).
@@ -4301,7 +4301,7 @@ end)`}
 
               <div className="card-premium">
                 <div style={{ color: "var(--accent-purple)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  👆 3. Click Navigation &amp; Tabs
+                  3. Click Navigation &amp; Tabs
                 </div>
                 <p>
                   Left-click any file to select it, double-click a directory to enter, click pinned bookmarks to jump immediately, or click tabs on the top bar to switch tabs.
@@ -4310,7 +4310,7 @@ end)`}
 
               <div className="card-premium">
                 <div style={{ color: "var(--accent-yellow)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  🐉 4. Drag-and-Drop Workflow
+                  4. Drag-and-Drop Workflow
                 </div>
                 <p>
                   Seamlessly drag files out of Fyzenor into web browsers, Slack, Discord, or GUI file managers by pressing <kbd>Ctrl+D</kbd> (Dragon integration).
@@ -4335,7 +4335,7 @@ end)`}
             <div className="card-grid">
               <div className="card-premium">
                 <div style={{ color: "var(--accent-green)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  📌 1. Persistent Cursor Tracking Across Sorting
+                  1. Persistent Cursor Tracking Across Sorting
                 </div>
                 <p>
                   When you press <kbd>s</kbd> to cycle sort modes (Name → Date → Size → Extension), Fyzenor memorizes your highlighted item. 
@@ -4345,7 +4345,7 @@ end)`}
 
               <div className="card-premium">
                 <div style={{ color: "var(--accent-purple)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  🧠 2. Per-Directory Navigation Memory
+                  2. Per-Directory Navigation Memory
                 </div>
                 <p>
                   Every directory you explore remembers its exact cursor index and scroll offset. Step inside a subfolder and return back with <kbd>h</kbd> or <kbd>Ctrl+O</kbd>: your cursor is restored exactly where you left off.
@@ -4354,7 +4354,7 @@ end)`}
 
               <div className="card-premium">
                 <div style={{ color: "var(--accent-cyan)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  ⏪ 3. Full History Jumps (Ctrl+O / Ctrl+P)
+                  3. Full History Jumps (Ctrl+O / Ctrl+P)
                 </div>
                 <p>
                   Navigate backward (<kbd>Ctrl+O</kbd>) and forward (<kbd>Ctrl+P</kbd>) through your directory history stack. Or press <kbd>H</kbd> to open a scrollable visual history overlay and jump directly.
@@ -4363,7 +4363,7 @@ end)`}
 
               <div className="card-premium">
                 <div style={{ color: "var(--accent-yellow)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
-                  🛡️ 4. Safe Directory Recovery
+                  4. Safe Directory Recovery
                 </div>
                 <p>
                   If an active folder is renamed or deleted outside Fyzenor by an external process, the engine gracefully catches the inotify deletion event and auto-recovers to the nearest existing ancestor directory without crashing.
@@ -4842,7 +4842,7 @@ end)`}
               </p>
             </div>
 
-            <h2>🏗️ Repository Structure</h2>
+            <h2>Repository Structure</h2>
             <div className="code-container">
               <div className="code-block">{`fyzenor/
 ├── src/               # Core C++ source files (file_manager, utils, plugins)
@@ -4856,7 +4856,7 @@ end)`}
 
         {activeTab === "theming" && (
           <div className="animate-fade-in">
-            <h2>⚙️ Configuration (`config.toml`)</h2>
+            <h2>Configuration (`config.toml`)</h2>
             <p>
               Fyzenor loads its general settings, layout configurations, panel sizes, pane visibility rules, Nerd Font icon glyphs, and file extension categories from an external TOML file at: <code>~/.config/fyzenor/config.toml</code>.
             </p>
@@ -4935,7 +4935,7 @@ audio = [".mp3", ".wav", ".flac", ".m4a", ".aac", ".ogg", ".wma", ".opus", ".mid
 archive = [".zip", ".tar", ".gz", ".tgz", ".7z", ".rar", ".xz", ".bz2", ".tbz2", ".lzma", ".cab"]`}</div>
             </div>
 
-            <h2>🎨 Theme Customization</h2>
+            <h2>Theme Customization</h2>
             <p>
               Fyzenor supports custom color themes loaded via{" "}
               <code>~/.config/fyzenor/theme.toml</code>. The default packaged
@@ -5278,9 +5278,9 @@ output_path = "~/.config/fyzenor/theme.toml"`}</div>
                       color: themeConfig.normalText,
                     }}
                   >
-                    <div style={{ opacity: 0.5 }}>📁 src/</div>
-                    <div style={{ opacity: 0.5 }}>📁 build/</div>
-                    <div style={{ opacity: 0.5 }}>📁 docs/</div>
+                    <div style={{ opacity: 0.5 }}>src/</div>
+                    <div style={{ opacity: 0.5 }}>build/</div>
+                    <div style={{ opacity: 0.5 }}>docs/</div>
                   </div>
                   <div
                     className="tui-column"
@@ -5334,7 +5334,7 @@ output_path = "~/.config/fyzenor/theme.toml"`}</div>
                 </div>
               </div>
             </div>
-            <h2 style={{ marginTop: "3rem" }}>🛠️ Custom Keyboard Macros</h2>
+            <h2 style={{ marginTop: "3rem" }}>Custom Keyboard Macros</h2>
             <p>
               Fyzenor allows you to map single-key shortcuts to run shell
               commands globally on currently highlighted or selected files. These
@@ -5418,7 +5418,7 @@ l = 'ls -la'`}</div>
 
         {activeTab === "community" && (
           <div className="animate-fade-in">
-            <h2>🤝 Contributing</h2>
+            <h2>Contributing</h2>
             <p>Contributions are welcome to make Fyzenor even better!</p>
             <ol style={{ marginLeft: "1.5rem", marginBottom: "1.5rem" }}>
               <li>Fork the repository on GitHub.</li>
@@ -5452,7 +5452,7 @@ l = 'ls -la'`}</div>
               .
             </p>
 
-            <h2>📞 Contact &amp; Support</h2>
+            <h2>Contact &amp; Support</h2>
             <ul>
               <li>
                 <strong>GitHub Profile</strong>:{" "}
@@ -5476,7 +5476,7 @@ l = 'ls -la'`}</div>
               </li>
             </ul>
 
-            <h2>⚖️ License</h2>
+            <h2>License</h2>
             <p>Distributed under the MIT License. See standard terms below:</p>
             <div
               className="code-container"
