@@ -3340,11 +3340,32 @@ DeletionDate=2026-07-05T20:14:05`}</div>
               To support dragging files <strong>out</strong> of the terminal, you must install one of the supported drag-and-drop helper utilities on your system path. We recommend <strong><code>ripdrag</code></strong> (modern Rust rewrite) or <strong><code>dragon</code></strong> (classic GTK3 version).
             </p>
 
-            <div style={{ marginTop: "1rem" }}>
-              <h3>Option A: `ripdrag` (Recommended - Rust)</h3>
+            <div style={{ marginTop: "1.5rem" }}>
+              <h3>Option A: <code>ripdrag</code> (Recommended &mdash; Rust)</h3>
               <p>Install via your package manager or Rust Cargo:</p>
-              <pre className="code-block" style={{ position: "relative" }}>
-                <code>
+              <div className="code-container">
+                <div className="code-header">
+                  <div className="terminal-dots">
+                    <span className="dot red" />
+                    <span className="dot yellow" />
+                    <span className="dot green" />
+                  </div>
+                  <span className="code-title">ripdrag installation</span>
+                  <button
+                    className="copy-btn"
+                    onClick={() =>
+                      handleCopy(
+                        `# Cargo (Works on any Linux/macOS distro)\ncargo install ripdrag\n\n# Arch Linux\nyay -S ripdrag\n\n# Fedora\nsudo dnf install ripdrag`,
+                        "ripdrag-install"
+                      )
+                    }
+                  >
+                    {copiedText === "ripdrag-install" ? <Check size={14} /> : <Copy size={14} />}
+                    {copiedText === "ripdrag-install" ? "Copied!" : "Copy"}
+                  </button>
+                </div>
+                <pre className="code-block">
+                  <code>
 {`# Cargo (Works on any Linux/macOS distro)
 cargo install ripdrag
 
@@ -3353,15 +3374,37 @@ yay -S ripdrag
 
 # Fedora
 sudo dnf install ripdrag`}
-                </code>
-              </pre>
+                  </code>
+                </pre>
+              </div>
             </div>
 
-            <div style={{ marginTop: "1.5rem" }}>
-              <h3>Option B: `dragon` (Alternative - GTK3)</h3>
+            <div style={{ marginTop: "2rem" }}>
+              <h3>Option B: <code>dragon</code> (Alternative &mdash; GTK3)</h3>
               <p>Install via your package manager:</p>
-              <pre className="code-block" style={{ position: "relative" }}>
-                <code>
+              <div className="code-container">
+                <div className="code-header">
+                  <div className="terminal-dots">
+                    <span className="dot red" />
+                    <span className="dot yellow" />
+                    <span className="dot green" />
+                  </div>
+                  <span className="code-title">dragon installation</span>
+                  <button
+                    className="copy-btn"
+                    onClick={() =>
+                      handleCopy(
+                        `# Debian / Ubuntu\nsudo apt install dragon-drag-and-drop\n\n# Arch Linux\nyay -S dragon-drag-and-drop-git\n\n# Fedora\nsudo dnf install dragon`,
+                        "dragon-install"
+                      )
+                    }
+                  >
+                    {copiedText === "dragon-install" ? <Check size={14} /> : <Copy size={14} />}
+                    {copiedText === "dragon-install" ? "Copied!" : "Copy"}
+                  </button>
+                </div>
+                <pre className="code-block">
+                  <code>
 {`# Debian / Ubuntu
 sudo apt install dragon-drag-and-drop
 
@@ -3370,8 +3413,9 @@ yay -S dragon-drag-and-drop-git
 
 # Fedora
 sudo dnf install dragon`}
-                </code>
-              </pre>
+                  </code>
+                </pre>
+              </div>
             </div>
           </div>
         )}
@@ -3442,8 +3486,29 @@ sudo dnf install dragon`}
             <p>
               To support this integration, ensure <code>lazygit</code> is installed and available in your system <code>PATH</code>:
             </p>
-            <pre className="code-block" style={{ position: "relative" }}>
-              <code>
+            <div className="code-container">
+              <div className="code-header">
+                <div className="terminal-dots">
+                  <span className="dot red" />
+                  <span className="dot yellow" />
+                  <span className="dot green" />
+                </div>
+                <span className="code-title">lazygit installation</span>
+                <button
+                  className="copy-btn"
+                  onClick={() =>
+                    handleCopy(
+                      `# Debian / Ubuntu\nsudo add-apt-repository ppa:lazygit-team/release\nsudo apt update\nsudo apt install lazygit\n\n# Fedora / CentOS\nsudo dnf copr enable atim/lazygit -y\nsudo dnf install lazygit -y\n\n# Arch Linux\nyay -S lazygit\n\n# macOS (Homebrew)\nbrew install lazygit`,
+                      "lazygit-install"
+                    )
+                  }
+                >
+                  {copiedText === "lazygit-install" ? <Check size={14} /> : <Copy size={14} />}
+                  {copiedText === "lazygit-install" ? "Copied!" : "Copy"}
+                </button>
+              </div>
+              <pre className="code-block">
+                <code>
 {`# Debian / Ubuntu
 sudo add-apt-repository ppa:lazygit-team/release
 sudo apt update
@@ -3458,8 +3523,9 @@ yay -S lazygit
 
 # macOS (Homebrew)
 brew install lazygit`}
-              </code>
-            </pre>
+                </code>
+              </pre>
+            </div>
           </div>
         )}
 
@@ -3525,11 +3591,19 @@ brew install lazygit`}
             <p>Install <code>Bimbok/fyzenor</code> using your favorite Neovim package manager:</p>
 
             <h3 style={{ marginTop: "1.5rem" }}>Using <code>lazy.nvim</code> (Recommended)</h3>
-            <div style={{ position: "relative" }}>
-              <button
-                onClick={() =>
-                  handleCopy(
-                    `return {
+            <div className="code-container">
+              <div className="code-header">
+                <div className="terminal-dots">
+                  <span className="dot red" />
+                  <span className="dot yellow" />
+                  <span className="dot green" />
+                </div>
+                <span className="code-title">~/.config/nvim/lua/plugins/fyzenor.lua</span>
+                <button
+                  onClick={() =>
+                    handleCopy(
+                      `-- ~/.config/nvim/lua/plugins/fyzenor.lua
+return {
   "Bimbok/fyzenor",
   event = "VeryLazy",
   opts = {
@@ -3547,15 +3621,15 @@ brew install lazygit`}
     { "<leader>fe", "<cmd>FyzenorToggle<cr>", desc = "Toggle Fyzenor" },
   },
 }`,
-                    "lazy-nvim"
-                  )
-                }
-                className="copy-btn"
-                style={{ top: "0.6rem", right: "0.6rem" }}
-              >
-                {copiedText === "lazy-nvim" ? <Check size={14} /> : <Copy size={14} />}
-                {copiedText === "lazy-nvim" ? "Copied!" : "Copy"}
-              </button>
+                      "lazy-nvim"
+                    )
+                  }
+                  className="copy-btn"
+                >
+                  {copiedText === "lazy-nvim" ? <Check size={14} /> : <Copy size={14} />}
+                  {copiedText === "lazy-nvim" ? "Copied!" : "Copy"}
+                </button>
+              </div>
               <pre className="code-block">
                 <code>
 {`-- ~/.config/nvim/lua/plugins/fyzenor.lua
@@ -3582,8 +3656,37 @@ return {
             </div>
 
             <h3 style={{ marginTop: "1.5rem" }}>Using <code>packer.nvim</code></h3>
-            <pre className="code-block">
-              <code>
+            <div className="code-container">
+              <div className="code-header">
+                <div className="terminal-dots">
+                  <span className="dot red" />
+                  <span className="dot yellow" />
+                  <span className="dot green" />
+                </div>
+                <span className="code-title">packer.nvim specification</span>
+                <button
+                  onClick={() =>
+                    handleCopy(
+                      `use({
+  "Bimbok/fyzenor",
+  config = function()
+    require("fyzenor").setup({
+      open_for_directories = true,
+      change_neovim_cwd_on_close = true,
+    })
+  end,
+})`,
+                      "packer-nvim"
+                    )
+                  }
+                  className="copy-btn"
+                >
+                  {copiedText === "packer-nvim" ? <Check size={14} /> : <Copy size={14} />}
+                  {copiedText === "packer-nvim" ? "Copied!" : "Copy"}
+                </button>
+              </div>
+              <pre className="code-block">
+                <code>
 {`use({
   "Bimbok/fyzenor",
   config = function()
@@ -3593,12 +3696,34 @@ return {
     })
   end,
 })`}
-              </code>
-            </pre>
+                </code>
+              </pre>
+            </div>
 
             <h3 style={{ marginTop: "1.5rem" }}>Using <code>vim-plug</code></h3>
-            <pre className="code-block">
-              <code>
+            <div className="code-container">
+              <div className="code-header">
+                <div className="terminal-dots">
+                  <span className="dot red" />
+                  <span className="dot yellow" />
+                  <span className="dot green" />
+                </div>
+                <span className="code-title">vim-plug specification</span>
+                <button
+                  onClick={() =>
+                    handleCopy(
+                      `Plug 'Bimbok/fyzenor'\n\n" Inside init.lua:\nrequire("fyzenor").setup({\n  open_for_directories = true,\n  change_neovim_cwd_on_close = true,\n})`,
+                      "vimplug-nvim"
+                    )
+                  }
+                  className="copy-btn"
+                >
+                  {copiedText === "vimplug-nvim" ? <Check size={14} /> : <Copy size={14} />}
+                  {copiedText === "vimplug-nvim" ? "Copied!" : "Copy"}
+                </button>
+              </div>
+              <pre className="code-block">
+                <code>
 {`Plug 'Bimbok/fyzenor'
 
 " Inside init.lua:
@@ -3606,8 +3731,9 @@ require("fyzenor").setup({
   open_for_directories = true,
   change_neovim_cwd_on_close = true,
 })`}
-              </code>
-            </pre>
+                </code>
+              </pre>
+            </div>
 
             <h2 style={{ marginTop: "2.5rem" }}>In-Terminal Floating Keymaps</h2>
             <p>When the Fyzenor floating window is open inside Neovim, the following dedicated shortcuts are active:</p>
@@ -3847,14 +3973,36 @@ require("fyzenor").setup({
             <p>
               The official Fyzenor plugins are maintained in a dedicated repository: <a href="https://github.com/Bimbok/fyzenor-plugins" target="_blank" rel="noreferrer" style={{ color: "var(--accent-cyan)", fontWeight: 600 }}>github.com/Bimbok/fyzenor-plugins</a>.
             </p>
-            <pre className="code-block" style={{ position: "relative", margin: "1rem 0" }}>
-              <code>
+            <div className="code-container">
+              <div className="code-header">
+                <div className="terminal-dots">
+                  <span className="dot red" />
+                  <span className="dot yellow" />
+                  <span className="dot green" />
+                </div>
+                <span className="code-title">clone official plugins</span>
+                <button
+                  className="copy-btn"
+                  onClick={() =>
+                    handleCopy(
+                      "git clone https://github.com/Bimbok/fyzenor-plugins.git ~/.config/fyzenor/plugins",
+                      "clone-plugins"
+                    )
+                  }
+                >
+                  {copiedText === "clone-plugins" ? <Check size={14} /> : <Copy size={14} />}
+                  {copiedText === "clone-plugins" ? "Copied!" : "Copy"}
+                </button>
+              </div>
+              <pre className="code-block">
+                <code>
 {`# Install all official plugins via single-command clone
 git clone https://github.com/Bimbok/fyzenor-plugins.git ~/.config/fyzenor/plugins`}
-              </code>
-            </pre>
+                </code>
+              </pre>
+            </div>
 
-            <h2 style={{ marginTop: "2.5rem" }}>󰊢 Included Official Plugins</h2>
+            <h2 style={{ marginTop: "2.5rem" }}>Included Official Plugins</h2>
             <p>Fyzenor official plugins available in <code>~/.config/fyzenor/plugins/</code>:</p>
 
             <div className="table-container" style={{ marginTop: "1rem" }}>
@@ -3975,8 +4123,45 @@ git clone https://github.com/Bimbok/fyzenor-plugins.git ~/.config/fyzenor/plugin
             <h2 style={{ marginTop: "2.5rem" }}>Real-World Plugin Example: Interactive Zoxide Fast Jump</h2>
             <p>Create a file at <code>~/.config/fyzenor/plugins/zoxide/init.lua</code>:</p>
 
-            <pre className="code-block" style={{ position: "relative" }}>
-              <code>
+            <div className="code-container">
+              <div className="code-header">
+                <div className="terminal-dots">
+                  <span className="dot red" />
+                  <span className="dot yellow" />
+                  <span className="dot green" />
+                </div>
+                <span className="code-title">~/.config/fyzenor/plugins/zoxide/init.lua</span>
+                <button
+                  className="copy-btn"
+                  onClick={() =>
+                    handleCopy(
+                      `-- Zoxide Fast Jump Plugin (~/.config/fyzenor/plugins/zoxide/init.lua)
+fyzenor.add_keymap("z", function()
+    local query = fyzenor.prompt("Zoxide Jump: ", "")
+    if not query or query == "" then
+        return
+    end
+
+    local target = fyzenor.shell_output("zoxide query " .. query .. " 2>/dev/null")
+    if target and target ~= "" then
+        -- Trim trailing newline
+        target = target:gsub("%s+$", "")
+        fyzenor.change_directory(target)
+        fyzenor.set_status("Jumped to " .. target)
+    else
+        fyzenor.set_status("No match found for '" .. query .. "'")
+    end
+end)`,
+                      "zoxide-plugin"
+                    )
+                  }
+                >
+                  {copiedText === "zoxide-plugin" ? <Check size={14} /> : <Copy size={14} />}
+                  {copiedText === "zoxide-plugin" ? "Copied!" : "Copy"}
+                </button>
+              </div>
+              <pre className="code-block">
+                <code>
 {`-- Zoxide Fast Jump Plugin (~/.config/fyzenor/plugins/zoxide/init.lua)
 fyzenor.add_keymap("z", function()
     local query = fyzenor.prompt("Zoxide Jump: ", "")
@@ -3994,8 +4179,9 @@ fyzenor.add_keymap("z", function()
         fyzenor.set_status("No match found for '" .. query .. "'")
     end
 end)`}
-              </code>
-            </pre>
+                </code>
+              </pre>
+            </div>
           </div>
         )}
 

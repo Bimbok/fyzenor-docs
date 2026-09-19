@@ -220,6 +220,8 @@ code {
   border-radius: 6px;
   border: 1px solid var(--border-color);
   font-weight: 500;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 /* Ensure nested preformatted code blocks do not duplicate borders/backgrounds */
@@ -312,9 +314,15 @@ pre code,
 /* Card layout components */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
   margin: 1.5rem 0;
+  min-width: 0;
+}
+
+.card-grid > * {
+  min-width: 0;
+  max-width: 100%;
 }
 
 .card-premium {
@@ -325,6 +333,10 @@ pre code,
   box-shadow: var(--shadow-soft);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .card-premium:hover {
@@ -332,6 +344,12 @@ pre code,
   background: var(--bg-surface);
   border-color: var(--border-color-hover);
   box-shadow: var(--shadow-premium);
+}
+
+.card-premium p {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  margin-bottom: 0.5rem;
 }
 
 /* Markdown tables */
@@ -382,18 +400,20 @@ pre code,
 .code-container {
   position: relative;
   margin: 1.5rem 0;
-  border-radius: 18px;
+  border-radius: 14px;
   border: 1px solid var(--border-color);
   overflow: hidden;
   background-color: var(--bg-terminal);
-  box-shadow: var(--shadow-premium);
+  box-shadow: var(--shadow-soft);
+  min-width: 0;
+  max-width: 100%;
 }
 
 .code-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1rem;
   background-color: rgba(255, 255, 255, 0.03);
   border-bottom: 1px solid var(--border-color);
   font-family: var(--font-sans);
@@ -401,13 +421,34 @@ pre code,
   color: var(--text-muted);
 }
 
-.code-block {
+.code-title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+pre.code-block {
   padding: 1.25rem;
   font-family: var(--font-mono);
   font-size: 0.9rem;
   color: #a9b1d6; /* Tokyo Night style theme */
   overflow-x: auto;
   white-space: pre;
+  background-color: var(--bg-terminal);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  margin: 1rem 0;
+  box-shadow: var(--shadow-soft);
+}
+
+.code-container pre.code-block {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+  background-color: transparent;
 }
 
 .code-block-keyword { color: #bb9af7; }
