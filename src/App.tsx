@@ -29,109 +29,213 @@ import {
   Monitor,
   MousePointer,
   History,
+  PanelLeftClose,
+  PanelLeftOpen,
+  X,
 } from "lucide-react";
+
+export type ChapterType = "essentials" | "v4.3" | "engine" | "reference";
 
 interface DocSection {
   id: string;
   title: string;
   icon: React.ReactNode;
+  chapter: ChapterType;
+  chapterNum: string;
+  chapterTitle: string;
+  description: string;
   badge?: string;
   isBeta?: boolean;
 }
 
+const chapters: {
+  id: "all" | ChapterType;
+  label: string;
+  count: number;
+}[] = [
+  { id: "all", label: "All Topics", count: 18 },
+  { id: "v4.3", label: "v4.3.0", count: 7 },
+  { id: "essentials", label: "Essentials", count: 5 },
+  { id: "engine", label: "Engine", count: 4 },
+  { id: "reference", label: "Reference", count: 2 },
+];
+
 const sections: DocSection[] = [
+  // Chapter 01: Core Essentials
   {
     id: "overview",
     title: "Overview & Features",
-    icon: <BookOpen size={18} />,
+    icon: <BookOpen size={17} />,
+    chapter: "essentials",
+    chapterNum: "01",
+    chapterTitle: "CORE ESSENTIALS",
+    description: "Modern C++17 dual-pane terminal file manager engineered for speed, safety, and zen.",
   },
   {
     id: "install",
     title: "Quick Start & Install",
-    icon: <Download size={18} />,
+    icon: <Download size={17} />,
+    chapter: "essentials",
+    chapterNum: "01",
+    chapterTitle: "CORE ESSENTIALS",
+    description: "Single-command curl scripts, distro packages (Arch, Debian, Alpine), and CMake source build.",
   },
   {
     id: "keyboard",
     title: "Keyboard Controls",
-    icon: <Keyboard size={18} />,
+    icon: <Keyboard size={17} />,
+    chapter: "essentials",
+    chapterNum: "01",
+    chapterTitle: "CORE ESSENTIALS",
+    description: "Intuitive Vim keybindings, directional navigation, and interactive key inspector.",
   },
+  {
+    id: "trash",
+    title: "Trash Deep Dive",
+    icon: <Trash2 size={17} />,
+    chapter: "essentials",
+    chapterNum: "01",
+    chapterTitle: "CORE ESSENTIALS",
+    description: "Cross-partition safety with XDG-compliant multi-partition trashing and instant undo.",
+  },
+  {
+    id: "dragdrop",
+    title: "Drag & Drop Support",
+    icon: <Hand size={17} />,
+    chapter: "essentials",
+    chapterNum: "01",
+    chapterTitle: "CORE ESSENTIALS",
+    description: "Seamless terminal-to-desktop drag-and-drop file transfers via OSC 52 and desktop portals.",
+  },
+
+  // Chapter 02: What's New in v4.3.0
   {
     id: "neovim",
     title: "Neovim Plugin",
-    icon: <Terminal size={18} />,
+    icon: <Terminal size={17} />,
+    chapter: "v4.3",
+    chapterNum: "02",
+    chapterTitle: "WHAT'S NEW IN v4.3.0",
+    description: "Native Neovim Lua integration with oil.nvim-style floating buffers and directional window management.",
     badge: "v4.3.0",
   },
   {
     id: "plugins",
     title: "Lua Plugins",
-    icon: <Puzzle size={18} />,
+    icon: <Puzzle size={17} />,
+    chapter: "v4.3",
+    chapterNum: "02",
+    chapterTitle: "WHAT'S NEW IN v4.3.0",
+    description: "Lightweight embedded Lua 5.4 scripting engine to automate tasks and bind custom shortcuts.",
     badge: "v4.3.0",
   },
   {
     id: "diskusage",
     title: "Visual Disk Usage",
-    icon: <HardDrive size={18} />,
+    icon: <HardDrive size={17} />,
+    chapter: "v4.3",
+    chapterNum: "02",
+    chapterTitle: "WHAT'S NEW IN v4.3.0",
+    description: "Real-time visual disk usage explorer with colorized gauge bars and instant sub-directory navigation.",
     badge: "v4.3.0",
   },
   {
     id: "modals",
     title: "Creation & Modals",
-    icon: <FolderPlus size={18} />,
+    icon: <FolderPlus size={17} />,
+    chapter: "v4.3",
+    chapterNum: "02",
+    chapterTitle: "WHAT'S NEW IN v4.3.0",
+    description: "Centered interactive modal dialogs featuring dynamic Nerd Font icon morphing as you type.",
     badge: "v4.3.0",
   },
   {
     id: "terminals",
     title: "Terminals & Truecolor",
-    icon: <Monitor size={18} />,
+    icon: <Monitor size={17} />,
+    chapter: "v4.3",
+    chapterNum: "02",
+    chapterTitle: "WHAT'S NEW IN v4.3.0",
+    description: "Universal 256-color matching and DEC 2026 synchronized terminal rendering.",
     badge: "v4.3.0",
   },
   {
     id: "mouse",
     title: "Mouse & Pane Scroll",
-    icon: <MousePointer size={18} />,
+    icon: <MousePointer size={17} />,
+    chapter: "v4.3",
+    chapterNum: "02",
+    chapterTitle: "WHAT'S NEW IN v4.3.0",
+    description: "Pane-aware mouse hovering and independent scroll tracking without moving cursor.",
     badge: "v4.3.0",
   },
   {
     id: "cursormemory",
     title: "Cursor Memory",
-    icon: <History size={18} />,
+    icon: <History size={17} />,
+    chapter: "v4.3",
+    chapterNum: "02",
+    chapterTitle: "WHAT'S NEW IN v4.3.0",
+    description: "Persistent filename tracking that preserves cursor selection across sort and filter changes.",
     badge: "v4.3.0",
   },
-  { id: "trash", title: "Trash Deep Dive", icon: <Trash2 size={18} /> },
-  {
-    id: "dragdrop",
-    title: "Drag & Drop Support",
-    icon: <Hand size={18} />,
-  },
+
+  // Chapter 03: Engine & Architecture
   {
     id: "git",
     title: "Git & Lazygit",
-    icon: <GitBranch size={18} />,
+    icon: <GitBranch size={17} />,
+    chapter: "engine",
+    chapterNum: "03",
+    chapterTitle: "ENGINE & ARCHITECTURE",
+    description: "Asynchronous git status monitoring, staged visual diffs, and instant lazygit invocation.",
   },
   {
     id: "tasks",
     title: "Task Controls & Smart Copy",
-    icon: <Sliders size={18} />,
+    icon: <Sliders size={17} />,
+    chapter: "engine",
+    chapterNum: "03",
+    chapterTitle: "ENGINE & ARCHITECTURE",
+    description: "Dedicated background worker threads, pause/resume controls, and delta resumption.",
   },
   {
     id: "architecture",
     title: "Architecture & Threads",
-    icon: <Cpu size={18} />,
+    icon: <Cpu size={17} />,
+    chapter: "engine",
+    chapterNum: "03",
+    chapterTitle: "ENGINE & ARCHITECTURE",
+    description: "Decoupled multithreaded design separating ncurses render loop from filesystem I/O.",
   },
   {
     id: "theming",
     title: "Configuration & Themes",
-    icon: <Sparkles size={18} />,
+    icon: <Sparkles size={17} />,
+    chapter: "engine",
+    chapterNum: "03",
+    chapterTitle: "ENGINE & ARCHITECTURE",
+    description: "Fine-tune UI color schemes, border styles, Nerd Font glyph presets, and shortcuts.",
+  },
+
+  // Chapter 04: Reference & Community
+  {
+    id: "troubleshoot",
+    title: "Troubleshooting",
+    icon: <HelpCircle size={17} />,
+    chapter: "reference",
+    chapterNum: "04",
+    chapterTitle: "REFERENCE & COMMUNITY",
+    description: "Resolution guides for terminal rendering glitches, missing glyphs, and permission errors.",
   },
   {
     id: "community",
     title: "Community & License",
-    icon: <Users size={18} />,
-  },
-  {
-    id: "troubleshoot",
-    title: "Troubleshooting",
-    icon: <HelpCircle size={18} />,
+    icon: <Users size={17} />,
+    chapter: "reference",
+    chapterNum: "04",
+    chapterTitle: "REFERENCE & COMMUNITY",
+    description: "Open-source GPLv3 license, contributing guidelines, GitHub discussions, and roadmap.",
   },
 ];
 
@@ -156,6 +260,10 @@ export default function App() {
   });
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [copiedText, setCopiedText] = useState<string | null>(null);
+
+  const [sidebarFilter, setSidebarFilter] = useState<string>("");
+  const [selectedChapter, setSelectedChapter] = useState<"all" | ChapterType>("all");
+  const [sidebarCollapsed, setSidebarCollapsed] = useState<boolean>(false);
 
   const [showScrollTop, setShowScrollTop] = useState<boolean>(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState<boolean>(false);
@@ -900,6 +1008,48 @@ export default function App() {
     setTermInput("");
   };
 
+  const currentSection = sections.find((s) => s.id === activeTab) || sections[0];
+
+  const visibleSections = sections.filter((sec) => {
+    const matchesChapter = selectedChapter === "all" || sec.chapter === selectedChapter;
+    const matchesQuery =
+      !sidebarFilter.trim() ||
+      sec.title.toLowerCase().includes(sidebarFilter.toLowerCase()) ||
+      sec.description.toLowerCase().includes(sidebarFilter.toLowerCase()) ||
+      sec.chapterTitle.toLowerCase().includes(sidebarFilter.toLowerCase());
+    return matchesChapter && matchesQuery;
+  });
+
+  const groupedSections = [
+    {
+      key: "essentials" as const,
+      num: "01",
+      title: "CORE ESSENTIALS",
+      badge: undefined,
+      items: visibleSections.filter((s) => s.chapter === "essentials"),
+    },
+    {
+      key: "v4.3" as const,
+      num: "02",
+      title: "WHAT'S NEW IN v4.3.0",
+      badge: "v4.3.0",
+      items: visibleSections.filter((s) => s.chapter === "v4.3"),
+    },
+    {
+      key: "engine" as const,
+      num: "03",
+      title: "ENGINE & ARCHITECTURE",
+      badge: undefined,
+      items: visibleSections.filter((s) => s.chapter === "engine"),
+    },
+    {
+      key: "reference" as const,
+      num: "04",
+      title: "REFERENCE & COMMUNITY",
+      badge: undefined,
+      items: visibleSections.filter((s) => s.chapter === "reference"),
+    },
+  ].filter((g) => g.items.length > 0);
 
   return (
     <>
@@ -913,304 +1063,248 @@ export default function App() {
           onCopy={handleCopy}
         />
       ) : (
-        <div className="editorial-canvas">
+        <div className="editorial-canvas docs-editorial-canvas">
+          {/* Calm Integrated Reader Topbar */}
           <div className="doc-reader-topbar">
-            <button
-              className="doc-back-pill"
-              onClick={() => {
-                setViewMode("showcase");
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
-            >
-              ← Back to Showcase
-            </button>
-            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-              <span style={{ fontSize: "0.85rem", color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
-                {sections.find((s) => s.id === activeTab)?.title}
-              </span>
-              <span className="badge badge-green" style={{ fontSize: "0.65rem", padding: "0.1rem 0.4rem" }}>
-                v4.3.0
-              </span>
+            <div className="topbar-left">
+              <button
+                className="doc-back-pill"
+                onClick={() => {
+                  setViewMode("showcase");
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+              >
+                ← Back to Showcase
+              </button>
+              <button
+                className="sidebar-rail-btn"
+                onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+                title={sidebarCollapsed ? "Expand chapter navigator" : "Collapse into icon rail (Zen mode)"}
+              >
+                {sidebarCollapsed ? <PanelLeftOpen size={16} /> : <PanelLeftClose size={16} />}
+              </button>
             </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+
+            <div className="doc-reader-breadcrumb">
+              <span className="breadcrumb-pill">Chapter {currentSection.chapterNum}</span>
+              <span className="breadcrumb-divider">/</span>
+              <span className="breadcrumb-chapter">{currentSection.chapterTitle}</span>
+              <span className="breadcrumb-divider">/</span>
+              <span className="breadcrumb-title">{currentSection.title}</span>
+            </div>
+
+            <div className="topbar-right">
               <button
                 onClick={() => setCommandPaletteOpen(true)}
                 className="editorial-search-pill"
-                style={{ padding: "0.3rem 0.75rem" }}
               >
                 <Search size={14} />
-                <span>Search</span>
+                <span className="search-pill-label">Search Docs</span>
                 <kbd className="cmd-kbd">⌘K</kbd>
               </button>
               <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 className="editorial-theme-btn"
-                style={{ width: "32px", height: "32px" }}
+                title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
               >
                 {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
+              </button>
+              <button
+                className="mobile-sidebar-toggle"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label="Toggle navigation"
+              >
+                <Menu size={18} />
               </button>
             </div>
           </div>
 
-          <div className="app-container">
-            {/* Sidebar Navigation */}
-            <aside className={`sidebar ${mobileMenuOpen ? "open" : ""}`}>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "0.75rem",
-            marginBottom: "2rem",
-          }}
-        >
-          <img
-            src="/fyzenor.png"
-            alt="Fyzenor Logo"
-            className="logo-animated"
-            style={{
-              width: "42px",
-              height: "42px",
-              borderRadius: "10px",
-              border: "1px solid rgba(255, 255, 255, 0.1)",
-            }}
-          />
-          <div>
-            <h2
-              style={{
-                fontSize: "1.4rem",
-                border: "none",
-                padding: 0,
-                margin: 0,
-                fontWeight: 800,
-                background: "linear-gradient(90deg, #fff, #9ca3af)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              Fyzenor
-            </h2>
-            <span
-              style={{
-                fontSize: "0.75rem",
-                color: "var(--accent-green)",
-                fontWeight: 600,
-                letterSpacing: "0.05em",
-              }}
-            >
-              DOCS • V4.3.0
-            </span>
-          </div>
-        </div>
+          {/* Integrated Split Layout */}
+          <div className="docs-split-layout">
+            {/* Zen Chapter Navigator Sidebar */}
+            <aside className={`docs-sidebar-panel ${sidebarCollapsed ? "collapsed" : ""} ${mobileMenuOpen ? "open" : ""}`}>
+              {/* Header inside sidebar */}
+              <div className="zen-sidebar-header">
+                <div className="zen-sidebar-brand">
+                  <img
+                    src="/fyzenor.png"
+                    alt="Fyzenor Logo"
+                    className="zen-brand-logo"
+                  />
+                  {!sidebarCollapsed && (
+                    <div className="zen-brand-info">
+                      <span className="zen-brand-name">Fyzenor</span>
+                      <span className="zen-brand-sub">CHAPTER NAVIGATOR</span>
+                    </div>
+                  )}
+                </div>
+                {!sidebarCollapsed && (
+                  <button
+                    className="zen-collapse-btn"
+                    onClick={() => setSidebarCollapsed(true)}
+                    title="Collapse sidebar into compact rail"
+                  >
+                    <PanelLeftClose size={15} />
+                  </button>
+                )}
+              </div>
 
-        {/* Search */}
-        <div style={{ position: "relative", marginBottom: "1.5rem" }}>
-          <Search
-            size={16}
-            style={{
-              position: "absolute",
-              left: "0.85rem",
-              top: "50%",
-              transform: "translateY(-50%)",
-              color: "var(--text-muted)",
-            }}
-          />
-          <input
-            type="text"
-            placeholder="Search docs..."
-            onClick={() => setCommandPaletteOpen(true)}
-            onFocus={(e) => {
-              e.currentTarget.blur();
-              setCommandPaletteOpen(true);
-            }}
-            className="sidebar-search-input"
-            readOnly
-            style={{ cursor: "pointer", paddingRight: "2.5rem" }}
-          />
-          <div
-            style={{
-              position: "absolute",
-              right: "0.85rem",
-              top: "50%",
-              transform: "translateY(-50%)",
-              backgroundColor: "rgba(255, 255, 255, 0.05)",
-              border: "1px solid var(--border-color)",
-              padding: "0.15rem 0.35rem",
-              borderRadius: "6px",
-              fontSize: "0.7rem",
-              color: "var(--text-muted)",
-              fontFamily: "var(--font-mono)",
-              pointerEvents: "none",
-            }}
-          >
-            ⌘K
-          </div>
-        </div>
+              {!sidebarCollapsed && (
+                <>
+                  {/* Topic Quick Filter */}
+                  <div className="zen-search-wrapper">
+                    <Search size={13} className="zen-search-icon" />
+                    <input
+                      type="text"
+                      placeholder="Filter topics..."
+                      value={sidebarFilter}
+                      onChange={(e) => setSidebarFilter(e.target.value)}
+                      className="zen-search-input"
+                    />
+                    {sidebarFilter && (
+                      <button
+                        className="zen-search-clear"
+                        onClick={() => setSidebarFilter("")}
+                        title="Clear filter"
+                      >
+                        <X size={12} />
+                      </button>
+                    )}
+                  </div>
 
-        {/* Navigation Menu */}
-        <nav className="nav-menu">
-          {sections.map((sec) => (
-            <div
-              key={sec.id}
-              className={`nav-item ${activeTab === sec.id ? "active" : ""}`}
-              onClick={() => {
-                setActiveTab(sec.id);
-                setMobileMenuOpen(false);
-              }}
-              style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}
-            >
-              {sec.icon}
-              <span style={{ flex: 1 }}>{sec.title}</span>
-              {sec.badge && (
-                <span
-                  className="badge badge-green"
-                  style={{
-                    fontSize: "0.6rem",
-                    padding: "0.1rem 0.35rem",
-                    borderRadius: "4px",
-                    fontWeight: 700,
-                    letterSpacing: "0.5px",
-                  }}
-                >
-                  {sec.badge}
-                </span>
+                  {/* Chapter Filter Pills */}
+                  <div className="zen-chapter-pills">
+                    {chapters.map((ch) => (
+                      <button
+                        key={ch.id}
+                        className={`zen-chapter-pill ${selectedChapter === ch.id ? "active" : ""}`}
+                        onClick={() => setSelectedChapter(ch.id)}
+                      >
+                        <span>{ch.label}</span>
+                        <span className="zen-pill-count">{ch.count}</span>
+                      </button>
+                    ))}
+                  </div>
+                </>
               )}
-              {sec.isBeta && !sec.badge && (
-                <span
-                  className="badge badge-purple"
-                  style={{
-                    fontSize: "0.6rem",
-                    padding: "0.1rem 0.35rem",
-                    borderRadius: "4px",
-                    fontWeight: 700,
-                    letterSpacing: "0.5px",
-                  }}
-                >
-                  BETA
-                </span>
+
+              {/* Chapter & Topics Tree */}
+              <nav className="zen-nav-tree">
+                {groupedSections.length === 0 ? (
+                  <div className="zen-nav-empty">
+                    <p>No topics matching &ldquo;{sidebarFilter}&rdquo;</p>
+                    <button
+                      className="zen-reset-filter-btn"
+                      onClick={() => {
+                        setSidebarFilter("");
+                        setSelectedChapter("all");
+                      }}
+                    >
+                      Reset filters
+                    </button>
+                  </div>
+                ) : (
+                  groupedSections.map((group) => (
+                    <div key={group.key} className="zen-chapter-group">
+                      {!sidebarCollapsed && (
+                        <div className="zen-chapter-header">
+                          <span className="zen-chapter-num">{group.num}</span>
+                          <span className="zen-chapter-label">{group.title}</span>
+                          {group.badge && (
+                            <span className="zen-chapter-badge">{group.badge}</span>
+                          )}
+                        </div>
+                      )}
+                      <div className="zen-chapter-items">
+                        {group.items.map((sec) => {
+                          const isActive = activeTab === sec.id;
+                          return (
+                            <button
+                              key={sec.id}
+                              className={`zen-nav-btn ${isActive ? "active" : ""}`}
+                              onClick={() => {
+                                setActiveTab(sec.id);
+                                setMobileMenuOpen(false);
+                                window.location.hash = sec.id;
+                                setTimeout(() => {
+                                  mainContentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+                                }, 30);
+                              }}
+                              title={sidebarCollapsed ? `${sec.title} (${sec.chapterTitle})` : undefined}
+                            >
+                              <div className="zen-nav-icon">{sec.icon}</div>
+                              {!sidebarCollapsed && (
+                                <>
+                                  <span className="zen-nav-title">{sec.title}</span>
+                                  {sec.chapter === "v4.3" && !isActive && (
+                                    <span className="zen-nav-micro-badge">v4.3</span>
+                                  )}
+                                  {isActive && (
+                                    <span className="zen-nav-active-dot" />
+                                  )}
+                                </>
+                              )}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))
+                )}
+              </nav>
+
+              {/* Zen Footer */}
+              {!sidebarCollapsed && (
+                <div className="zen-sidebar-footer">
+                  <div className="zen-footer-version">
+                    <span className="zen-status-dot" />
+                    <span>v4.3.0 Stable • C++17</span>
+                  </div>
+                  <a
+                    href="https://github.com/Bimbok/fyzenor"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="zen-footer-github"
+                  >
+                    GitHub ↗
+                  </a>
+                </div>
               )}
-            </div>
-          ))}
-        </nav>
+            </aside>
 
-        {/* Bottom Socials */}
-        <div
-          style={{
-            borderTop: "1px solid var(--border-color)",
-            paddingTop: "1.5rem",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <button
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            style={{
-              background: "transparent",
-              border: "1px solid var(--border-color)",
-              padding: "0.5rem",
-              borderRadius: "12px",
-              cursor: "pointer",
-              color: "var(--text-secondary)",
-            }}
-          >
-            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
-          <a
-            href="https://github.com/Bimbok/fyzenor"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              color: "var(--text-secondary)",
-              textDecoration: "none",
-              fontSize: "0.85rem",
-              fontWeight: 500,
-            }}
-          >
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+            {/* Mobile Backdrop */}
+            {mobileMenuOpen && (
+              <div
+                className="mobile-backdrop"
+                onClick={() => setMobileMenuOpen(false)}
+              />
+            )}
+
+            {/* Main Reading Panel */}
+            <main
+              className="docs-reader-panel"
+              ref={mainContentRef}
+              onScroll={(e) => {
+                setShowScrollTop(e.currentTarget.scrollTop > 300);
+              }}
             >
-              <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
-              <path d="M9 18c-4.51 2-5-2-7-2"></path>
-            </svg>
-            GitHub
-          </a>
-        </div>
-      </aside>
-
-      {/* Mobile Backdrop */}
-      {mobileMenuOpen && (
-        <div
-          className="mobile-backdrop"
-          onClick={() => setMobileMenuOpen(false)}
-        />
-      )}
-
-      {/* Mobile Header */}
-      <header className="mobile-header">
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          style={{
-            background: "transparent",
-            border: "none",
-            color: "var(--text-primary)",
-          }}
-        >
-          <Menu size={24} />
-        </button>
-        <span style={{ fontWeight: 800 }}>Fyzenor Docs</span>
-        <button
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          style={{
-            background: "transparent",
-            border: "none",
-            color: "var(--text-primary)",
-          }}
-        >
-          {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
-        </button>
-      </header>
-
-      {/* Main Panel Content */}
-      <main
-        className="main-content"
-        ref={mainContentRef}
-        onScroll={(e) => {
-          setShowScrollTop(e.currentTarget.scrollTop > 300);
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-            flexWrap: "wrap",
-            gap: "1rem",
-            marginBottom: "2rem",
-          }}
-        >
-          <div>
-            <h1>The Blazing Fast C++ File Manager</h1>
-            <p style={{ fontSize: "1.15rem" }}>
-              Async workflows, robust task states, multi-partition trashing, and
-              intelligent copy resumption.
-            </p>
-          </div>
-          <div style={{ display: "flex", gap: "0.5rem" }}>
-            <span className="badge badge-green">v4.3.0</span>
-            <span className="badge badge-purple">C++17</span>
-            <span className="badge badge-cyan">Ncurses</span>
-          </div>
-        </div>
+              {/* Dynamic Article Hero Header */}
+              <div className="docs-hero-banner">
+                <div className="docs-hero-meta-strip">
+                  <span className="docs-meta-chapter">
+                    CHAPTER {currentSection.chapterNum} // {currentSection.chapterTitle}
+                  </span>
+                  {currentSection.badge && (
+                    <span className="badge badge-green">{currentSection.badge}</span>
+                  )}
+                  {currentSection.chapter === "v4.3" && (
+                    <span className="badge badge-purple">NEW RELEASE</span>
+                  )}
+                  <span className="badge badge-cyan">C++17</span>
+                </div>
+                <h1 className="docs-hero-title">{currentSection.title}</h1>
+                <p className="docs-hero-description">{currentSection.description}</p>
+              </div>
 
         {/* Tab Components */}
         {activeTab === "overview" && (
