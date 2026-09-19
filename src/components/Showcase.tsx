@@ -181,10 +181,11 @@ export const Showcase: React.FC<ShowcaseProps> = ({
       {/* 1. Serene Top Navigation Bar (Inspired by Tide Island) */}
       <header className="editorial-nav">
         <div className="editorial-nav-left">
-          <div className="brand-dot-wrapper">
-            <span className="brand-dot-pulse"></span>
-            <span className="brand-dot-core"></span>
-          </div>
+          <img
+            src="/fyzenor.png"
+            alt="Fyzenor Logo"
+            className="brand-logo-img"
+          />
           <span className="brand-title">Fyzenor</span>
           <span className="brand-version-pill">v4.3.0</span>
         </div>
@@ -968,9 +969,11 @@ end)`}
       <footer className="editorial-footer">
         <div className="footer-top">
           <div className="footer-brand-block">
-            <div className="brand-dot-wrapper">
-              <span className="brand-dot-core"></span>
-            </div>
+            <img
+              src="/fyzenor.png"
+              alt="Fyzenor Logo"
+              className="footer-brand-logo-img"
+            />
             <span className="footer-brand-name">Fyzenor</span>
             <p className="footer-brand-desc">
               The modern, calm, blazing fast terminal file manager engineered in C++17.
