@@ -214,6 +214,12 @@ export const Showcase: React.FC<ShowcaseProps> = ({
             Lua Plugins
           </button>
           <button
+            onClick={() => onNavigateToDoc("community")}
+            className="nav-text-link nav-btn-link"
+          >
+            Community
+          </button>
+          <button
             onClick={() => onNavigateToDoc("overview")}
             className="nav-text-link nav-btn-link highlight"
           >
@@ -303,6 +309,15 @@ export const Showcase: React.FC<ShowcaseProps> = ({
             className="mobile-drawer-link"
           >
             Lua Plugin Engine
+          </button>
+          <button
+            onClick={() => {
+              setMobileMenuOpen(false);
+              onNavigateToDoc("community");
+            }}
+            className="mobile-drawer-link"
+          >
+            Community &amp; Commits
           </button>
           <button
             onClick={() => {
@@ -999,6 +1014,8 @@ end)`}
             </div>
             <div className="footer-col">
               <span className="footer-col-title">COMMUNITY</span>
+              <button onClick={() => onNavigateToDoc("community")}>Live Commits &amp; Profile</button>
+              <button onClick={() => onNavigateToDoc("troubleshoot")}>FAQ &amp; Diagnostics</button>
               <a href="https://github.com/Bimbok/fyzenor" target="_blank" rel="noreferrer">
                 GitHub Repository ↗
               </a>

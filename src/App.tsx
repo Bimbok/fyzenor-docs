@@ -5420,110 +5420,128 @@ l = 'ls -la'`}</div>
         {activeTab === "community" && <CommunitySection />}
 
         {activeTab === "troubleshoot" && (
-          <div className="animate-fade-in">
-            <h2>Frequently Asked Questions &amp; Troubleshooting</h2>
-            <p>
-              Here are answers to the most common configuration and compilation
-              questions regarding Fyzenor:
-            </p>
+          <div className="animate-fade-in community-section-wrapper">
+            <div className="community-section-title-wrap">
+              <div className="community-kicker">
+                <HelpCircle size={13} />
+                <span>DIAGNOSTICS &amp; FAQ</span>
+              </div>
+              <h2 className="community-heading">Frequently Asked Questions &amp; Troubleshooting</h2>
+              <p className="community-subheading">
+                Comprehensive resolutions for common terminal configurations, protocol rendering, compilation questions, and Neovim integration.
+              </p>
+            </div>
 
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "1.5rem",
-              }}
-            >
-              <div className="card-premium">
-                <h4
-                  style={{
-                    color: "var(--accent-green)",
-                    display: "flex",
-                    gap: "0.5rem",
-                    alignItems: "center",
-                  }}
-                >
-                  <HelpCircle size={18} />
-                  My directory size calculations are slow/laggy. How can I fix
-                  this?
-                </h4>
-                <p style={{ margin: "0.5rem 0 0" }}>
-                  Fyzenor recursively queries items to compile directory sizes.
-                  If you are browsing massive nested folders (like a project
-                  directory containing millions of <code>node_modules</code>),
-                  calculations are queued onto background worker threads.
-                  Browsing remains completely non-blocking, but size updates
-                  might take a few seconds to populate.
+            {/* Quick Diagnostic Checker Card */}
+            <div className="diagnostic-hero-card">
+              <div className="diagnostic-hero-header">
+                <div className="diagnostic-header-left">
+                  <Terminal size={18} className="diagnostic-icon" />
+                  <div>
+                    <h3 className="diagnostic-title">Quick Terminal Diagnostics</h3>
+                    <p className="diagnostic-desc">Run these one-liners in your shell to verify system capabilities and configuration paths.</p>
+                  </div>
+                </div>
+              </div>
+              <div className="diagnostic-commands-grid">
+                <div className="diagnostic-cmd-item">
+                  <span className="cmd-purpose">Verify Terminal Capabilities</span>
+                  <div className="cmd-box">
+                    <code>echo "$TERM | $COLORTERM"</code>
+                    <button className="cmd-copy-btn" onClick={() => handleCopy('echo "$TERM | $COLORTERM"', 'diag1')}>
+                      {copiedText === 'diag1' ? <Check size={12} color="#10b981" /> : <Copy size={12} />}
+                    </button>
+                  </div>
+                </div>
+                <div className="diagnostic-cmd-item">
+                  <span className="cmd-purpose">Validate Config Paths</span>
+                  <div className="cmd-box">
+                    <code>ls -la ~/.config/fyzenor/</code>
+                    <button className="cmd-copy-btn" onClick={() => handleCopy('ls -la ~/.config/fyzenor/', 'diag2')}>
+                      {copiedText === 'diag2' ? <Check size={12} color="#10b981" /> : <Copy size={12} />}
+                    </button>
+                  </div>
+                </div>
+                <div className="diagnostic-cmd-item">
+                  <span className="cmd-purpose">Inspect Kitty Protocol Support</span>
+                  <div className="cmd-box">
+                    <code>kitty +kitten icat --print-window-size</code>
+                    <button className="cmd-copy-btn" onClick={() => handleCopy('kitty +kitten icat --print-window-size', 'diag3')}>
+                      {copiedText === 'diag3' ? <Check size={12} color="#10b981" /> : <Copy size={12} />}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Structured FAQ Cards */}
+            <div className="faq-grid">
+              <div className="faq-card">
+                <div className="faq-card-header">
+                  <span className="faq-category-tag">PERFORMANCE</span>
+                  <span className="faq-id-pill">Q1</span>
+                </div>
+                <h3 className="faq-question">My directory size calculations are slow or laggy. How can I fix this?</h3>
+                <p className="faq-answer">
+                  Fyzenor recursively traverses items to compile exact folder sizes. When browsing massive directories containing millions of nested items (such as deeply nested <code>node_modules</code> or build caches), calculations are dispatched to asynchronous background worker threads.
+                </p>
+                <div className="faq-tip-box">
+                  <strong>Tip:</strong> Browsing and navigation remain 100% responsive and non-blocking. Symlinks are safely ignored during scans to avoid recursive circular loops.
+                </div>
+              </div>
+
+              <div className="faq-card">
+                <div className="faq-card-header">
+                  <span className="faq-category-tag">GRAPHICS &amp; PREVIEWS</span>
+                  <span className="faq-id-pill">Q2</span>
+                </div>
+                <h3 className="faq-question">Images do not display or render as corrupted character artifacts. What is wrong?</h3>
+                <p className="faq-answer">
+                  Fyzenor uses the native <strong>Kitty Graphics Protocol</strong> for true-color image previews. High-resolution rendering is supported in modern emulators including <strong>Kitty</strong>, <strong>Ghostty</strong>, and <strong>WezTerm</strong> with DEC Mode 2026 atomic frame synchronization.
+                </p>
+                <p className="faq-answer">
+                  Terminals without graphics support (e.g. Alacritty, GNOME Terminal, Foot, xterm) gracefully fallback to rich textual metadata without visual tearing. Ensure <code>ffmpeg</code> or <code>mediainfo</code> is installed for thumbnail extraction.
                 </p>
               </div>
 
-              <div className="card-premium">
-                <h4
-                  style={{
-                    color: "var(--accent-green)",
-                    display: "flex",
-                    gap: "0.5rem",
-                    alignItems: "center",
-                  }}
-                >
-                  <HelpCircle size={18} />
-                  Images do not display or render as corrupt characters. What is
-                  wrong?
-                </h4>
-                <p style={{ margin: "0.5rem 0 0" }}>
-                  Fyzenor uses the native{" "}
-                  <strong>Kitty Graphics Protocol</strong>. High-resolution visual
-                  rendering is natively supported inside modern terminal emulators including{" "}
-                  <strong>Kitty</strong>, <strong>Ghostty</strong>, and <strong>WezTerm</strong>, complete
-                  with zero-flicker synchronized frame updates (DEC Mode 2026) and GPU texture lifecycle management.
-                  If you run Fyzenor in terminals without graphics protocol support (e.g. Alacritty, GNOME Terminal, Foot, or
-                  xterm), it will automatically and gracefully fallback to standard text metadata layouts in the preview pane
-                  without any visual glitching or corrupted character artifacts.
+              <div className="faq-card">
+                <div className="faq-card-header">
+                  <span className="faq-category-tag">COMPILATION &amp; BUILD</span>
+                  <span className="faq-id-pill">Q3</span>
+                </div>
+                <h3 className="faq-question">Compilation fails with "std::filesystem has no member..." error.</h3>
+                <p className="faq-answer">
+                  Fyzenor requires a modern C++ compiler supporting the <strong>C++17</strong> specification. Older compilers (such as GCC 7 or earlier, or outdated MinGW versions) placed filesystem utilities in experimental namespaces.
                 </p>
+                <div className="faq-tip-box">
+                  Update to <strong>GCC 8+</strong> or <strong>Clang 7+</strong> and build using CMake:
+                  <code>cmake -B build -G Ninja &amp;&amp; ninja -C build</code>
+                </div>
               </div>
 
-              <div className="card-premium">
-                <h4
-                  style={{
-                    color: "var(--accent-green)",
-                    display: "flex",
-                    gap: "0.5rem",
-                    alignItems: "center",
-                  }}
-                >
-                  <HelpCircle size={18} />
-                  Compilation fails with "std::filesystem has no member..."
-                  error.
-                </h4>
-                <p style={{ margin: "0.5rem 0 0" }}>
-                  Fyzenor requires a C++ compiler that fully supports the{" "}
-                  <strong>C++17</strong> specification. On older systems (e.g.,
-                  GCC 7 or earlier, or older MinGW versions on Windows),{" "}
-                  <code>std::filesystem</code> was experimental or require
-                  linking <code>-lstdc++fs</code>. Update your compiler to GCC
-                  8+ or Clang 7+ and rebuild.
+              <div className="faq-card">
+                <div className="faq-card-header">
+                  <span className="faq-category-tag">THEMES &amp; CONFIG</span>
+                  <span className="faq-id-pill">Q4</span>
+                </div>
+                <h3 className="faq-question">My theme changes in theme.toml are not loading.</h3>
+                <p className="faq-answer">
+                  Verify that your theme configuration is saved at the exact path:
+                  <code>~/.config/fyzenor/theme.toml</code>. If TOML syntax contains parse errors, Fyzenor falls back to the default Terminal Dark theme without crashing.
                 </p>
+                <div className="faq-tip-box">
+                  You can test and copy a valid configuration from the <strong>Configuration &amp; Themes</strong> chapter.
+                </div>
               </div>
 
-              <div className="card-premium">
-                <h4
-                  style={{
-                    color: "var(--accent-green)",
-                    display: "flex",
-                    gap: "0.5rem",
-                    alignItems: "center",
-                  }}
-                >
-                  <HelpCircle size={18} />
-                  My theme changes in theme.toml are not loading.
-                </h4>
-                <p style={{ margin: "0.5rem 0 0" }}>
-                  Make sure your theme config is written to the exact location:{" "}
-                  <code>~/.config/fyzenor/theme.toml</code>. If the syntax
-                  contains errors, Fyzenor falls back to the default Terminal
-                  Dark theme without crashing. You can validate the
-                  configuration format by copying it from the{" "}
-                  <strong>Configuration & Themes</strong> tab.
+              <div className="faq-card">
+                <div className="faq-card-header">
+                  <span className="faq-category-tag">NEOVIM INTEGRATION</span>
+                  <span className="faq-id-pill">Q5</span>
+                </div>
+                <h3 className="faq-question">How do I open multiple selected files simultaneously in Neovim?</h3>
+                <p className="faq-answer">
+                  Press <code>Tab</code> or <code>Shift+Tab</code> to multi-select files across directories in Fyzenor, then press <code>Enter</code> or <code>l</code>. When running inside Neovim (via <code>fyzenor.nvim</code>), all selected buffers are seamlessly opened into your editor window stack.
                 </p>
               </div>
             </div>
