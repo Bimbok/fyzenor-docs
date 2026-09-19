@@ -3684,4 +3684,511 @@ p {
   }
 }
 
+/* ==========================================================================
+   Community Subsections: Contributing, Support Channels & MIT License
+   ========================================================================== */
+
+.community-contribute-section,
+.community-support-section,
+.community-license-section {
+  margin-top: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.community-section-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.community-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--accent-terracotta);
+  text-transform: uppercase;
+}
+
+.community-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(1.85rem, 3.2vw, 2.35rem);
+  font-weight: 400;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+
+.community-subheading {
+  font-size: 0.98rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 720px;
+}
+
+/* 4 Steps Flow Grid */
+.contribute-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.contribute-step-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.4rem 1.5rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  box-shadow: var(--shadow-soft);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.contribute-step-card:hover {
+  border-color: var(--border-color-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-premium);
+}
+
+.step-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.step-number-badge {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent-terracotta);
+  opacity: 0.9;
+}
+
+.step-action-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 0.18rem 0.55rem;
+  border-radius: 9999px;
+  background: var(--accent-terracotta-soft);
+  color: var(--accent-terracotta);
+  border: 1px solid rgba(200, 90, 50, 0.2);
+}
+
+.step-title {
+  font-family: var(--font-sans);
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.step-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin: 0;
+  flex: 1;
+}
+
+.step-code-snippet {
+  background: var(--bg-surface-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.55rem 0.8rem;
+  overflow-x: auto;
+}
+
+.step-code-snippet code {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  background: transparent;
+  padding: 0;
+  white-space: nowrap;
+}
+
+/* Guidelines and Policy Links */
+.contribute-guidelines-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-top: 0.25rem;
+}
+
+.guideline-link-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.15rem 1.35rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.guideline-link-card:hover {
+  border-color: var(--border-color-hover);
+  background: var(--bg-surface-subtle);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-soft);
+}
+
+.guideline-card-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--accent-terracotta-soft);
+  color: var(--accent-terracotta);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.guideline-card-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.guideline-card-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.guideline-card-sub {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.guideline-arrow {
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.guideline-link-card:hover .guideline-arrow {
+  color: var(--accent-terracotta);
+  transform: translate(2px, -2px);
+}
+
+/* Support Channels Grid */
+.support-channels-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.support-channel-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  padding: 1.5rem 1.4rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  box-shadow: var(--shadow-soft);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  justify-content: space-between;
+}
+
+.support-channel-card:hover {
+  border-color: var(--border-color-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-premium);
+}
+
+.channel-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.channel-icon-wrap.issues {
+  background: rgba(220, 38, 38, 0.1);
+  color: #ef4444;
+}
+
+.channel-icon-wrap.discussions {
+  background: rgba(14, 165, 233, 0.1);
+  color: #0284c7;
+}
+
+.channel-icon-wrap.author {
+  background: var(--accent-terracotta-soft);
+  color: var(--accent-terracotta);
+}
+
+.channel-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  flex: 1;
+}
+
+.channel-title {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.channel-desc {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.channel-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  text-decoration: none;
+  background: var(--pill-light-bg);
+  border: 1px solid var(--pill-light-border);
+  color: var(--text-secondary);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: var(--font-sans);
+}
+
+.channel-action-btn:hover {
+  background: var(--pill-dark-bg);
+  color: var(--pill-dark-text);
+  border-color: transparent;
+  transform: translateY(-1px);
+}
+
+/* License Card */
+.license-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.75rem 2rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+}
+
+.license-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.license-badge-cluster {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.license-type-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.license-summary-tag {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.license-permissions-list {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.permission-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  background: var(--bg-surface-subtle);
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+
+.permission-item svg {
+  color: #10b981;
+}
+
+/* License Terminal Codebox */
+.license-terminal-window {
+  background: #151413;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.license-window-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0.95rem;
+  background: #1e1d1a;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.terminal-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.terminal-dots .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.terminal-dots .dot.red { background: #ff5f56; }
+.terminal-dots .dot.yellow { background: #ffbd2e; }
+.terminal-dots .dot.green { background: #27c93f; }
+
+.license-window-title {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #8c857e;
+  letter-spacing: 0.05em;
+}
+
+.license-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.28rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #d6d3d1;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.license-copy-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.license-text-block {
+  margin: 0;
+  padding: 1.15rem 1.35rem;
+  max-height: 240px;
+  overflow-y: auto;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: #d6d3d1;
+  white-space: pre-wrap;
+  scrollbar-width: thin;
+}
+
+.license-text-block code {
+  color: inherit;
+  background: transparent;
+  padding: 0;
+  font-family: inherit;
+}
+
+.license-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  padding-top: 0.5rem;
+}
+
+.license-repo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.license-repo-link:hover {
+  color: var(--accent-terracotta);
+}
+
+@media (max-width: 900px) {
+  .contribute-steps-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contribute-guidelines-row {
+    grid-template-columns: 1fr;
+  }
+
+  .support-channels-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .license-card {
+    padding: 1.25rem;
+  }
+
+  .license-card-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
 

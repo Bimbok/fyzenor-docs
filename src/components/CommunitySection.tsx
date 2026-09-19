@@ -12,6 +12,12 @@ import {
   Search,
   FolderGit2,
   Users,
+  GitPullRequest,
+  FileText,
+  ShieldCheck,
+  AlertCircle,
+  MessageSquare,
+  Shield,
 } from "lucide-react";
 
 interface CommitItem {
@@ -151,6 +157,28 @@ function formatRelativeTime(dateStr: string): string {
   }
 }
 
+const mitLicenseText = `MIT License
+
+Copyright (c) 2026 Bimbok
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.`;
+
 export const CommunitySection: React.FC = () => {
   const [commits, setCommits] = useState<CommitItem[]>(initialCommits);
   const [profile, setProfile] = useState<UserProfile>(initialProfile);
@@ -159,6 +187,13 @@ export const CommunitySection: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [visibleCount, setVisibleCount] = useState<number>(8);
   const [copiedSha, setCopiedSha] = useState<string | null>(null);
+  const [licenseCopied, setLicenseCopied] = useState<boolean>(false);
+
+  const handleCopyLicense = () => {
+    navigator.clipboard.writeText(mitLicenseText);
+    setLicenseCopied(true);
+    setTimeout(() => setLicenseCopied(false), 2000);
+  };
 
   const fetchGitHubData = async () => {
     setLoading(true);
@@ -433,93 +468,266 @@ export const CommunitySection: React.FC = () => {
       )}
 
       {/* 3. Contributing Guidelines */}
-      <h2 style={{ marginTop: "3.5rem" }}>Contributing</h2>
-      <p>Contributions are welcome to make Fyzenor even better!</p>
-      <ol style={{ marginLeft: "1.5rem", marginBottom: "1.5rem" }}>
-        <li>Fork the repository on GitHub.</li>
-        <li>
-          Create a descriptive feature branch (
-          <code>git checkout -b feature/cool-idea</code>).
-        </li>
-        <li>Implement and test your changes locally.</li>
-        <li>
-          Submit a clear pull request describing the implementation details.
-        </li>
-      </ol>
-      <p>
-        Detailed workflow instructions can be found inside{" "}
-        <a
-          href="https://github.com/Bimbok/fyzenor/blob/main/CONTRIBUTING.md"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          CONTRIBUTING.md
-        </a>
-        , and community participation is governed by{" "}
-        <a
-          href="https://github.com/Bimbok/fyzenor/blob/main/CODE_OF_CONDUCT.md"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          CODE_OF_CONDUCT.md
-        </a>
-        .
-      </p>
+      <div className="community-contribute-section">
+        <div className="community-section-title-wrap">
+          <div className="community-kicker">
+            <GitPullRequest size={13} />
+            <span>CONTRIBUTION GUIDE</span>
+          </div>
+          <h2 className="community-heading">Contributing to Fyzenor</h2>
+          <p className="community-subheading">
+            Whether optimizing Miller column rendering, writing Lua bindings for Neovim, or polishing documentation, we welcome your code and ideas.
+          </p>
+        </div>
 
-      {/* 4. Contact & Issues */}
-      <h2>Contact &amp; Support</h2>
-      <ul>
-        <li>
-          <strong>GitHub Profile</strong>:{" "}
+        {/* 4 Steps Flow Grid */}
+        <div className="contribute-steps-grid">
+          <div className="contribute-step-card">
+            <div className="step-card-header">
+              <span className="step-number-badge">01</span>
+              <span className="step-action-tag">FORK</span>
+            </div>
+            <h3 className="step-title">Fork the Repository</h3>
+            <p className="step-desc">
+              Create your personal fork of <code>Bimbok/fyzenor</code> on GitHub and clone it locally to your machine.
+            </p>
+            <div className="step-code-snippet">
+              <code>git clone https://github.com/YOUR_USER/fyzenor.git</code>
+            </div>
+          </div>
+
+          <div className="contribute-step-card">
+            <div className="step-card-header">
+              <span className="step-number-badge">02</span>
+              <span className="step-action-tag">BRANCH</span>
+            </div>
+            <h3 className="step-title">Create a Feature Branch</h3>
+            <p className="step-desc">
+              Branch off <code>main</code> with a concise, descriptive branch naming convention.
+            </p>
+            <div className="step-code-snippet">
+              <code>git checkout -b feature/fast-miller-scroll</code>
+            </div>
+          </div>
+
+          <div className="contribute-step-card">
+            <div className="step-card-header">
+              <span className="step-number-badge">03</span>
+              <span className="step-action-tag">BUILD &amp; TEST</span>
+            </div>
+            <h3 className="step-title">Implement &amp; Test</h3>
+            <p className="step-desc">
+              Compile using modern C++20 and Ninja. Run terminal test scenarios to ensure zero regressions.
+            </p>
+            <div className="step-code-snippet">
+              <code>cmake -B build -G Ninja &amp;&amp; ninja -C build</code>
+            </div>
+          </div>
+
+          <div className="contribute-step-card">
+            <div className="step-card-header">
+              <span className="step-number-badge">04</span>
+              <span className="step-action-tag">PULL REQUEST</span>
+            </div>
+            <h3 className="step-title">Submit Pull Request</h3>
+            <p className="step-desc">
+              Open a pull request describing the rationale, benchmarks, or terminal screenshots.
+            </p>
+            <div className="step-code-snippet">
+              <code>git push origin feature/fast-miller-scroll</code>
+            </div>
+          </div>
+        </div>
+
+        {/* Policy and workflow links */}
+        <div className="contribute-guidelines-row">
           <a
-            href="https://github.com/Bimbok"
+            href="https://github.com/Bimbok/fyzenor/blob/main/CONTRIBUTING.md"
             target="_blank"
             rel="noopener noreferrer"
+            className="guideline-link-card"
           >
-            @Bimbok
+            <div className="guideline-card-icon">
+              <FileText size={18} />
+            </div>
+            <div className="guideline-card-text">
+              <span className="guideline-card-title">Contribution Guidelines</span>
+              <span className="guideline-card-sub">Read CONTRIBUTING.md for C++ conventions &amp; commit guidelines</span>
+            </div>
+            <ExternalLink size={14} className="guideline-arrow" />
           </a>
-        </li>
-        <li>
-          <strong>Issues &amp; Requests</strong>:{" "}
+
           <a
-            href="https://github.com/Bimbok/fyzenor/issues"
+            href="https://github.com/Bimbok/fyzenor/blob/main/CODE_OF_CONDUCT.md"
             target="_blank"
             rel="noopener noreferrer"
+            className="guideline-link-card"
           >
-            Submit an Issue
+            <div className="guideline-card-icon">
+              <ShieldCheck size={18} />
+            </div>
+            <div className="guideline-card-text">
+              <span className="guideline-card-title">Code of Conduct</span>
+              <span className="guideline-card-sub">Governed by standard Contributor Covenant expectations</span>
+            </div>
+            <ExternalLink size={14} className="guideline-arrow" />
           </a>
-        </li>
-      </ul>
+        </div>
+      </div>
+
+      {/* 4. Contact & Support */}
+      <div className="community-support-section">
+        <div className="community-section-title-wrap">
+          <div className="community-kicker">
+            <Users size={13} />
+            <span>COMMUNITY &amp; SUPPORT</span>
+          </div>
+          <h2 className="community-heading">Contact &amp; Support</h2>
+          <p className="community-subheading">
+            Connect directly with the maintainer, report terminal anomalies, or discuss new feature ideas.
+          </p>
+        </div>
+
+        <div className="support-channels-grid">
+          <div className="support-channel-card">
+            <div className="channel-icon-wrap issues">
+              <AlertCircle size={20} />
+            </div>
+            <div className="channel-info">
+              <h3 className="channel-title">Issue Tracker</h3>
+              <p className="channel-desc">
+                Found an issue or have a feature proposal? File a ticket with reproduction details.
+              </p>
+            </div>
+            <a
+              href="https://github.com/Bimbok/fyzenor/issues"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="channel-action-btn"
+            >
+              <span>Submit an Issue</span>
+              <ExternalLink size={12} />
+            </a>
+          </div>
+
+          <div className="support-channel-card">
+            <div className="channel-icon-wrap discussions">
+              <MessageSquare size={20} />
+            </div>
+            <div className="channel-info">
+              <h3 className="channel-title">GitHub Discussions</h3>
+              <p className="channel-desc">
+                Ask questions, share configuration setups, and discuss terminal ergonomics with the community.
+              </p>
+            </div>
+            <a
+              href="https://github.com/Bimbok/fyzenor/discussions"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="channel-action-btn"
+            >
+              <span>Join Discussions</span>
+              <ExternalLink size={12} />
+            </a>
+          </div>
+
+          <div className="support-channel-card">
+            <div className="channel-icon-wrap author">
+              <User size={20} />
+            </div>
+            <div className="channel-info">
+              <h3 className="channel-title">Maintainer Profile</h3>
+              <p className="channel-desc">
+                Connect directly with @Bimbok on GitHub for collaboration or architectural discussions.
+              </p>
+            </div>
+            <a
+              href="https://github.com/Bimbok"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="channel-action-btn"
+            >
+              <span>@Bimbok on GitHub</span>
+              <ExternalLink size={12} />
+            </a>
+          </div>
+        </div>
+      </div>
 
       {/* 5. License */}
-      <h2>License</h2>
-      <p>Distributed under the MIT License. See standard terms below:</p>
-      <div
-        className="code-container"
-        style={{ maxHeight: "200px", overflowY: "auto" }}
-      >
-        <div
-          className="code-block"
-          style={{ fontSize: "0.8rem", whiteSpace: "pre-wrap" }}
-        >
-          MIT License Copyright (c) 2026 Bimbok Permission is hereby
-          granted, free of charge, to any person obtaining a copy of this
-          software and associated documentation files (the "Software"), to
-          deal in the Software without restriction, including without
-          limitation the rights to use, copy, modify, merge, publish,
-          distribute, sublicense, and/or sell copies of the Software, and
-          to permit persons to whom the Software is furnished to do so,
-          subject to the following conditions: The above copyright notice
-          and this permission notice shall be included in all copies or
-          substantial portions of the Software. THE SOFTWARE IS PROVIDED
-          "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
-          INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-          FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
-          EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-          CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
-          CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-          CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-          SOFTWARE.
+      <div className="community-license-section">
+        <div className="community-section-title-wrap">
+          <div className="community-kicker">
+            <Shield size={13} />
+            <span>OPEN SOURCE LICENSE</span>
+          </div>
+          <h2 className="community-heading">License</h2>
+          <p className="community-subheading">
+            Fyzenor is completely free, permissive, and open source software distributed under the MIT License.
+          </p>
+        </div>
+
+        <div className="license-card">
+          <div className="license-card-top">
+            <div className="license-badge-cluster">
+              <div className="license-type-pill">
+                <ShieldCheck size={14} />
+                <span>MIT Permissive License</span>
+              </div>
+              <span className="license-summary-tag">Commercial &amp; Private Use Permitted</span>
+            </div>
+
+            <div className="license-permissions-list">
+              <span className="permission-item"><Check size={12} /> Commercial Use</span>
+              <span className="permission-item"><Check size={12} /> Modification</span>
+              <span className="permission-item"><Check size={12} /> Distribution</span>
+              <span className="permission-item"><Check size={12} /> Private Use</span>
+            </div>
+          </div>
+
+          <div className="license-terminal-window">
+            <div className="license-window-header">
+              <div className="terminal-dots">
+                <span className="dot red" />
+                <span className="dot yellow" />
+                <span className="dot green" />
+              </div>
+              <span className="license-window-title">LICENSE — MIT</span>
+              <button
+                className="license-copy-btn"
+                onClick={handleCopyLicense}
+                title="Copy MIT License text"
+              >
+                {licenseCopied ? (
+                  <>
+                    <Check size={12} color="#10b981" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy size={12} />
+                    <span>Copy License</span>
+                  </>
+                )}
+              </button>
+            </div>
+            <pre className="license-text-block">
+              <code>{mitLicenseText}</code>
+            </pre>
+          </div>
+
+          <div className="license-card-footer">
+            <span>Copyright &copy; 2026 Bimbok. Published under the terms of the MIT License.</span>
+            <a
+              href="https://github.com/Bimbok/fyzenor/blob/main/LICENSE"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="license-repo-link"
+            >
+              <span>View LICENSE on GitHub</span>
+              <ExternalLink size={12} />
+            </a>
+          </div>
         </div>
       </div>
     </div>
