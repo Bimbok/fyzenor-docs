@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Fuse from "fuse.js";
+import { Showcase } from "./components/Showcase";
 import {
   BookOpen,
   Download,
@@ -38,10 +39,121 @@ interface DocSection {
   isBeta?: boolean;
 }
 
+const sections: DocSection[] = [
+  {
+    id: "overview",
+    title: "Overview & Features",
+    icon: <BookOpen size={18} />,
+  },
+  {
+    id: "install",
+    title: "Quick Start & Install",
+    icon: <Download size={18} />,
+  },
+  {
+    id: "keyboard",
+    title: "Keyboard Controls",
+    icon: <Keyboard size={18} />,
+  },
+  {
+    id: "neovim",
+    title: "Neovim Plugin",
+    icon: <Terminal size={18} />,
+    badge: "v4.3.0",
+  },
+  {
+    id: "plugins",
+    title: "Lua Plugins",
+    icon: <Puzzle size={18} />,
+    badge: "v4.3.0",
+  },
+  {
+    id: "diskusage",
+    title: "Visual Disk Usage",
+    icon: <HardDrive size={18} />,
+    badge: "v4.3.0",
+  },
+  {
+    id: "modals",
+    title: "Creation & Modals",
+    icon: <FolderPlus size={18} />,
+    badge: "v4.3.0",
+  },
+  {
+    id: "terminals",
+    title: "Terminals & Truecolor",
+    icon: <Monitor size={18} />,
+    badge: "v4.3.0",
+  },
+  {
+    id: "mouse",
+    title: "Mouse & Pane Scroll",
+    icon: <MousePointer size={18} />,
+    badge: "v4.3.0",
+  },
+  {
+    id: "cursormemory",
+    title: "Cursor Memory",
+    icon: <History size={18} />,
+    badge: "v4.3.0",
+  },
+  { id: "trash", title: "Trash Deep Dive", icon: <Trash2 size={18} /> },
+  {
+    id: "dragdrop",
+    title: "Drag & Drop Support",
+    icon: <Hand size={18} />,
+  },
+  {
+    id: "git",
+    title: "Git & Lazygit",
+    icon: <GitBranch size={18} />,
+  },
+  {
+    id: "tasks",
+    title: "Task Controls & Smart Copy",
+    icon: <Sliders size={18} />,
+  },
+  {
+    id: "architecture",
+    title: "Architecture & Threads",
+    icon: <Cpu size={18} />,
+  },
+  {
+    id: "theming",
+    title: "Configuration & Themes",
+    icon: <Sparkles size={18} />,
+  },
+  {
+    id: "community",
+    title: "Community & License",
+    icon: <Users size={18} />,
+  },
+  {
+    id: "troubleshoot",
+    title: "Troubleshooting",
+    icon: <HelpCircle size={18} />,
+  },
+];
+
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>("overview");
+  const [viewMode, setViewMode] = useState<"showcase" | "docs">(() => {
+    if (typeof window !== "undefined") {
+      const hash = window.location.hash.replace("#", "");
+      if (hash && hash !== "manifesto" && hash !== "in-motion" && hash !== "features") {
+        return "docs";
+      }
+    }
+    return "showcase";
+  });
 
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [theme, setTheme] = useState<"dark" | "light">(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("fyzenor-theme");
+      if (saved === "dark" || saved === "light") return saved;
+    }
+    return "light";
+  });
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [copiedText, setCopiedText] = useState<string | null>(null);
 
@@ -72,105 +184,40 @@ export default function App() {
     accentGlow: "rgba(16, 185, 129, 0.25)",
   });
 
-  const sections: DocSection[] = [
-    {
-      id: "overview",
-      title: "Overview & Features",
-      icon: <BookOpen size={18} />,
-    },
-    {
-      id: "install",
-      title: "Quick Start & Install",
-      icon: <Download size={18} />,
-    },
-    {
-      id: "keyboard",
-      title: "Keyboard Controls",
-      icon: <Keyboard size={18} />,
-    },
-    {
-      id: "neovim",
-      title: "Neovim Plugin",
-      icon: <Terminal size={18} />,
-      badge: "v4.3.0",
-    },
-    {
-      id: "plugins",
-      title: "Lua Plugins",
-      icon: <Puzzle size={18} />,
-      badge: "v4.3.0",
-    },
-    {
-      id: "diskusage",
-      title: "Visual Disk Usage",
-      icon: <HardDrive size={18} />,
-      badge: "v4.3.0",
-    },
-    {
-      id: "modals",
-      title: "Creation & Modals",
-      icon: <FolderPlus size={18} />,
-      badge: "v4.3.0",
-    },
-    {
-      id: "terminals",
-      title: "Terminals & Truecolor",
-      icon: <Monitor size={18} />,
-      badge: "v4.3.0",
-    },
-    {
-      id: "mouse",
-      title: "Mouse & Pane Scroll",
-      icon: <MousePointer size={18} />,
-      badge: "v4.3.0",
-    },
-    {
-      id: "cursormemory",
-      title: "Cursor Memory",
-      icon: <History size={18} />,
-      badge: "v4.3.0",
-    },
-    { id: "trash", title: "Trash Deep Dive", icon: <Trash2 size={18} /> },
-    {
-      id: "dragdrop",
-      title: "Drag & Drop Support",
-      icon: <Hand size={18} />,
-    },
-    {
-      id: "git",
-      title: "Git & Lazygit",
-      icon: <GitBranch size={18} />,
-    },
-    {
-      id: "tasks",
-      title: "Task Controls & Smart Copy",
-      icon: <Sliders size={18} />,
-    },
-    {
-      id: "architecture",
-      title: "Architecture & Threads",
-      icon: <Cpu size={18} />,
-    },
-    {
-      id: "theming",
-      title: "Configuration & Themes",
-      icon: <Sparkles size={18} />,
-    },
-    {
-      id: "community",
-      title: "Community & License",
-      icon: <Users size={18} />,
-    },
-    {
-      id: "troubleshoot",
-      title: "Troubleshooting",
-      icon: <HelpCircle size={18} />,
-    },
-  ];
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("fyzenor-theme", theme);
   }, [theme]);
+
+  useEffect(() => {
+    const handleHash = () => {
+      const hash = window.location.hash.replace("#", "");
+      if (hash) {
+        if (hash === "manifesto" || hash === "in-motion" || hash === "features") {
+          setViewMode("showcase");
+        } else {
+          const match = sections.find((s) => s.id === hash);
+          if (match) {
+            setActiveTab(match.id);
+            setViewMode("docs");
+          }
+        }
+      }
+    };
+    handleHash();
+    window.addEventListener("hashchange", handleHash);
+    return () => window.removeEventListener("hashchange", handleHash);
+  }, []);
+
+  const handleNavigateToDoc = (secId: string) => {
+    setActiveTab(secId);
+    setViewMode("docs");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setTimeout(() => {
+      mainContentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+    }, 50);
+  };
 
   const handleCopy = (text: string, id: string) => {
     navigator.clipboard.writeText(text);
@@ -698,6 +745,7 @@ export default function App() {
           subtitle: item.content,
           action: () => {
             setActiveTab(item.id);
+            setViewMode("docs");
             setCommandPaletteOpen(false);
             setTimeout(() => {
               mainContentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
@@ -714,6 +762,7 @@ export default function App() {
           action: () => {
             setActiveTab("keyboard");
             setSelectedKey(item.key);
+            setViewMode("docs");
             setCommandPaletteOpen(false);
             setTimeout(() => {
               mainContentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
@@ -732,6 +781,7 @@ export default function App() {
       subtitle: res.item.content,
       action: () => {
         setActiveTab(res.item.id);
+        setViewMode("docs");
         setCommandPaletteOpen(false);
         setTimeout(() => {
           mainContentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
@@ -746,6 +796,7 @@ export default function App() {
       action: () => {
         setActiveTab("keyboard");
         setSelectedKey(res.item.key);
+        setViewMode("docs");
         setCommandPaletteOpen(false);
         setTimeout(() => {
           mainContentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
@@ -851,9 +902,59 @@ export default function App() {
 
 
   return (
-    <div className="app-container">
-      {/* Sidebar Navigation */}
-      <aside className={`sidebar ${mobileMenuOpen ? "open" : ""}`}>
+    <>
+      {viewMode === "showcase" ? (
+        <Showcase
+          onNavigateToDoc={handleNavigateToDoc}
+          onOpenCommandPalette={() => setCommandPaletteOpen(true)}
+          theme={theme}
+          onToggleTheme={() => setTheme(theme === "dark" ? "light" : "dark")}
+          copiedText={copiedText}
+          onCopy={handleCopy}
+        />
+      ) : (
+        <div className="editorial-canvas">
+          <div className="doc-reader-topbar">
+            <button
+              className="doc-back-pill"
+              onClick={() => {
+                setViewMode("showcase");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            >
+              ← Back to Showcase
+            </button>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              <span style={{ fontSize: "0.85rem", color: "var(--text-muted)", fontFamily: "var(--font-mono)" }}>
+                {sections.find((s) => s.id === activeTab)?.title}
+              </span>
+              <span className="badge badge-green" style={{ fontSize: "0.65rem", padding: "0.1rem 0.4rem" }}>
+                v4.3.0
+              </span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+              <button
+                onClick={() => setCommandPaletteOpen(true)}
+                className="editorial-search-pill"
+                style={{ padding: "0.3rem 0.75rem" }}
+              >
+                <Search size={14} />
+                <span>Search</span>
+                <kbd className="cmd-kbd">⌘K</kbd>
+              </button>
+              <button
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                className="editorial-theme-btn"
+                style={{ width: "32px", height: "32px" }}
+              >
+                {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
+              </button>
+            </div>
+          </div>
+
+          <div className="app-container">
+            {/* Sidebar Navigation */}
+            <aside className={`sidebar ${mobileMenuOpen ? "open" : ""}`}>
         <div
           style={{
             display: "flex",
@@ -5416,6 +5517,9 @@ l = 'ls -la'`}</div>
           </div>
         )}
       </main>
+    </div>
+  </div>
+)}
 
       {/* Floating Scroll-to-Top Button */}
       {showScrollTop && (
@@ -5485,6 +5589,6 @@ l = 'ls -la'`}</div>
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
