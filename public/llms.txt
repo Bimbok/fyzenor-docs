@@ -318,11 +318,11 @@ Fyzenor tracks navigation directories independently per tab:
 
 ---
 
-## PAGE 10: CUTTING-EDGE BETA FEATURES (v4.3.0-beta.2)
+## PAGE 10: V4.3.0 STABLE FEATURES
 
 ### 1. Neovim Native Integration (`fyzenor.nvim`)
 Native Neovim integration inspired by `yazi.nvim`. Operates inside a centered floating terminal window with background dimming, netrw hijacking, multi-file buffer loading, and split/tab opening shortcuts:
-- **Package Manager**: Install `Bimbok/fyzenor` with `branch = "beta"`.
+- **Package Manager**: Install `Bimbok/fyzenor` directly via lazy.nvim, packer, or vim-plug (main branch).
 - **In-Terminal Keymaps**: `<Enter>` to open and set `:args`, `<c-v>` vertical split, `<c-x>` horizontal split, `<c-t>` tab, `<c-q>` quickfix list, `<c-y>` yank relative path, `<c-f>` live grep.
 - **Multi-Selection Integration**: Selecting multiple files via `<Tab>` or `<Space>` registers buffers with `buflisted = true` and `bufload`, populating Neovim's argument list (`:args`) or tiling across splits.
 - **Netrw Hijack**: Set `open_for_directories = true` to automatically replace `netrw` when editing directories.

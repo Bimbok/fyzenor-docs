@@ -34,6 +34,7 @@ interface DocSection {
   id: string;
   title: string;
   icon: React.ReactNode;
+  badge?: string;
   isBeta?: boolean;
 }
 
@@ -53,7 +54,7 @@ export default function App() {
   // Terminal Simulator State
   const [termInput, setTermInput] = useState<string>("");
   const [termLines, setTermLines] = useState<string[]>([
-    "Fyzenor Terminal Simulator v4.2.0",
+    "Fyzenor Terminal Simulator v4.3.0",
     'Type "help" or click one of the preset commands below to test.',
     "",
   ]);
@@ -89,45 +90,45 @@ export default function App() {
     },
     {
       id: "neovim",
-      title: "Neovim Plugin (Beta)",
+      title: "Neovim Plugin",
       icon: <Terminal size={18} />,
-      isBeta: true,
+      badge: "v4.3.0",
     },
     {
       id: "plugins",
-      title: "Lua Plugins (Beta)",
+      title: "Lua Plugins",
       icon: <Puzzle size={18} />,
-      isBeta: true,
+      badge: "v4.3.0",
     },
     {
       id: "diskusage",
-      title: "Visual Disk Usage (Beta)",
+      title: "Visual Disk Usage",
       icon: <HardDrive size={18} />,
-      isBeta: true,
+      badge: "v4.3.0",
     },
     {
       id: "modals",
-      title: "Creation & Modals (Beta)",
+      title: "Creation & Modals",
       icon: <FolderPlus size={18} />,
-      isBeta: true,
+      badge: "v4.3.0",
     },
     {
       id: "terminals",
-      title: "Terminals & Truecolor (Beta)",
+      title: "Terminals & Truecolor",
       icon: <Monitor size={18} />,
-      isBeta: true,
+      badge: "v4.3.0",
     },
     {
       id: "mouse",
-      title: "Mouse & Pane Scroll (Beta)",
+      title: "Mouse & Pane Scroll",
       icon: <MousePointer size={18} />,
-      isBeta: true,
+      badge: "v4.3.0",
     },
     {
       id: "cursormemory",
-      title: "Cursor Memory (Beta)",
+      title: "Cursor Memory",
       icon: <History size={18} />,
-      isBeta: true,
+      badge: "v4.3.0",
     },
     { id: "trash", title: "Trash Deep Dive", icon: <Trash2 size={18} /> },
     {
@@ -596,51 +597,51 @@ export default function App() {
     },
     {
       id: "neovim",
-      title: "Neovim Plugin (fyzenor.nvim) (Beta)",
+      title: "Neovim Plugin (fyzenor.nvim) (v4.3.0)",
       keywords: "neovim nvim plugin yazi.nvim floating window split tab edit netrw hijack buffer args buflisted lazy.nvim packer vim-plug",
       content: "Native Neovim integration inspired by yazi.nvim. Centered floating window, netrw hijacking, multi-file buffer loading across splits/tabs/args, and cwd sync."
     },
     {
       id: "plugins",
-      title: "Lua Plugin Engine (Beta)",
-      keywords: "lua plugin plugins engine beta v4.3.0-beta.2 keymaps keybindings extensions custom previewer fyzenor.add_keymap fyzenor.register_previewer fyzenor.shell_output fyzenor.prompt fyzenor.change_directory fyzenor.get_version",
+      title: "Lua Plugin Engine (v4.3.0)",
+      keywords: "lua plugin plugins engine v4.3.0 keymaps keybindings extensions custom previewer fyzenor.add_keymap fyzenor.register_previewer fyzenor.shell_output fyzenor.prompt fyzenor.change_directory fyzenor.get_version",
       content: "Embedded Lua plugin engine. Build custom keybindings, interactive fast-jumps, status bar extensions, and previewers without recompiling C++."
     },
     {
       id: "diskusage",
-      title: "Visual Disk Usage & Ncdu Mode (U) (Beta)",
+      title: "Visual Disk Usage & Ncdu Mode (U) (v4.3.0)",
       keywords: "disk usage ncdu visual bar graph U size analyze space storage directory background scan symlink",
       content: "Built-in visual disk usage mode with proportional unicode bar graphs, non-blocking background folder calculation, and circular symlink protection."
     },
     {
       id: "modals",
-      title: "Unified Creation & Centered Modals (n & r) (Beta)",
+      title: "Unified Creation & Centered Modals (n & r) (v4.3.0)",
       keywords: "create file folder n dynamic nerd font icon indicator morph centered modal active border utf-8 codepoint paste clipboard",
       content: "Unified file and folder creation under 'n' with real-time extension icon morphing, centered modals with theme accent borders, UTF-8 codepoint navigation, and clipboard paste."
     },
     {
       id: "terminals",
-      title: "Terminal Compatibility & Truecolor Engine (Beta)",
+      title: "Terminal Compatibility & Truecolor Engine (v4.3.0)",
       keywords: "terminal truecolor 24-bit 256 colors hexto256 kitty ghostty wezterm tmux neovim alacritty synchronized updates dec 2026",
       content: "Consistent theme rendering across Kitty, Ghostty, WezTerm, Alacritty, Tmux, and Neovim with universal 256-color matching and DEC 2026 synchronized updates."
     },
     {
       id: "mouse",
-      title: "Mouse Controls & Pane-Aware Scrolling (Beta)",
+      title: "Mouse Controls & Pane-Aware Scrolling (v4.3.0)",
       keywords: "mouse scroll hover pane wheel preview scrolling click dragon drag drop",
       content: "Pane-aware mouse wheel hovering to scroll any pane without changing focus, smooth preview scrolling (Ctrl+E/Ctrl+Y), and drag-and-drop support."
     },
     {
       id: "cursormemory",
-      title: "Cursor Tracking & Navigation Memory (Beta)",
+      title: "Cursor Tracking & Navigation Memory (v4.3.0)",
       keywords: "cursor tracking sort memory per-directory history navigation selection scroll preserve safe recovery",
       content: "Persistent cursor tracking across sorting modes, per-directory selection memory across back/forward navigation (Ctrl+O/Ctrl+P), and safe directory recovery."
     },
     {
       id: "install",
-      title: "Smart Installer Channels (--stable vs --beta)",
-      keywords: "install installer smart installer --beta --stable channel bash script curl main beta channel selection",
-      content: "Universal smart installer script. Run --stable for v4.2.0 production release or --beta for v4.3.0-beta.2 cutting-edge channel with cursor memory and Lua plugins."
+      title: "Smart Installer Script",
+      keywords: "install installer smart installer channel bash script curl main",
+      content: "Universal smart installer script. Installs v4.3.0 production release or optional cutting-edge beta development channel."
     },
     {
       id: "troubleshoot",
@@ -798,7 +799,7 @@ export default function App() {
   const handlePresetCommand = (cmd: string) => {
     let output: string[] = [];
     if (cmd === "fyzenor --version") {
-      output = ["$", "fyzenor --version", "Fyzenor version 4.2.0"];
+      output = ["$", "fyzenor --version", "Fyzenor version 4.3.0"];
     } else if (cmd === "fyzenor --help") {
       output = [
         "$",
@@ -820,7 +821,7 @@ export default function App() {
         '[✔] Installation completed successfully! Run "fyzenor" to start.',
       ];
     } else if (cmd === "clear") {
-      setTermLines(["Fyzenor Terminal Simulator v4.2.0", ""]);
+      setTermLines(["Fyzenor Terminal Simulator v4.3.0", ""]);
       return;
     } else if (cmd === "help") {
       output = [
@@ -832,7 +833,11 @@ export default function App() {
         "  clear              - Clear this terminal output screen",
       ];
     } else {
-      output = ["$", cmd, `sh: command not found: ${cmd}`];
+      output = [
+        `$ ${cmd}`,
+        `command not found: ${cmd}`,
+        'Type "help" to see available commands.',
+      ];
     }
     setTermLines((prev) => [...prev, ...output, ""]);
   };
@@ -891,7 +896,7 @@ export default function App() {
                 letterSpacing: "0.05em",
               }}
             >
-              DOCS • V4.2.0
+              DOCS • V4.3.0
             </span>
           </div>
         </div>
@@ -954,7 +959,21 @@ export default function App() {
             >
               {sec.icon}
               <span style={{ flex: 1 }}>{sec.title}</span>
-              {sec.isBeta && (
+              {sec.badge && (
+                <span
+                  className="badge badge-green"
+                  style={{
+                    fontSize: "0.6rem",
+                    padding: "0.1rem 0.35rem",
+                    borderRadius: "4px",
+                    fontWeight: 700,
+                    letterSpacing: "0.5px",
+                  }}
+                >
+                  {sec.badge}
+                </span>
+              )}
+              {sec.isBeta && !sec.badge && (
                 <span
                   className="badge badge-purple"
                   style={{
@@ -1086,7 +1105,7 @@ export default function App() {
             </p>
           </div>
           <div style={{ display: "flex", gap: "0.5rem" }}>
-            <span className="badge badge-green">v4.2.0</span>
+            <span className="badge badge-green">v4.3.0</span>
             <span className="badge badge-purple">C++17</span>
             <span className="badge badge-cyan">Ncurses</span>
           </div>
@@ -1115,7 +1134,7 @@ export default function App() {
             <div className="alert-info-box">
               <Info size={20} style={{ flexShrink: 0 }} />
               <div>
-                <strong>V4.2.0 Release Note:</strong> Integrates native <strong>Lazygit</strong> support (mapped to <code>Ctrl+G</code>) with centered floating popup overlays inside <code>tmux</code> sessions. Resolves several stability/robustness bugs including a critical UTF-8 safe truncation underflow, search thread path data races, scroll calculation math, and memory usage optimization via LRU image cache limits.
+                <strong>v4.3.0 Release Highlights:</strong> Includes official native Neovim integration (<code>fyzenor.nvim</code>), embedded Lua plugin engine (<code>~/.config/fyzenor/plugins/</code>), visual disk usage analyzer (<code>U</code>), centered dynamic modals with real-time extension icon morphing (<code>n</code>/<code>r</code>), universal 256-color matching &amp; DEC 2026 synchronized updates, pane-aware mouse wheel hovering, and persistent cursor tracking across sort modes.
               </div>
             </div>
 
@@ -2134,15 +2153,15 @@ pkg install clang cmake ndk-sysroot ncurses-utils ffmpeg zip bat ripgrep`}</div>
               universal installation script.
             </p>
 
-            <h3>Smart One-Liner (Stable vs Beta Channels)</h3>
+            <h3>Smart One-Liner Installer</h3>
             <div className="code-container">
               <div className="code-header">
-                <span>📦 Install Stable Release (v4.2.0 - Default)</span>
+                <span>📦 Install Stable Release (v4.3.0 - Default)</span>
                 <button
                   className="copy-btn"
                   onClick={() =>
                     handleCopy(
-                      "curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/install.sh | bash -s -- --stable",
+                      "curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/install.sh | bash",
                       "install-stable",
                     )
                   }
@@ -2155,12 +2174,12 @@ pkg install clang cmake ndk-sysroot ncurses-utils ffmpeg zip bat ripgrep`}</div>
                   {copiedText === "install-stable" ? "Copied!" : "Copy"}
                 </button>
               </div>
-              <div className="code-block">{`curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/install.sh | bash -s -- --stable`}</div>
+              <div className="code-block">{`curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/install.sh | bash`}</div>
             </div>
 
             <div className="code-container">
               <div className="code-header">
-                <span>🧪 Install Beta Channel (v4.3.0-beta.2 - Dynamic Type Icons, Centered Modals &amp; Lua Plugins)</span>
+                <span>🧪 Install Development Channel (Beta)</span>
                 <button
                   className="copy-btn"
                   onClick={() =>
@@ -2914,7 +2933,7 @@ make
             <h2>Compliance-Tested Multi-Partition Trash System</h2>
             <p>
               In compliance with the Freedesktop.org Desktop Trash Can
-              Specification, Fyzenor v4.2.0 uses a highly optimized, local
+              Specification, Fyzenor uses a highly optimized, local
               partition trash system to avoid slow byte-copying across drives.
               <strong> All trashing operations are offloaded to background AsyncTask worker threads</strong>. This prevents long TUI redraw freezes or input latency during large bulk operations (e.g. <code>Select All</code> to <code>Delete</code>). Trashing tasks can be monitored, paused, resumed, or cancelled live inside the task overlay (<code>w</code>).
             </p>
@@ -3243,8 +3262,8 @@ brew install lazygit`}
           <div className="animate-fade-in">
             <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
               <h2>Neovim Native Integration (<code>fyzenor.nvim</code>)</h2>
-              <span className="badge badge-purple">v4.3.0-beta.2</span>
-              <span className="badge badge-cyan">BETA CHANNEL</span>
+              <span className="badge badge-green">v4.3.0</span>
+              <span className="badge badge-cyan">STABLE</span>
             </div>
             <p>
               Fyzenor includes an official, native <strong>Neovim integration plugin</strong> inspired by <em>yazi.nvim</em>. 
@@ -3255,7 +3274,7 @@ brew install lazygit`}
             <div className="alert-info-box" style={{ marginBottom: "1.5rem" }}>
               <Info size={20} style={{ flexShrink: 0 }} />
               <div>
-                <strong>v4.3.0-beta.2 Feature Notice:</strong> The Neovim plugin is available directly in the <code>beta</code> branch of the repository. Make sure to specify <code>branch = "beta"</code> in your package manager configuration to access all beta features.
+                <strong>v4.3.0 Release:</strong> The Neovim plugin is included natively in the <code>main</code> branch of the repository. Works out of the box with any package manager without needing to pin a branch.
               </div>
             </div>
 
@@ -3307,7 +3326,6 @@ brew install lazygit`}
                   handleCopy(
                     `return {
   "Bimbok/fyzenor",
-  branch = "beta",
   event = "VeryLazy",
   opts = {
     open_for_directories = true,
@@ -3338,7 +3356,6 @@ brew install lazygit`}
 {`-- ~/.config/nvim/lua/plugins/fyzenor.lua
 return {
   "Bimbok/fyzenor",
-  branch = "beta",
   event = "VeryLazy",
   opts = {
     open_for_directories = true,
@@ -3364,7 +3381,6 @@ return {
               <code>
 {`use({
   "Bimbok/fyzenor",
-  branch = "beta",
   config = function()
     require("fyzenor").setup({
       open_for_directories = true,
@@ -3378,7 +3394,7 @@ return {
             <h3 style={{ marginTop: "1.5rem" }}>Using <code>vim-plug</code></h3>
             <pre className="code-block">
               <code>
-{`Plug 'Bimbok/fyzenor', { 'branch': 'beta' }
+{`Plug 'Bimbok/fyzenor'
 
 " Inside init.lua:
 require("fyzenor").setup({
@@ -3568,8 +3584,8 @@ require("fyzenor").setup({
           <div className="animate-fade-in">
             <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
               <h2>Embedded Lua Plugin Engine</h2>
-              <span className="badge badge-purple">v4.3.0-beta.2</span>
-              <span className="badge badge-cyan">BETA CHANNEL</span>
+              <span className="badge badge-green">v4.3.0</span>
+              <span className="badge badge-cyan">STABLE</span>
             </div>
             <p>
               Fyzenor includes an embedded <strong>Lua Plugin Engine</strong> (inspired by <em>Yazi</em> and <em>Neovim</em>). 
@@ -3745,7 +3761,7 @@ git clone https://github.com/Bimbok/fyzenor-plugins.git ~/.config/fyzenor/plugin
                   <tr>
                     <td><code>fyzenor.get_version()</code></td>
                     <td><code>string</code></td>
-                    <td>Returns the current Fyzenor engine version (e.g. <code>"4.3.0-beta.2"</code>).</td>
+                    <td>Returns the current Fyzenor engine version (e.g. <code>"4.3.0"</code>).</td>
                   </tr>
                 </tbody>
               </table>
@@ -3782,8 +3798,8 @@ end)`}
           <div className="animate-fade-in">
             <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
               <h2>Visual Disk Usage &amp; Bar Graph Mode (<code>U</code>)</h2>
-              <span className="badge badge-purple">v4.3.0-beta.2</span>
-              <span className="badge badge-cyan">BETA CHANNEL</span>
+              <span className="badge badge-green">v4.3.0</span>
+              <span className="badge badge-cyan">STABLE</span>
             </div>
             <p>
               Fyzenor features a built-in <code>ncdu</code>-style <strong>Visual Disk Usage Analyzer</strong>. 
@@ -3871,8 +3887,8 @@ end)`}
           <div className="animate-fade-in">
             <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
               <h2>Unified Creation &amp; Dynamic Modals (<code>n</code> / <code>r</code>)</h2>
-              <span className="badge badge-purple">v4.3.0-beta.2</span>
-              <span className="badge badge-cyan">BETA CHANNEL</span>
+              <span className="badge badge-green">v4.3.0</span>
+              <span className="badge badge-cyan">STABLE</span>
             </div>
             <p>
               Fyzenor introduces a completely modernized modal input system for file creation (<kbd>n</kbd>), renaming (<kbd>r</kbd>), and search. 
@@ -3946,8 +3962,8 @@ end)`}
           <div className="animate-fade-in">
             <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
               <h2>Terminal Compatibility &amp; Truecolor Engine</h2>
-              <span className="badge badge-purple">v4.3.0-beta.2</span>
-              <span className="badge badge-cyan">BETA CHANNEL</span>
+              <span className="badge badge-green">v4.3.0</span>
+              <span className="badge badge-cyan">STABLE</span>
             </div>
             <p>
               Fyzenor guarantees <strong>pixel-perfect consistency</strong> across every major terminal emulator. 
@@ -4051,8 +4067,8 @@ end)`}
           <div className="animate-fade-in">
             <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
               <h2>Mouse Controls &amp; Pane-Aware Scrolling</h2>
-              <span className="badge badge-purple">v4.3.0-beta.2</span>
-              <span className="badge badge-cyan">BETA CHANNEL</span>
+              <span className="badge badge-green">v4.3.0</span>
+              <span className="badge badge-cyan">STABLE</span>
             </div>
             <p>
               Fyzenor delivers a fluid mouse workflow tailored for modern terminal emulators. 
@@ -4104,8 +4120,8 @@ end)`}
           <div className="animate-fade-in">
             <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
               <h2>Cursor Tracking &amp; Navigation Memory</h2>
-              <span className="badge badge-purple">v4.3.0-beta.2</span>
-              <span className="badge badge-cyan">BETA CHANNEL</span>
+              <span className="badge badge-green">v4.3.0</span>
+              <span className="badge badge-cyan">STABLE</span>
             </div>
             <p>
               Inspired by <em>Yazi</em>, Fyzenor features intelligent <strong>persistent cursor tracking</strong> across sorting changes, 
@@ -4322,7 +4338,7 @@ end)`}
 
             <h2 style={{ marginTop: "2.5rem" }}>Live Task Throughput &amp; History Log Panel</h2>
             <p>
-              In Fyzenor v4.2.0, the Task Manager overlay (accessible via <kbd>w</kbd>) includes detailed timing, speed metrics, and a historical completion log panel.
+              In Fyzenor, the Task Manager overlay (accessible via <kbd>w</kbd>) includes detailed timing, speed metrics, and a historical completion log panel.
             </p>
             <h3>1. Active Task Metrics &amp; Speed Tracking</h3>
             <p>
