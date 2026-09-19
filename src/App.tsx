@@ -1125,7 +1125,12 @@ export default function App() {
             <aside className={`docs-sidebar-panel ${sidebarCollapsed ? "collapsed" : ""} ${mobileMenuOpen ? "open" : ""}`}>
               {/* Header inside sidebar */}
               <div className="zen-sidebar-header">
-                <div className="zen-sidebar-brand">
+                <div
+                  className="zen-sidebar-brand"
+                  onClick={() => sidebarCollapsed && setSidebarCollapsed(false)}
+                  style={{ cursor: sidebarCollapsed ? "pointer" : "default" }}
+                  title={sidebarCollapsed ? "Click to expand sidebar" : undefined}
+                >
                   <img
                     src="/fyzenor.png"
                     alt="Fyzenor Logo"
