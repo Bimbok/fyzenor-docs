@@ -1051,6 +1051,8 @@ export default function App() {
     },
   ].filter((g) => g.items.length > 0);
 
+  const isCompactRail = sidebarCollapsed && !mobileMenuOpen;
+
   return (
     <>
       {viewMode === "showcase" ? (
@@ -1112,9 +1114,9 @@ export default function App() {
               <button
                 className="mobile-sidebar-toggle"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                aria-label="Toggle navigation"
+                aria-label={mobileMenuOpen ? "Close navigation" : "Open navigation"}
               >
-                <Menu size={18} />
+                {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
               </button>
             </div>
           </div>
@@ -1122,39 +1124,41 @@ export default function App() {
           {/* Integrated Split Layout */}
           <div className="docs-split-layout">
             {/* Zen Chapter Navigator Sidebar */}
-            <aside className={`docs-sidebar-panel ${sidebarCollapsed ? "collapsed" : ""} ${mobileMenuOpen ? "open" : ""}`}>
+            <aside className={`docs-sidebar-panel ${isCompactRail ? "collapsed" : ""} ${mobileMenuOpen ? "open" : ""}`}>
               {/* Header inside sidebar */}
               <div className="zen-sidebar-header">
                 <div
                   className="zen-sidebar-brand"
-                  onClick={() => sidebarCollapsed && setSidebarCollapsed(false)}
-                  style={{ cursor: sidebarCollapsed ? "pointer" : "default" }}
-                  title={sidebarCollapsed ? "Click to expand sidebar" : undefined}
+                  onClick={() => isCompactRail && setSidebarCollapsed(false)}
+                  style={{ cursor: isCompactRail ? "pointer" : "default" }}
+                  title={isCompactRail ? "Click to expand sidebar" : undefined}
                 >
                   <img
                     src="/fyzenor.png"
                     alt="Fyzenor Logo"
                     className="zen-brand-logo"
                   />
-                  {!sidebarCollapsed && (
+                  {!isCompactRail && (
                     <div className="zen-brand-info">
                       <span className="zen-brand-name">Fyzenor</span>
                       <span className="zen-brand-sub">CHAPTER NAVIGATOR</span>
                     </div>
                   )}
                 </div>
-                {!sidebarCollapsed && (
+
+                {/* Mobile Drawer Close Button */}
+                {mobileMenuOpen && (
                   <button
-                    className="zen-collapse-btn"
-                    onClick={() => setSidebarCollapsed(true)}
-                    title="Collapse sidebar into compact rail"
+                    className="mobile-drawer-close"
+                    onClick={() => setMobileMenuOpen(false)}
+                    aria-label="Close navigation"
                   >
-                    <PanelLeftClose size={15} />
+                    <X size={18} />
                   </button>
                 )}
               </div>
 
-              {!sidebarCollapsed && (
+              {!isCompactRail && (
                 <>
                   {/* Topic Quick Filter */}
                   <div className="zen-search-wrapper">
@@ -1211,7 +1215,7 @@ export default function App() {
                 ) : (
                   groupedSections.map((group) => (
                     <div key={group.key} className="zen-chapter-group">
-                      {!sidebarCollapsed && (
+                      {!isCompactRail && (
                         <div className="zen-chapter-header">
                           <span className="zen-chapter-num">{group.num}</span>
                           <span className="zen-chapter-label">{group.title}</span>
@@ -1235,10 +1239,10 @@ export default function App() {
                                   mainContentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
                                 }, 30);
                               }}
-                              title={sidebarCollapsed ? `${sec.title} (${sec.chapterTitle})` : undefined}
+                              title={isCompactRail ? `${sec.title} (${sec.chapterTitle})` : undefined}
                             >
                               <div className="zen-nav-icon">{sec.icon}</div>
-                              {!sidebarCollapsed && (
+                              {!isCompactRail && (
                                 <>
                                   <span className="zen-nav-title">{sec.title}</span>
                                   {sec.chapter === "v4.3" && !isActive && (
@@ -1259,7 +1263,7 @@ export default function App() {
               </nav>
 
               {/* Zen Footer */}
-              {!sidebarCollapsed && (
+              {!isCompactRail && (
                 <div className="zen-sidebar-footer">
                   <div className="zen-footer-version">
                     <span className="zen-status-dot" />
