@@ -2253,8 +2253,8 @@ export default function App() {
                   {copiedText === "apt-install" ? "Copied!" : "Copy"}
                 </button>
               </div>
-              <div className="code-block">{`sudo apt update
-sudo apt install build-essential libncursesw5-dev ffmpeg zip bat xclip wl-copy ripgrep`}</div>
+              <pre className="code-block">{`sudo apt update
+sudo apt install build-essential libncursesw5-dev ffmpeg zip bat xclip wl-copy ripgrep`}</pre>
             </div>
 
             <div className="code-container">
@@ -2277,8 +2277,8 @@ sudo apt install build-essential libncursesw5-dev ffmpeg zip bat xclip wl-copy r
                   {copiedText === "dnf-install" ? "Copied!" : "Copy"}
                 </button>
               </div>
-              <div className="code-block">{`sudo dnf update
-sudo dnf install gcc gcc-c++ make ncurses-devel ffmpeg zip bat xclip wl-clipboard ripgrep`}</div>
+              <pre className="code-block">{`sudo dnf update
+sudo dnf install gcc gcc-c++ make ncurses-devel ffmpeg zip bat xclip wl-clipboard ripgrep`}</pre>
             </div>
 
             <div className="code-container">
@@ -2301,8 +2301,8 @@ sudo dnf install gcc gcc-c++ make ncurses-devel ffmpeg zip bat xclip wl-clipboar
                   {copiedText === "pacman-install" ? "Copied!" : "Copy"}
                 </button>
               </div>
-              <div className="code-block">{`sudo pacman -Sy
-sudo pacman -S base-devel ncurses ffmpeg zip bat xclip wl-clipboard ripgrep`}</div>
+              <pre className="code-block">{`sudo pacman -Sy
+sudo pacman -S base-devel ncurses ffmpeg zip bat xclip wl-clipboard ripgrep`}</pre>
             </div>
 
             <div className="code-container">
@@ -2325,8 +2325,8 @@ sudo pacman -S base-devel ncurses ffmpeg zip bat xclip wl-clipboard ripgrep`}</d
                   {copiedText === "termux-install" ? "Copied!" : "Copy"}
                 </button>
               </div>
-              <div className="code-block">{`pkg update
-pkg install clang cmake ndk-sysroot ncurses-utils ffmpeg zip bat ripgrep`}</div>
+              <pre className="code-block">{`pkg update
+pkg install clang cmake ndk-sysroot ncurses-utils ffmpeg zip bat ripgrep`}</pre>
             </div>
 
             <h3>Package Descriptions:</h3>
@@ -2379,7 +2379,7 @@ pkg install clang cmake ndk-sysroot ncurses-utils ffmpeg zip bat ripgrep`}</div>
                   {copiedText === "install-stable" ? "Copied!" : "Copy"}
                 </button>
               </div>
-              <div className="code-block">{`curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/install.sh | bash`}</div>
+              <pre className="code-block">{`curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/install.sh | bash`}</pre>
             </div>
 
             <div className="code-container">
@@ -2402,7 +2402,7 @@ pkg install clang cmake ndk-sysroot ncurses-utils ffmpeg zip bat ripgrep`}</div>
                   {copiedText === "install-beta" ? "Copied!" : "Copy"}
                 </button>
               </div>
-              <div className="code-block">{`curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/install.sh | bash -s -- --beta`}</div>
+              <pre className="code-block">{`curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/install.sh | bash -s -- --beta`}</pre>
             </div>
 
             <p>The installer does the following automatically:</p>
@@ -2447,14 +2447,14 @@ pkg install clang cmake ndk-sysroot ncurses-utils ffmpeg zip bat ripgrep`}</div>
                   {copiedText === "uninstall-cmd" ? "Copied!" : "Copy"}
                 </button>
               </div>
-              <div className="code-block">{`# Standard uninstall (keeps ~/.config/fyzenor)
+              <pre className="code-block">{`# Standard uninstall (keeps ~/.config/fyzenor)
 ./uninstall.sh
 
 # Complete purge (removes binaries, configs, and bookmarks)
 ./uninstall.sh --purge
 
 # Or via curl:
-curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/uninstall.sh | bash`}</div>
+curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/uninstall.sh | bash`}</pre>
             </div>
 
             <h3>Manual Compilation</h3>
@@ -2482,12 +2482,12 @@ curl -fsSL https://raw.githubusercontent.com/Bimbok/fyzenor/main/uninstall.sh | 
                   {copiedText === "manual-compile-cmds" ? "Copied!" : "Copy"}
                 </button>
               </div>
-              <div className="code-block">{`git clone https://github.com/Bimbok/fyzenor.git
+              <pre className="code-block">{`git clone https://github.com/Bimbok/fyzenor.git
 cd fyzenor
 mkdir -p build && cd build
 cmake ..
 make
-./fyzenor`}</div>
+./fyzenor`}</pre>
             </div>
 
             <h2>Windows Compiler Compatibility</h2>
@@ -2499,7 +2499,7 @@ make
               compilation with:
             </p>
             <div className="code-container">
-              <div className="code-block">{`fatal error: filesystem: No such file or directory`}</div>
+              <pre className="code-block">{`fatal error: filesystem: No such file or directory`}</pre>
             </div>
             <p>Recommended environments for Windows users:</p>
             <ul>
@@ -2511,7 +2511,7 @@ make
               <strong>Clang 7+</strong>. Check yours using:
             </p>
             <div className="code-container">
-              <div className="code-block">{`g++ --version`}</div>
+              <pre className="code-block">{`g++ --version`}</pre>
             </div>
 
             <h2>Tech Stack</h2>
@@ -3242,9 +3242,9 @@ make
               <div className="code-header">
                 <span>sample.trashinfo</span>
               </div>
-              <div className="code-block">{`[Trash Info]
+              <pre className="code-block">{`[Trash Info]
 Path=/home/bimbok/shared/important_docs/invoice.pdf
-DeletionDate=2026-07-05T20:14:05`}</div>
+DeletionDate=2026-07-05T20:14:05`}</pre>
             </div>
 
             <h2 style={{ marginTop: "2.5rem" }}>Visual Permissions &amp; Ownership Editor (<code>I</code>)</h2>
@@ -5031,12 +5031,12 @@ end)`}
 
             <h2>Repository Structure</h2>
             <div className="code-container">
-              <div className="code-block">{`fyzenor/
+              <pre className="code-block">{`fyzenor/
 ├── src/               # Core C++ source files (file_manager, utils, plugins)
 ├── install.sh         # Universal installer, updater, and manager
 ├── uninstall.sh       # Standalone uninstaller script
 ├── fyzenor.png        # Branding asset used in desktop entry and README
-└── Sample/            # Showcase screenshots`}</div>
+└── Sample/            # Showcase screenshots`}</pre>
             </div>
           </div>
         )}
@@ -5068,7 +5068,7 @@ end)`}
                   {copiedText === "toml-vars-sample" ? "Copied!" : "Copy"}
                 </button>
               </div>
-              <div className="code-block">{`[general]
+              <pre className="code-block">{`[general]
 # Show hidden files by default on startup
 show_hidden = false
 
@@ -5119,7 +5119,7 @@ documentation = [".md", ".markdown", ".txt", ".text", ".log", ".pdf", ".doc", ".
 core = [".py", ".pyw", ".ipynb", ".pyc", ".pyd", ".rb", ".ru", ".gemspec", ".php", ".cpp", ".cxx", ".cc", ".hpp", ".hxx", ".ixx", ".c", ".h", ".rs", ".java", ".class", ".jar", ".war", ".go", ".lua", ".sql", ".db", ".sqlite", ".sqlite3", ".db3", ".mdb", ".accdb", ".cmake", ".make", ".diff", ".patch", ".kt", ".kts", ".cs", ".csx", ".scala", ".sc", ".hs", ".lhs", ".clj", ".cljs", ".cljc", ".edn", ".r", ".rmd", ".jl", ".fs", ".fsi", ".fsx"]
 font = [".woff", ".woff2", ".ttf", ".eot", ".otf"]
 audio = [".mp3", ".wav", ".flac", ".m4a", ".aac", ".ogg", ".wma", ".opus", ".mid", ".midi"]
-archive = [".zip", ".tar", ".gz", ".tgz", ".7z", ".rar", ".xz", ".bz2", ".tbz2", ".lzma", ".cab"]`}</div>
+archive = [".zip", ".tar", ".gz", ".tgz", ".7z", ".rar", ".xz", ".bz2", ".tbz2", ".lzma", ".cab"]`}</pre>
             </div>
 
             <h2>Theme Customization</h2>
@@ -5155,7 +5155,7 @@ archive = [".zip", ".tar", ".gz", ".tgz", ".7z", ".rar", ".xz", ".bz2", ".tbz2",
                   {copiedText === "theme-vars-sample" ? "Copied!" : "Copy"}
                 </button>
               </div>
-              <div className="code-block">{`# Fyzenor Theme Configuration File
+              <pre className="code-block">{`# Fyzenor Theme Configuration File
 
 [colors]
 dir = "#89b4fa"
@@ -5177,7 +5177,7 @@ frontend = "#fab387"
 config = "#94e2d5"
 script = "#f9e2af"
 docs = "#f2cdcd"
-font = "#cba6f7"`}</div>
+font = "#cba6f7"`}</pre>
             </div>
 
             <h2>Wallpaper-Based Theming (Matugen)</h2>
@@ -5211,7 +5211,7 @@ font = "#cba6f7"`}</div>
                   {copiedText === "matugen-temp" ? "Copied!" : "Copy"}
                 </button>
               </div>
-              <div className="code-block">{`# Fyzenor Theme: Matugen Generated
+              <pre className="code-block">{`# Fyzenor Theme: Matugen Generated
 
 [colors]
 dir = "{{colors.primary.default.hex}}"
@@ -5226,7 +5226,7 @@ error = "{{colors.error.default.hex}}"
 multi = "{{colors.tertiary_container.default.hex}}"
 pin_bg = "{{colors.secondary_container.default.hex}}"
 pin_border = "{{colors.primary.default.hex}}"
-sec_sel_bg = "{{colors.surface_dim.default.hex}}"`}</div>
+sec_sel_bg = "{{colors.surface_dim.default.hex}}"`}</pre>
             </div>
 
             <h3>Step 2: Update Matugen Config</h3>
@@ -5254,9 +5254,9 @@ sec_sel_bg = "{{colors.surface_dim.default.hex}}"`}</div>
                   {copiedText === "matugen-config" ? "Copied!" : "Copy"}
                 </button>
               </div>
-              <div className="code-block">{`[templates.fyzenor]
+              <pre className="code-block">{`[templates.fyzenor]
 input_path = "~/.config/matugen/templates/fyzenor-colors.template"
-output_path = "~/.config/fyzenor/theme.toml"`}</div>
+output_path = "~/.config/fyzenor/theme.toml"`}</pre>
             </div>
 
             <h3>Step 3: Generate the Colors</h3>
@@ -5265,7 +5265,7 @@ output_path = "~/.config/fyzenor/theme.toml"`}</div>
               apply them to Fyzenor:
             </p>
             <div className="code-container">
-              <div className="code-block">{`matugen image /path/to/your/wallpaper.jpg`}</div>
+              <pre className="code-block">{`matugen image /path/to/your/wallpaper.jpg`}</pre>
             </div>
 
             <h2>Live TUI Color Previewer</h2>
@@ -5554,7 +5554,7 @@ output_path = "~/.config/fyzenor/theme.toml"`}</div>
                   {copiedText === "keys-macro-sample" ? "Copied!" : "Copy"}
                 </button>
               </div>
-              <div className="code-block">{`# Fyzenor Custom Keys Macro Configuration
+              <pre className="code-block">{`# Fyzenor Custom Keys Macro Configuration
 # Macros allow you to execute shell command shortcuts using single keystrokes.
 # Use single quotes for command strings in TOML.
 # Place them under the [macros] section.
@@ -5564,7 +5564,7 @@ output_path = "~/.config/fyzenor/theme.toml"`}</div>
 [macros]
 v = 'nvim "$f"'
 g = 'git status'
-l = 'ls -la'`}</div>
+l = 'ls -la'`}</pre>
             </div>
 
             <h3>Macro Execution Behavior</h3>

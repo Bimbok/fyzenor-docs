@@ -429,10 +429,13 @@ pre code,
   color: var(--text-muted);
 }
 
+.code-block,
 pre.code-block {
+  display: block;
   padding: 1.25rem;
   font-family: var(--font-mono);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
+  line-height: 1.6;
   color: #a9b1d6; /* Tokyo Night style theme */
   overflow-x: auto;
   white-space: pre;
@@ -441,14 +444,19 @@ pre.code-block {
   border-radius: 14px;
   margin: 1rem 0;
   box-shadow: var(--shadow-soft);
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
+.code-container .code-block,
 .code-container pre.code-block {
   border: none;
   border-radius: 0;
   box-shadow: none;
   margin: 0;
   background-color: transparent;
+  white-space: pre;
+  overflow-x: auto;
 }
 
 .code-block-keyword { color: #bb9af7; }
