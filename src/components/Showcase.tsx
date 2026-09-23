@@ -17,6 +17,7 @@ import {
   X,
   FileCode,
   Folder,
+  LayoutGrid,
 } from "lucide-react";
 
 interface ShowcaseProps {
@@ -37,9 +38,13 @@ export const Showcase: React.FC<ShowcaseProps> = ({
   onCopy,
 }) => {
   const [motionTab, setMotionTab] = useState<
-    "diskusage" | "neovim" | "modals" | "plugins" | "tasks"
-  >("diskusage");
+    "gridview" | "diskusage" | "neovim" | "modals" | "plugins" | "tasks"
+  >("gridview");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // 2D Grid View simulation state
+  const [selectedGridCard, setSelectedGridCard] = useState<string>("cyberpunk_4k.png");
+  const [gridModeView, setGridModeView] = useState<"grid" | "columns">("grid");
 
   // Dynamic modal simulation state
   const [modalInput, setModalInput] = useState<string>("main.rs");
@@ -413,7 +418,7 @@ export const Showcase: React.FC<ShowcaseProps> = ({
         <div className="in-motion-header">
           <h2 className="in-motion-title">The terminal, in motion.</h2>
           <p className="in-motion-desc">
-            A code-built interactive preview of actual Fyzenor states: visual disk usage,
+            A code-built interactive preview of actual Fyzenor states: 2D Grid View with aspect-ratio letterboxed thumbnails, visual disk usage,
             centered dynamic modals, Neovim floating buffers, Lua plugin engine, and async task throughput.
           </p>
         </div>
@@ -422,6 +427,13 @@ export const Showcase: React.FC<ShowcaseProps> = ({
         <div className="in-motion-widget-frame">
           {/* Tab Switcher */}
           <div className="in-motion-tabs">
+            <button
+              className={`motion-tab-btn ${motionTab === "gridview" ? "active" : ""}`}
+              onClick={() => setMotionTab("gridview")}
+            >
+              <LayoutGrid size={15} />
+              <span>2D Grid View (V)</span>
+            </button>
             <button
               className={`motion-tab-btn ${motionTab === "diskusage" ? "active" : ""}`}
               onClick={() => setMotionTab("diskusage")}
@@ -461,6 +473,304 @@ export const Showcase: React.FC<ShowcaseProps> = ({
 
           {/* Interactive Stage */}
           <div className="in-motion-stage">
+            {/* 0. 2D Grid View Simulator */}
+            {motionTab === "gridview" && (
+              <div className="motion-pane animate-fade-in">
+                <div className="motion-toolbar">
+                  <div className="motion-status-text">
+                    <span>MODE: {gridModeView === "grid" ? "2D VISUAL GRID EXPLORER (V)" : "3-COLUMN MILLER VIEW"}</span>
+                    <span className="dot-divider">•</span>
+                    <span>PATH: ~/Pictures/Wallpapers</span>
+                  </div>
+                  <button
+                    className="motion-action-pill"
+                    onClick={() => setGridModeView(gridModeView === "grid" ? "columns" : "grid")}
+                  >
+                    Press <kbd className="mini-kbd">V</kbd> Toggle View
+                  </button>
+                </div>
+
+                {gridModeView === "grid" ? (
+                  <div style={{ padding: "1.25rem", background: "var(--bg-card)", borderRadius: "8px", border: "1px solid var(--border-color)", margin: "0.5rem 0" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem", fontSize: "0.85rem" }}>
+                      <span style={{ color: "var(--accent-green)", fontWeight: 700 }}>󰈙 6 Media Items • Auto-Pack Grid (cardW: 16, cardH: 7)</span>
+                      <span style={{ background: "rgba(16, 185, 129, 0.2)", color: "var(--accent-green)", padding: "2px 8px", borderRadius: "6px", fontWeight: 700 }}>󰕰 Grid: V</span>
+                    </div>
+
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: "0.85rem" }}>
+                      {/* Card 1: 16:9 Landscape */}
+                      <div
+                        onClick={() => setSelectedGridCard("cyberpunk_4k.png")}
+                        style={{
+                          border: selectedGridCard === "cyberpunk_4k.png" ? "2px solid var(--accent-cyan)" : "1px solid var(--border-color)",
+                          borderRadius: "8px",
+                          background: selectedGridCard === "cyberpunk_4k.png" ? "rgba(6, 182, 212, 0.08)" : "var(--bg-surface)",
+                          padding: "8px",
+                          textAlign: "center",
+                          cursor: "pointer",
+                          position: "relative",
+                          transition: "all 0.15s ease",
+                        }}
+                      >
+                        {selectedGridCard === "cyberpunk_4k.png" && (
+                          <div style={{ position: "absolute", top: "-9px", left: "50%", transform: "translateX(-50%)", background: "var(--bg-card)", padding: "0 6px", color: "var(--accent-cyan)", fontSize: "0.7rem", fontWeight: 800 }}>
+                            ◆ ACTIVE
+                          </div>
+                        )}
+                        <div style={{ height: "60px", background: "linear-gradient(135deg, #091b2c 0%, #0d3b66 50%, #00b4d8 100%)", borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "6px", border: "1px solid rgba(255,255,255,0.1)" }}>
+                          <div style={{ width: "85%", height: "42px", background: "rgba(6, 182, 212, 0.4)", borderRadius: "2px", border: "1px solid var(--accent-cyan)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.65rem", color: "#fff", fontWeight: 700 }}>
+                            16:9 Letterbox
+                          </div>
+                        </div>
+                        <div style={{
+                          background: selectedGridCard === "cyberpunk_4k.png" ? "var(--accent-cyan)" : "transparent",
+                          color: selectedGridCard === "cyberpunk_4k.png" ? "#000" : "var(--text-primary)",
+                          fontWeight: 700,
+                          padding: "2px 4px",
+                          borderRadius: "4px",
+                          fontSize: "0.75rem",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}>
+                          {selectedGridCard === "cyberpunk_4k.png" ? "▸ cyberpunk_4k.png ◂" : "cyberpunk_4k.png"}
+                        </div>
+                        <div style={{ fontSize: "0.68rem", color: "var(--text-muted)", marginTop: "2px" }}>3840x2160 • 3.8 MB</div>
+                      </div>
+
+                      {/* Card 2: 4:3 Photo */}
+                      <div
+                        onClick={() => setSelectedGridCard("forest_mist.jpg")}
+                        style={{
+                          border: selectedGridCard === "forest_mist.jpg" ? "2px solid var(--accent-cyan)" : "1px solid var(--border-color)",
+                          borderRadius: "8px",
+                          background: selectedGridCard === "forest_mist.jpg" ? "rgba(6, 182, 212, 0.08)" : "var(--bg-surface)",
+                          padding: "8px",
+                          textAlign: "center",
+                          cursor: "pointer",
+                          position: "relative",
+                          transition: "all 0.15s ease",
+                        }}
+                      >
+                        {selectedGridCard === "forest_mist.jpg" && (
+                          <div style={{ position: "absolute", top: "-9px", left: "50%", transform: "translateX(-50%)", background: "var(--bg-card)", padding: "0 6px", color: "var(--accent-cyan)", fontSize: "0.7rem", fontWeight: 800 }}>
+                            ◆ ACTIVE
+                          </div>
+                        )}
+                        <div style={{ height: "60px", background: "linear-gradient(135deg, #062c1e 0%, #0b5336 50%, #10b981 100%)", borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "6px", border: "1px solid rgba(255,255,255,0.1)" }}>
+                          <div style={{ width: "65%", height: "50px", background: "rgba(16, 185, 129, 0.4)", borderRadius: "2px", border: "1px solid var(--accent-green)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.65rem", color: "#fff", fontWeight: 700 }}>
+                            4:3 Photo
+                          </div>
+                        </div>
+                        <div style={{
+                          background: selectedGridCard === "forest_mist.jpg" ? "var(--accent-cyan)" : "transparent",
+                          color: selectedGridCard === "forest_mist.jpg" ? "#000" : "var(--text-primary)",
+                          fontWeight: 700,
+                          padding: "2px 4px",
+                          borderRadius: "4px",
+                          fontSize: "0.75rem",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}>
+                          {selectedGridCard === "forest_mist.jpg" ? "▸ forest_mist.jpg ◂" : "forest_mist.jpg"}
+                        </div>
+                        <div style={{ fontSize: "0.68rem", color: "var(--text-muted)", marginTop: "2px" }}>2048x1536 • 2.1 MB</div>
+                      </div>
+
+                      {/* Card 3: Directory */}
+                      <div
+                        onClick={() => setSelectedGridCard("Screenshots/")}
+                        style={{
+                          border: selectedGridCard === "Screenshots/" ? "2px solid var(--accent-cyan)" : "1px solid var(--border-color)",
+                          borderRadius: "8px",
+                          background: selectedGridCard === "Screenshots/" ? "rgba(6, 182, 212, 0.08)" : "var(--bg-surface)",
+                          padding: "8px",
+                          textAlign: "center",
+                          cursor: "pointer",
+                          position: "relative",
+                          transition: "all 0.15s ease",
+                        }}
+                      >
+                        {selectedGridCard === "Screenshots/" && (
+                          <div style={{ position: "absolute", top: "-9px", left: "50%", transform: "translateX(-50%)", background: "var(--bg-card)", padding: "0 6px", color: "var(--accent-cyan)", fontSize: "0.7rem", fontWeight: 800 }}>
+                            ◆ ACTIVE
+                          </div>
+                        )}
+                        <div style={{ height: "60px", background: "rgba(6, 182, 212, 0.05)", borderRadius: "4px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", marginBottom: "6px", border: "1px dashed var(--border-color)" }}>
+                          <span style={{ fontSize: "1.6rem" }}>📁</span>
+                          <span style={{ fontSize: "0.6rem", color: "var(--accent-cyan)", fontWeight: 700 }}>42 items</span>
+                        </div>
+                        <div style={{
+                          background: selectedGridCard === "Screenshots/" ? "var(--accent-cyan)" : "transparent",
+                          color: selectedGridCard === "Screenshots/" ? "#000" : "var(--accent-cyan)",
+                          fontWeight: 700,
+                          padding: "2px 4px",
+                          borderRadius: "4px",
+                          fontSize: "0.75rem",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}>
+                          {selectedGridCard === "Screenshots/" ? "▸ Screenshots/ ◂" : "Screenshots/"}
+                        </div>
+                        <div style={{ fontSize: "0.68rem", color: "var(--text-muted)", marginTop: "2px" }}>Folder • 42 items</div>
+                      </div>
+
+                      {/* Card 4: 1:1 Square */}
+                      <div
+                        onClick={() => setSelectedGridCard("retro_sunset.webp")}
+                        style={{
+                          border: selectedGridCard === "retro_sunset.webp" ? "2px solid var(--accent-cyan)" : "1px solid var(--border-color)",
+                          borderRadius: "8px",
+                          background: selectedGridCard === "retro_sunset.webp" ? "rgba(6, 182, 212, 0.08)" : "var(--bg-surface)",
+                          padding: "8px",
+                          textAlign: "center",
+                          cursor: "pointer",
+                          position: "relative",
+                          transition: "all 0.15s ease",
+                        }}
+                      >
+                        {selectedGridCard === "retro_sunset.webp" && (
+                          <div style={{ position: "absolute", top: "-9px", left: "50%", transform: "translateX(-50%)", background: "var(--bg-card)", padding: "0 6px", color: "var(--accent-cyan)", fontSize: "0.7rem", fontWeight: 800 }}>
+                            ◆ ACTIVE
+                          </div>
+                        )}
+                        <div style={{ height: "60px", background: "linear-gradient(135deg, #3d0c26 0%, #831843 50%, #f43f5e 100%)", borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "6px", border: "1px solid rgba(255,255,255,0.1)" }}>
+                          <div style={{ width: "48px", height: "48px", background: "rgba(244, 63, 94, 0.4)", borderRadius: "2px", border: "1px solid var(--accent-pink)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.65rem", color: "#fff", fontWeight: 700 }}>
+                            1:1 Square
+                          </div>
+                        </div>
+                        <div style={{
+                          background: selectedGridCard === "retro_sunset.webp" ? "var(--accent-cyan)" : "transparent",
+                          color: selectedGridCard === "retro_sunset.webp" ? "#000" : "var(--text-primary)",
+                          fontWeight: 700,
+                          padding: "2px 4px",
+                          borderRadius: "4px",
+                          fontSize: "0.75rem",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}>
+                          {selectedGridCard === "retro_sunset.webp" ? "▸ retro_sunset.webp ◂" : "retro_sunset.webp"}
+                        </div>
+                        <div style={{ fontSize: "0.68rem", color: "var(--text-muted)", marginTop: "2px" }}>1080x1080 • 850 KB</div>
+                      </div>
+
+                      {/* Card 5: 9:16 Portrait */}
+                      <div
+                        onClick={() => setSelectedGridCard("portrait_neon.png")}
+                        style={{
+                          border: selectedGridCard === "portrait_neon.png" ? "2px solid var(--accent-cyan)" : "1px solid var(--border-color)",
+                          borderRadius: "8px",
+                          background: selectedGridCard === "portrait_neon.png" ? "rgba(6, 182, 212, 0.08)" : "var(--bg-surface)",
+                          padding: "8px",
+                          textAlign: "center",
+                          cursor: "pointer",
+                          position: "relative",
+                          transition: "all 0.15s ease",
+                        }}
+                      >
+                        {selectedGridCard === "portrait_neon.png" && (
+                          <div style={{ position: "absolute", top: "-9px", left: "50%", transform: "translateX(-50%)", background: "var(--bg-card)", padding: "0 6px", color: "var(--accent-cyan)", fontSize: "0.7rem", fontWeight: 800 }}>
+                            ◆ ACTIVE
+                          </div>
+                        )}
+                        <div style={{ height: "60px", background: "linear-gradient(135deg, #2e0854 0%, #581c87 50%, #a855f7 100%)", borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "6px", border: "1px solid rgba(255,255,255,0.1)" }}>
+                          <div style={{ width: "32px", height: "54px", background: "rgba(168, 85, 247, 0.4)", borderRadius: "2px", border: "1px solid var(--accent-purple)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.65rem", color: "#fff", fontWeight: 700 }}>
+                            9:16
+                          </div>
+                        </div>
+                        <div style={{
+                          background: selectedGridCard === "portrait_neon.png" ? "var(--accent-cyan)" : "transparent",
+                          color: selectedGridCard === "portrait_neon.png" ? "#000" : "var(--text-primary)",
+                          fontWeight: 700,
+                          padding: "2px 4px",
+                          borderRadius: "4px",
+                          fontSize: "0.75rem",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}>
+                          {selectedGridCard === "portrait_neon.png" ? "▸ portrait_neon.png ◂" : "portrait_neon.png"}
+                        </div>
+                        <div style={{ fontSize: "0.68rem", color: "var(--text-muted)", marginTop: "2px" }}>1080x1920 • 2.4 MB</div>
+                      </div>
+
+                      {/* Card 6: 4:3 RAW */}
+                      <div
+                        onClick={() => setSelectedGridCard("camera_raw.dng")}
+                        style={{
+                          border: selectedGridCard === "camera_raw.dng" ? "2px solid var(--accent-cyan)" : "1px solid var(--border-color)",
+                          borderRadius: "8px",
+                          background: selectedGridCard === "camera_raw.dng" ? "rgba(6, 182, 212, 0.08)" : "var(--bg-surface)",
+                          padding: "8px",
+                          textAlign: "center",
+                          cursor: "pointer",
+                          position: "relative",
+                          transition: "all 0.15s ease",
+                        }}
+                      >
+                        {selectedGridCard === "camera_raw.dng" && (
+                          <div style={{ position: "absolute", top: "-9px", left: "50%", transform: "translateX(-50%)", background: "var(--bg-card)", padding: "0 6px", color: "var(--accent-cyan)", fontSize: "0.7rem", fontWeight: 800 }}>
+                            ◆ ACTIVE
+                          </div>
+                        )}
+                        <div style={{ height: "60px", background: "linear-gradient(135deg, #382403 0%, #78350f 50%, #f59e0b 100%)", borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "6px", border: "1px solid rgba(255,255,255,0.1)" }}>
+                          <div style={{ width: "65%", height: "50px", background: "rgba(245, 158, 11, 0.4)", borderRadius: "2px", border: "1px solid var(--accent-yellow)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.65rem", color: "#fff", fontWeight: 700 }}>
+                            4:3 RAW
+                          </div>
+                        </div>
+                        <div style={{
+                          background: selectedGridCard === "camera_raw.dng" ? "var(--accent-cyan)" : "transparent",
+                          color: selectedGridCard === "camera_raw.dng" ? "#000" : "var(--text-primary)",
+                          fontWeight: 700,
+                          padding: "2px 4px",
+                          borderRadius: "4px",
+                          fontSize: "0.75rem",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}>
+                          {selectedGridCard === "camera_raw.dng" ? "▸ camera_raw.dng ◂" : "camera_raw.dng"}
+                        </div>
+                        <div style={{ fontSize: "0.68rem", color: "var(--text-muted)", marginTop: "2px" }}>4000x3000 • 18.2 MB</div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div style={{ padding: "1.25rem", background: "var(--bg-card)", borderRadius: "8px", border: "1px solid var(--border-color)", margin: "0.5rem 0", display: "grid", gridTemplateColumns: "1fr 2fr 2fr", gap: "1rem" }}>
+                    <div style={{ borderRight: "1px solid var(--border-color)", paddingRight: "0.5rem", fontSize: "0.8rem", color: "var(--text-muted)" }}>
+                      <div> Pictures/</div>
+                      <div style={{ color: "var(--accent-cyan)", fontWeight: 700, margin: "4px 0" }}> Wallpapers/</div>
+                      <div> Documents/</div>
+                    </div>
+                    <div style={{ borderRight: "1px solid var(--border-color)", paddingRight: "0.5rem", fontSize: "0.8rem" }}>
+                      <div style={{ background: "var(--accent-cyan)", color: "#000", fontWeight: 700, padding: "2px 4px", borderRadius: "3px" }}>▸ cyberpunk_4k.png</div>
+                      <div style={{ padding: "2px 4px" }}>forest_mist.jpg</div>
+                      <div style={{ padding: "2px 4px", color: "var(--accent-cyan)" }}>📁 Screenshots/</div>
+                      <div style={{ padding: "2px 4px" }}>retro_sunset.webp</div>
+                    </div>
+                    <div style={{ fontSize: "0.8rem", color: "var(--text-muted)", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", background: "var(--bg-surface)", borderRadius: "4px", padding: "1rem" }}>
+                      <div style={{ width: "100%", height: "70px", background: "linear-gradient(135deg, #091b2c, #00b4d8)", borderRadius: "4px", marginBottom: "8px" }} />
+                      <span style={{ color: "var(--text-primary)", fontWeight: 700 }}>cyberpunk_4k.png</span>
+                      <span>3840x2160 • 3.8 MB</span>
+                    </div>
+                  </div>
+                )}
+
+                <div className="motion-footer-info">
+                  <span>Aspect-ratio letterbox padding (280x160 RGBA), 24-bit TrueColor ANSI fallback, and safe in-memory cache/trash previews.</span>
+                  <button
+                    onClick={() => onNavigateToDoc("gridview")}
+                    className="motion-read-link"
+                  >
+                    Read 2D Grid View documentation →
+                  </button>
+                </div>
+              </div>
+            )}
+
             {/* 1. Disk Usage Simulator */}
             {motionTab === "diskusage" && (
               <div className="motion-pane animate-fade-in">

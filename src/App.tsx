@@ -33,6 +33,7 @@ import {
   PanelLeftClose,
   PanelLeftOpen,
   X,
+  LayoutGrid,
 } from "lucide-react";
 
 export type ChapterType = "essentials" | "v4.3" | "engine" | "reference";
@@ -54,8 +55,8 @@ const chapters: {
   label: string;
   count: number;
 }[] = [
-  { id: "all", label: "All Topics", count: 18 },
-  { id: "v4.3", label: "v4.3.0", count: 7 },
+  { id: "all", label: "All Topics", count: 19 },
+  { id: "v4.3", label: "v4.3.0", count: 8 },
   { id: "essentials", label: "Essentials", count: 5 },
   { id: "engine", label: "Engine", count: 4 },
   { id: "reference", label: "Reference", count: 2 },
@@ -110,6 +111,16 @@ const sections: DocSection[] = [
   },
 
   // Chapter 02: What's New in v4.3.0
+  {
+    id: "gridview",
+    title: "2D Grid View",
+    icon: <LayoutGrid size={17} />,
+    chapter: "v4.3",
+    chapterNum: "02",
+    chapterTitle: "WHAT'S NEW IN v4.3.0",
+    description: "Adaptive 2D thumbnail card grid with aspect-ratio letterboxing, TrueColor ANSI fallback, and safe in-memory previews.",
+    badge: "v4.3.0",
+  },
   {
     id: "neovim",
     title: "Neovim Plugin",
@@ -504,6 +515,11 @@ export default function App() {
       desc: "Cycles sorting criteria between Name, Size (Descending), and Date Modified (Descending).",
       category: "View",
     },
+    V: {
+      title: "2D Grid View Mode",
+      desc: "Toggles between 3-column Miller mode and 2D visual thumbnail card grid with aspect-ratio letterboxing, TrueColor ANSI fallback, and safe in-memory previews. (Alternative: Shift+V).",
+      category: "View",
+    },
     P: {
       title: "Pin Directory",
       desc: "Pins current directory path to persistent bookmarks saved in <code>~/.fm_pins</code> (focused list panel).",
@@ -750,6 +766,12 @@ export default function App() {
       title: "Community & License",
       keywords: "license open source mit contributing github issues fork pull request",
       content: "Fyzenor is released under the MIT License. Contributions are welcome on GitHub! Open issues, submit pull requests, or star the repo."
+    },
+    {
+      id: "gridview",
+      title: "2D Grid View & Visual Media Explorer (V) (v4.3.0)",
+      keywords: "grid view 2d grid visual media explorer card grid thumbnails aspect ratio letterbox kitty graphics ansi half block truecolor safe cache in-memory preview V Shift+V prominence cardW cardH view_mode grid_thumbnails",
+      content: "Adaptive 2D card grid for visual media exploration. High-res 280x160 RGBA letterboxed Kitty image thumbnails with padding, 24-bit TrueColor ANSI half-block fallback, high-contrast double border selection, and safe in-memory cache/trash previews."
     },
     {
       id: "neovim",
@@ -3264,6 +3286,32 @@ DeletionDate=2026-07-05T20:14:05`}</pre>
             <p>
               You can also change the file's Owner and Group fields. Navigating to the Owner or Group rows and pressing <code>Enter</code> will prompt you to type the new user/group name or ID. When saving, Fyzenor uses the POSIX <code>chown</code> API to update the file ownership. If the application is running without sufficient privileges to change ownership, it displays a friendly <code>"Permission denied (run as root)"</code> status message rather than crashing.
             </p>
+
+            <h2 style={{ marginTop: "2.5rem" }}>Safe In-Memory Media Previewing &amp; Cache Protection</h2>
+            <p>
+              When navigating trash directories (<code>~/.local/share/Trash</code> or external partition <code>.Trash-&lt;uid&gt;</code>), 
+              Fyzenor automatically applies strict in-memory preview isolation via <code>isTrashPath(path)</code>:
+            </p>
+            <div className="card-grid">
+              <div className="card-premium">
+                <div style={{ color: "var(--accent-green)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
+                  Zero Disk Cache Pollution
+                </div>
+                <p>
+                  Media preview generation for trashed files runs entirely in-memory or directly parses pre-existing thumbnails. 
+                  Fyzenor refuses to write new <code>.png</code> or <code>.gthumb</code> cache files to disk while viewing trash, preventing trash quota inflation and unwanted disk bloat.
+                </p>
+              </div>
+              <div className="card-premium">
+                <div style={{ color: "var(--accent-cyan)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
+                  Loop-Free inotify Safety
+                </div>
+                <p>
+                  Writing preview files to disk while monitoring a directory creates filesystem events that trigger directory reloads. 
+                  In-memory generation prevents recursive inotify event loops, keeping the Trash browser completely calm and responsive.
+                </p>
+              </div>
+            </div>
           </div>
         )}
 
@@ -3525,6 +3573,283 @@ yay -S lazygit
 brew install lazygit`}
                 </code>
               </pre>
+            </div>
+          </div>
+        )}
+
+        {activeTab === "gridview" && (
+          <div className="animate-fade-in">
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem", flexWrap: "wrap" }}>
+              <h2>2D Grid View &amp; Visual Media Explorer (<code>V</code> / <code>Shift+V</code>)</h2>
+              <span className="badge badge-green">v4.3.0</span>
+              <span className="badge badge-cyan">NEW</span>
+              <span className="badge badge-purple">GPU ACCELERATED</span>
+              <span className="badge badge-yellow">STABLE</span>
+            </div>
+            <p>
+              Fyzenor introduces a native <strong>2D Grid View</strong> mode designed for fast, modern, and beautiful visual exploration of wallpapers, photos, media archives, video clips, and directory hierarchies. 
+              Pressing <kbd>V</kbd> or <kbd>Shift+V</kbd> (or clicking the <code>[󰕰 Grid: V]</code> header badge) instantly transitions the interface from the classic 3-column Miller browsing view into an adaptive 2D thumbnail card matrix.
+            </p>
+
+            <div className="alert-info-box" style={{ marginBottom: "1.5rem" }}>
+              <Info size={20} style={{ flexShrink: 0 }} />
+              <div>
+                <strong>Single-Key Mode Switching:</strong> Press <kbd>V</kbd> (or <kbd>Shift+V</kbd>) in normal mode to toggle between 3-Column Miller View and 2D Grid View. You can also click the <code>[󰕰 Grid: V]</code> or <code>[󰕰 Columns: V]</code> badge in the header top bar.
+              </div>
+            </div>
+
+            <div className="card-grid">
+              <div className="card-premium">
+                <div style={{ color: "var(--accent-green)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
+                  1. Adaptive 2D Card Grid Geometry
+                </div>
+                <p>
+                  Calculates columns dynamically based on terminal width (<code>cardW = 16</code>, <code>cardH = 7</code>). Cards pack neatly into rows and columns with responsive margin centering. When resizing the terminal, grid geometry recalculates seamlessly.
+                </p>
+              </div>
+
+              <div className="card-premium">
+                <div style={{ color: "var(--accent-purple)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
+                  2. True Aspect-Ratio Letterbox Padding
+                </div>
+                <p>
+                  High-resolution 280x160 RGBA Kitty image thumbnails are rendered with automatic aspect-ratio letterboxing and padding. Eliminates stretched or squished thumbnails across portrait photos, 16:9 widescreen wallpapers, 4:3 camera captures, and 1:1 square avatars.
+                </p>
+              </div>
+
+              <div className="card-premium">
+                <div style={{ color: "var(--accent-cyan)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
+                  3. Universal 24-Bit TrueColor ANSI Fallback
+                </div>
+                <p>
+                  In terminals without Kitty graphics support (e.g. Alacritty, Foot, xterm, macOS Terminal), Fyzenor automatically renders high-fidelity 4-row Unicode half-block (<code>▀</code>) thumbnail fallbacks using full 24-bit TrueColor RGB foreground and background styling (<code>\033[38;2;...;48;2;...m</code>).
+                </p>
+              </div>
+
+              <div className="card-premium">
+                <div style={{ color: "var(--accent-pink)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
+                  4. High-Visibility Selection Prominence
+                </div>
+                <p>
+                  Active cards feature bold double-line borders (<code>╔═◆═╗</code>), a centered cyan selection diamond (<code>◆</code>), and a full-width high-contrast filename selection pill (<code>▸ name ◂</code>). Inactive cards maintain subtle single borders (<code>┌─────┐</code>).
+                </p>
+              </div>
+
+              <div className="card-premium">
+                <div style={{ color: "var(--accent-yellow)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
+                  5. Zero-Flicker Focus Transitions
+                </div>
+                <p>
+                  Direct Kitty graphics placements are tracked per terminal cell with atomic DEC Mode 2026 frames (<code>\033[?2026h</code> / <code>\033[?2026l</code>). Shifting focus between the Bookmarks/Pinned menu (<kbd>Tab</kbd>) and the Grid View completely eliminates screen blanking and texture flashing.
+                </p>
+              </div>
+
+              <div className="card-premium">
+                <div style={{ color: "var(--accent-orange)", fontWeight: 800, fontSize: "1.2rem", marginBottom: "0.5rem" }}>
+                  6. Safe In-Memory Cache &amp; Trash Previews
+                </div>
+                <p>
+                  Browsing <code>~/.cache/fyzenor/previews</code> or <code>~/.local/share/Trash</code> activates strict in-memory preview isolation. Fyzenor reads existing cache artifacts directly or renders in-memory without generating recursive disk files or triggering inotify reload loops.
+                </p>
+              </div>
+            </div>
+
+            <h2 style={{ marginTop: "2.5rem" }}>Visual Terminal Mockup: 2D Grid Mode</h2>
+            <p>
+              Here is how 2D Grid View displays media assets and directories in your terminal:
+            </p>
+
+            <div className="terminal-simulator" style={{ margin: "1.5rem 0", padding: "1.5rem", borderRadius: "12px", background: "var(--bg-card)", border: "1px solid var(--border-color)", fontFamily: "var(--font-mono)" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem", borderBottom: "1px solid var(--border-color)", paddingBottom: "0.5rem" }}>
+                <span style={{ color: "var(--accent-green)", fontWeight: 700 }}>Fyzenor v4.3.0 — ~/Pictures/Wallpapers</span>
+                <span style={{ background: "rgba(16, 185, 129, 0.2)", color: "var(--accent-green)", padding: "2px 8px", borderRadius: "6px", fontSize: "0.8rem", fontWeight: 700 }}>󰕰 Grid: V</span>
+              </div>
+
+              {/* Grid cards visual representation */}
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "1rem", marginBottom: "1rem" }}>
+                {/* Active Card */}
+                <div style={{ border: "2px solid var(--accent-cyan)", borderRadius: "8px", background: "rgba(6, 182, 212, 0.08)", padding: "8px", textAlign: "center", position: "relative" }}>
+                  <div style={{ position: "absolute", top: "-10px", left: "50%", transform: "translateX(-50%)", background: "var(--bg-card)", padding: "0 6px", color: "var(--accent-cyan)", fontSize: "0.75rem", fontWeight: 800 }}>◆ ACTIVE</div>
+                  <div style={{ height: "65px", background: "linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%)", borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "8px", border: "1px solid rgba(255,255,255,0.1)", overflow: "hidden" }}>
+                    <div style={{ width: "80%", height: "45px", background: "linear-gradient(45deg, #06b6d4, #8b5cf6)", borderRadius: "2px", opacity: 0.85, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.7rem", color: "#fff", fontWeight: 700 }}>
+                      16:9 Letterbox
+                    </div>
+                  </div>
+                  <div style={{ background: "var(--accent-cyan)", color: "#000", fontWeight: 800, padding: "2px 4px", borderRadius: "4px", fontSize: "0.75rem", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                    ▸ cyberpunk_4k.png ◂
+                  </div>
+                  <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", marginTop: "4px" }}>3840x2160 • 3.8 MB</div>
+                </div>
+
+                {/* Card 2: Normal Image */}
+                <div style={{ border: "1px solid var(--border-color)", borderRadius: "8px", background: "var(--bg-surface)", padding: "8px", textAlign: "center" }}>
+                  <div style={{ height: "65px", background: "linear-gradient(135deg, #1e293b 0%, #334155 100%)", borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "8px", border: "1px solid rgba(255,255,255,0.05)" }}>
+                    <div style={{ width: "60%", height: "55px", background: "linear-gradient(45deg, #10b981, #059669)", borderRadius: "2px", opacity: 0.8, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.65rem", color: "#fff", fontWeight: 700 }}>
+                      4:3 Photo
+                    </div>
+                  </div>
+                  <div style={{ color: "var(--text-primary)", fontWeight: 600, padding: "2px 4px", fontSize: "0.75rem", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                    forest_mist.jpg
+                  </div>
+                  <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", marginTop: "4px" }}>2048x1536 • 2.1 MB</div>
+                </div>
+
+                {/* Card 3: Directory */}
+                <div style={{ border: "1px solid var(--border-color)", borderRadius: "8px", background: "var(--bg-surface)", padding: "8px", textAlign: "center" }}>
+                  <div style={{ height: "65px", background: "rgba(6, 182, 212, 0.05)", borderRadius: "4px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", marginBottom: "8px", border: "1px dashed var(--border-color)" }}>
+                    <span style={{ fontSize: "1.8rem" }}>📁</span>
+                    <span style={{ fontSize: "0.65rem", color: "var(--accent-cyan)", fontWeight: 700 }}>[DIR] 42 items</span>
+                  </div>
+                  <div style={{ color: "var(--accent-cyan)", fontWeight: 700, padding: "2px 4px", fontSize: "0.75rem", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                    Screenshots/
+                  </div>
+                  <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", marginTop: "4px" }}>Directory • 42 items</div>
+                </div>
+
+                {/* Card 4: Normal Image */}
+                <div style={{ border: "1px solid var(--border-color)", borderRadius: "8px", background: "var(--bg-surface)", padding: "8px", textAlign: "center" }}>
+                  <div style={{ height: "65px", background: "linear-gradient(135deg, #31103f 0%, #701a75 100%)", borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "8px", border: "1px solid rgba(255,255,255,0.05)" }}>
+                    <div style={{ width: "50px", height: "50px", background: "linear-gradient(45deg, #f43f5e, #fb923c)", borderRadius: "2px", opacity: 0.85, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.65rem", color: "#fff", fontWeight: 700 }}>
+                      1:1 Square
+                    </div>
+                  </div>
+                  <div style={{ color: "var(--text-primary)", fontWeight: 600, padding: "2px 4px", fontSize: "0.75rem", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                    retro_sunset.webp
+                  </div>
+                  <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", marginTop: "4px" }}>1080x1080 • 850 KB</div>
+                </div>
+              </div>
+
+              {/* Status footer line */}
+              <div style={{ borderTop: "1px solid var(--border-color)", paddingTop: "0.5rem", display: "flex", justifyContent: "space-between", fontSize: "0.8rem", color: "var(--text-muted)" }}>
+                <span>[1/12] cyberpunk_4k.png • 3840x2160 • 3.8 MB</span>
+                <span style={{ color: "var(--accent-cyan)" }}>[Kitty 280x160 RGBA letterboxed]</span>
+              </div>
+            </div>
+
+            <h2 style={{ marginTop: "2.5rem" }}>Configuration Options (<code>config.toml</code>)</h2>
+            <p>
+              You can configure the initial launch view mode and toggle high-resolution thumbnail generation in <code>~/.config/fyzenor/config.toml</code>:
+            </p>
+
+            <div className="code-container">
+              <div className="code-header">
+                <div className="dots">
+                  <span className="dot red" />
+                  <span className="dot yellow" />
+                  <span className="dot green" />
+                </div>
+                <span className="code-title">~/.config/fyzenor/config.toml</span>
+                <button
+                  className="copy-btn"
+                  onClick={() =>
+                    handleCopy(
+                      `[general]\n# Set default view mode on boot:\n# "columns" = Standard 3-column Miller browsing\n# "grid"    = 2D visual thumbnail card grid\nview_mode = "columns"\n\n# Enable or disable high-resolution media thumbnails in 2D Grid View\n# (true = render Kitty/ANSI thumbnails; false = render fast icon cards)\ngrid_thumbnails = true`,
+                      "grid-config"
+                    )
+                  }
+                >
+                  {copiedText === "grid-config" ? <Check size={14} /> : <Copy size={14} />}
+                  {copiedText === "grid-config" ? "Copied!" : "Copy"}
+                </button>
+              </div>
+              <pre className="code-block">
+                <code>
+{`[general]
+# Set default view mode on boot:
+# "columns" = Standard 3-column Miller browsing
+# "grid"    = 2D visual thumbnail card grid
+view_mode = "columns"
+
+# Enable or disable high-resolution media thumbnails in 2D Grid View
+# (true = render Kitty/ANSI thumbnails; false = render fast icon cards)
+grid_thumbnails = true`}
+                </code>
+              </pre>
+            </div>
+
+            <h2 style={{ marginTop: "2.5rem" }}>2D Directional Navigation &amp; Shortcuts</h2>
+            <p>
+              In 2D Grid View mode, navigation keys adapt automatically to 2D directional geometry:
+            </p>
+
+            <div className="table-container">
+              <table className="doc-table">
+                <thead>
+                  <tr>
+                    <th>Key</th>
+                    <th>Action</th>
+                    <th>Behavior in 2D Grid</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>h</code> / <code>←</code></td>
+                    <td>Move Selection Left</td>
+                    <td>Selects the card immediately to the left. If at the first column, wraps to previous row.</td>
+                  </tr>
+                  <tr>
+                    <td><code>l</code> / <code>→</code></td>
+                    <td>Move Selection Right</td>
+                    <td>Selects the card immediately to the right. If at the last column, wraps to next row.</td>
+                  </tr>
+                  <tr>
+                    <td><code>j</code> / <code>↓</code></td>
+                    <td>Move Selection Down</td>
+                    <td>Jumps selection down by one full grid row (increments index by <code>numColumns</code>).</td>
+                  </tr>
+                  <tr>
+                    <td><code>k</code> / <code>↑</code></td>
+                    <td>Move Selection Up</td>
+                    <td>Jumps selection up by one full grid row (decrements index by <code>numColumns</code>).</td>
+                  </tr>
+                  <tr>
+                    <td><code>Home</code> / <code>g</code></td>
+                    <td>Jump to Start</td>
+                    <td>Immediately focuses the first card in the directory.</td>
+                  </tr>
+                  <tr>
+                    <td><code>End</code> / <code>G</code></td>
+                    <td>Jump to End</td>
+                    <td>Immediately focuses the last card in the directory.</td>
+                  </tr>
+                  <tr>
+                    <td><code>PgUp</code> / <code>PgDn</code></td>
+                    <td>Page Up / Down</td>
+                    <td>Scrolls the grid viewport up or down by the number of visible rows.</td>
+                  </tr>
+                  <tr>
+                    <td><code>Enter</code> / <code>l</code></td>
+                    <td>Open / Enter</td>
+                    <td>Opens the highlighted file in default editor/viewer, or navigates into subfolder.</td>
+                  </tr>
+                  <tr>
+                    <td><code>Backspace</code> / <code>h</code></td>
+                    <td>Parent Directory</td>
+                    <td>Navigates up to parent directory while staying in 2D Grid View.</td>
+                  </tr>
+                  <tr>
+                    <td><code>V</code> / <code>Shift+V</code></td>
+                    <td>Toggle View Mode</td>
+                    <td>Switches back to classic 3-column Miller browsing mode.</td>
+                  </tr>
+                  <tr>
+                    <td><code>Left Click</code></td>
+                    <td>Mouse Selection</td>
+                    <td>Directly selects any clicked card in the grid.</td>
+                  </tr>
+                  <tr>
+                    <td><code>Double Click</code></td>
+                    <td>Mouse Activation</td>
+                    <td>Opens the clicked file or enters the clicked folder immediately.</td>
+                  </tr>
+                  <tr>
+                    <td><code>Mouse Wheel</code></td>
+                    <td>Smooth Grid Scroll</td>
+                    <td>Scrolls the card grid smoothly up or down.</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         )}
